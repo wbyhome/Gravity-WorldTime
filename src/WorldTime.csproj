@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType><TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF><UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>disable</ImplicitUsings><Nullable>enable</Nullable>
+    <AssemblyName>Gravity.WorldTime</AssemblyName><Version>0.1.11</Version>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <!-- WPF owns the process DPI manifest. Forms is used only for NotifyIcon. -->
+    <NoWarn>$(NoWarn);WFAC010</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data/cities.json" LogicalName="WorldTime.cities.json" />
+  </ItemGroup>
+</Project>

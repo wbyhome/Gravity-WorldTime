@@ -1,0 +1,131 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+
+namespace WorldTime;
+
+public static class L10n {
+ public static readonly string[] Languages={"auto","en","zh-Hans","zh-Hant","ja"};
+ public static readonly string[] Names={"System / 跟随系统 / システム","English","简体中文","繁體中文","日本語"};
+ public static string Resolve(string language,string? culture=null){
+  if(language!="auto")return Array.IndexOf(Languages,language)>0?language:"en";
+  string tag=(culture??CultureInfo.CurrentUICulture.Name).ToLowerInvariant();
+  if(tag.StartsWith("zh"))return tag.Contains("hant")||tag.StartsWith("zh-tw")||tag.StartsWith("zh-hk")||tag.StartsWith("zh-mo")?"zh-Hant":"zh-Hans";
+  return tag.StartsWith("ja")?"ja":"en";
+ }
+ // English is the complete base resource and the fallback for unsupported OS languages.
+ // Every entry supplies Simplified Chinese, Traditional Chinese and Japanese.
+ public static readonly Dictionary<string,string[]> Resources=new(){
+ ["On desktop"]=new[]{"桌面驻留","桌面駐留","デスクトップに固定"},
+ ["Stay on the desktop when using Win+D"]=new[]{"显示桌面后仍保留时钟","顯示桌面後仍保留時鐘","Win+Dでもデスクトップ上に時計を表示"},
+ ["Drag the whole stack"]=new[]{"拖动整个时钟组","拖動整個時鐘群組","時計グループ全体を移動"},
+ ["Drag this clock and those below"]=new[]{"拖出本条及其下方的时钟","拖出此條及下方的時鐘","この時計と下の時計を切り離して移動"},
+ ["Top clock: move stack · Lower header: split from here · Edge: auto-fold"]=new[]{"顶部横条移动整组 · 下方头部拆出本条及以下 · 拖到边缘自动收起","頂部橫條移動整組 · 下方頭部拆出此條及以下 · 拖至邊緣自動收起","最上段：全体移動 · 下段の見出し：以下を分離 · 画面端：自動収納"},
+ ["Collapse group to edge"]=new[]{"折叠此组到屏幕边缘","摺疊此群組至螢幕邊緣","このグループを画面端に収納"},
+ ["{0} cities · {1} groups folded"]=new[]{"{0} 座城市 · {1} 组已折叠","{0} 座城市 · {1} 群組已摺疊","{0} 都市 · {1} グループ収納中"},
+ ["Collapse all to edge"]=new[]{"全部折叠到边缘","全部摺疊至邊緣","すべて画面端に収納"},
+ ["Expand all clocks"]=new[]{"展开全部时钟","展開全部時鐘","すべての時計を展開"},
+ ["Expand clocks"]=new[]{"展开时钟","展開時鐘","時計を展開"},
+ ["Click to expand clocks"]=new[]{"点击展开时钟；右键调整停靠边缘","點擊展開時鐘；右鍵調整停靠邊緣","クリックして展開。右クリックで収納位置を変更"},
+ ["Dock left"]=new[]{"停靠左边","停靠左側","左端に収納"},
+ ["Dock right"]=new[]{"停靠右边","停靠右側","右端に収納"},
+ ["Dock top"]=new[]{"停靠上边","停靠上側","上端に収納"},
+ ["Dock bottom"]=new[]{"停靠下边","停靠下側","下端に収納"},
+ ["A good time to say hello."]=new[]{"工作时段，通常方便聊聊。","工作時段，通常方便聊聊。","勤務時間帯。連絡しやすい頃です。"},
+ ["Usually a good time to reach out."]=new[]{"现在通常方便，试着联系吧。","現在通常方便，試著聯絡吧。","通常は連絡しやすい時間です。"},
+ ["Morning hours — usually a good time to call."]=new[]{"上午工作时段，通常方便联系。","上午工作時段，通常方便聯絡。","午前の勤務時間帯。連絡の目安です。"},
+ ["Afternoon hours — usually a good time to call."]=new[]{"午后工作时段，通常方便联系。","午後工作時段，通常方便聯絡。","午後の勤務時間帯。連絡の目安です。"},
+ ["It's early there. Leave a little hello."]=new[]{"那边刚到早上，先留个消息吧。","那邊剛到早上，先留個訊息吧。","現地はまだ朝早め。まずはメッセージを。"},
+ ["Lunch break? Try a little later."]=new[]{"正值午间，晚点聊更从容。","正值午間，晚點聊更從容。","お昼時。少し後で連絡してみては。"},
+ ["Their day is winding down. Leave a message."]=new[]{"那边一天将尽，留言就好。","那邊一天將盡，留言就好。","一日が終わる頃。メッセージを残しては。"},
+ ["It's evening there. A message is kinder."]=new[]{"那边已入夜，留言就好。","那邊已入夜，留言就好。","現地は夜。まずはメッセージを。"},
+ ["It's late there. Let them rest."]=new[]{"那边正是深夜，先别打扰。","那邊正是深夜，先別打擾。","現地は深夜。今は休ませてあげては。"},
+ ["Weekend pace. Let them reply when ready."]=new[]{"周末节奏慢些，等对方方便。","週末節奏慢些，等對方方便。","週末はゆっくり。都合のよい時に返信を。"},
+ ["A message can wait for a reply."]=new[]{"先留个消息，等对方方便。","先留個訊息，等對方方便。","まずはメッセージで、返信を待っては。"},
+ ["Next usual contact time: {0}."]=new[]{"下个通常联系时段：{0}。","下個通常聯絡時段：{0}。","次の連絡の目安：{0}。"},
+ ["The day is just beginning."]=new[]{"那边新的一天刚开始。","那邊新的一天剛開始。","現地は一日が始まったばかり。"},
+ ["A quiet moment around lunch."]=new[]{"午间时分，可能正歇一歇。","午間時分，可能正歇一歇。","お昼時。ひと息ついているかも。"},
+ ["A workday is in full swing."]=new[]{"工作日里，日子慢慢忙起来。","工作日裡，日子慢慢忙起來。","勤務日。忙しくなる頃かもしれません。"},
+ ["Their evening is settling in."]=new[]{"那边的夜晚正慢慢安静下来。","那邊的夜晚正慢慢安靜下來。","現地は夜の落ち着く時間帯。"},
+ ["It's the small hours there."]=new[]{"那边正是深夜。","那邊正是深夜。","現地は真夜中です。"},
+ ["A slower weekend rhythm."]=new[]{"周末到了，节奏可以慢一点。","週末到了，節奏可以慢一點。","週末。少しゆっくりしたペースで。"},
+ ["Try now"]=new[]{"试着联系","試著聯絡","連絡"},
+ ["Message"]=new[]{"先留言","先留言","伝言"},
+ ["Maybe leave a message."]=new[]{"先留个消息，等对方方便。","先留個訊息，等對方方便。","まずはメッセージを。"},
+ ["An ordinary workday."]=new[]{"工作日里，可能正忙着。","工作日裡，可能正忙著。","勤務日。忙しい頃かもしれません。"},
+ ["A little time to rest."]=new[]{"可能正歇一歇。","可能正歇一歇。","ひと息ついているかも。"},
+ ["Workday"]=new[]{"工作时段","工作時段","勤務時間帯"},
+ ["Rest"]=new[]{"休息时段","休息時段","休憩時間帯"},
+ ["City clocks"]=new[]{"城市时钟","城市時鐘","都市の時計"},
+ ["{0} cities · tray icon only"]=new[]{"{0} 座城市 · 仅显示托盘图标","{0} 座城市 · 僅顯示托盤圖示","{0} 都市 · トレイアイコンのみ"},
+ ["Add city"]=new[]{"添加城市","新增城市","都市を追加"},
+ ["Manage cities"]=new[]{"管理城市","管理城市","都市を管理"},
+ ["Settings"]=new[]{"设置","設定","設定"},
+ ["Normal"]=new[]{"普通","一般","通常"},
+ ["Pin on top"]=new[]{"固定最上层","固定最上層","最前面に固定"},
+ ["Behind windows"]=new[]{"窗口置底","視窗置底","ウィンドウ背面"},
+ ["Show desktop may cover these clocks"]=new[]{"显示桌面可能盖住时钟；这不是桌面固定","顯示桌面可能蓋住時鐘；這不是桌面固定","デスクトップの表示で時計が隠れる場合があります。デスクトップ固定ではありません"},
+ ["Recover clocks (pin on top)"]=new[]{"恢复时钟（切换置顶）","恢復時鐘（切換置頂）","時計を復元（最前面に変更）"},
+ ["Could not restore every clock."]=new[]{"未能恢复所有时钟。","未能恢復所有時鐘。","すべての時計を復元できませんでした。"},
+ ["Keep clocks above ordinary windows"]=new[]{"时钟保持在普通窗口上方","時鐘保持在一般視窗上方","時計を通常のウィンドウの前面に表示"},
+ ["Bottom window order; desktop embedding is not verified"]=new[]{"窗口顺序置底；尚未验证桌面嵌入","視窗順序置底；尚未驗證桌面嵌入","最背面のウィンドウ順序。デスクトップ埋め込みは未検証"},
+ ["Drag text: one clock · Dotted handle: group\nClose this panel to return to the system tray."]=new[]{"拖正文移动单条 · 拖左侧手柄移动整组\n关闭此面板回到系统托盘。","拖文字移動單條 · 拖左側把手移動整組\n關閉此面板返回系統匣。","本文をドラッグ：1本 · 左のハンドル：グループ\n閉じるとシステムトレイに戻ります。"},
+ ["Exit WorldTime"]=new[]{"退出 WorldTime","結束 WorldTime","WorldTime を終了"},
+ ["Remove"]=new[]{"删除","刪除","削除"},["Edit"]=new[]{"编辑","編輯","編集"},
+ ["No cities yet. Choose Add city."]=new[]{"暂无城市。点击“添加城市”。","尚無城市。按「新增城市」。","都市がありません。「都市を追加」を選択してください。"},
+ ["Search city"]=new[]{"搜索城市","搜尋城市","都市を検索"},
+ ["Country or region"]=new[]{"国家或地区","國家或地區","国・地域"},
+ ["All countries and regions"]=new[]{"全部国家和地区","全部國家和地區","すべての国・地域"},
+ ["Search country or city"]=new[]{"搜索国家、地区或城市（支持中英文）","搜尋國家、地區或城市（支援中英文）","国・地域・都市を検索（各言語・英語対応）"},
+ ["Or choose a Windows time zone"]=new[]{"也可以直接选择 Windows 时区","也可以直接選擇 Windows 時區","Windowsのタイムゾーンを直接選ぶ"},
+ ["No matches. Try another country or city."]=new[]{"没有找到，请换个国家、地区或城市名试试。","沒有找到，請換個國家、地區或城市名試試。","見つかりません。別の国・地域・都市名をお試しください。"},
+ ["{0} matching places · {1} countries/regions available offline"]=new[]{"找到 {0} 个地点 · 离线覆盖 {1} 个国家/地区","找到 {0} 個地點 · 離線涵蓋 {1} 個國家/地區","{0} 地点が一致 · {1} の国・地域をオフラインで利用可能"},
+ ["18 offline cities; all Windows time zones are available below."]=new[]{"18座离线城市；下方可选择所有 Windows 时区。","18座離線城市；下方可選取所有 Windows 時區。","18都市をオフラインで利用可能。下で全Windowsタイムゾーンを選べます。"},
+ ["Add selected city or time zone"]=new[]{"添加所选城市或时区","新增所選城市或時區","選択した都市またはタイムゾーンを追加"},
+ ["Language"]=new[]{"语言","語言","言語"},
+ ["12-hour clock"]=new[]{"12小时制","12小時制","12時間表示"},
+ ["Life hints"]=new[]{"生活提示","生活提示","生活のヒント"},
+ ["Contact advice"]=new[]{"联系建议","聯絡建議","連絡"},
+ ["Saturday and Sunday off"]=new[]{"周六、周日休息","週六、週日休息","土曜・日曜は休日"},
+ ["Magnetic snapping"]=new[]{"磁吸","磁吸","スナップ"},
+ ["Work starts (0–23)"]=new[]{"工作开始 (0–23)","工作開始 (0–23)","始業時刻 (0–23)"},
+ ["Work ends (1–24)"]=new[]{"工作结束 (1–24)","工作結束 (1–24)","終業時刻 (1–24)"},
+ ["One-hour break starts (0–23)"]=new[]{"一小时休息开始 (0–23)","一小時休息開始 (0–23)","1時間の休憩開始 (0–23)"},
+ ["Background opacity (15–100%)"]=new[]{"背景不透明度 (15–100%)","背景不透明度 (15–100%)","背景の不透明度 (15–100%)"},
+ ["Hint font size (11–18)"]=new[]{"提示字号 (11–18)","提示字級 (11–18)","ヒントの文字サイズ (11–18)"},
+ ["Typical schedules only; holidays and personal calendars are unknown."]=new[]{"仅为通用作息估计；未知节假日和个人日程。","僅為一般作息估計；未知假日和個人行程。","一般的な生活時間の目安です。祝日・個人の予定は不明です。"},
+ ["Save"]=new[]{"保存","儲存","保存"},["Invalid values"]=new[]{"输入无效","輸入無效","入力値が無効です"},
+ ["Name and width"]=new[]{"名称与宽度","名稱與寬度","名前と幅"},
+ ["Width (480–900 DIP)"]=new[]{"宽度 (480–900 DIP)","寬度 (480–900 DIP)","幅 (480–900 DIP)"},
+ ["Drag group"]=new[]{"拖动整组","拖曳整組","グループをドラッグ"},
+ ["Release to snap; hold Alt to cancel"]=new[]{"释放后吸附；按住 Alt 取消","放開後吸附；按住 Alt 取消","離すとスナップ。Altでキャンセル"},
+ ["Add city to group"]=new[]{"添加城市到本组","新增城市至此群組","グループに都市を追加"},
+ ["Add separate city"]=new[]{"独立添加城市","獨立新增城市","独立した都市を追加"},
+ ["Detach this clock"]=new[]{"拆出此时钟","拆出此時鐘","この時計を切り離す"},
+ ["Split group here"]=new[]{"从此处分成两组","從此處拆成兩組","ここでグループを分割"},
+ ["Move up"]=new[]{"上移","上移","上へ"},["Move down"]=new[]{"下移","下移","下へ"},
+ ["Morning"]=new[]{"早上","早上","朝"},["Afternoon"]=new[]{"下午","下午","午後"},
+ ["Wee hours"]=new[]{"凌晨","凌晨","未明"},["Late night"]=new[]{"深夜","深夜","深夜"},
+ ["Evening"]=new[]{"傍晚","傍晚","夕方"},["Night"]=new[]{"夜晚","夜晚","夜"},
+ ["Local clock period; not a sunrise or sunset forecast"]=new[]{"按当地钟面时间划分，不代表实际日出日落","按當地鐘面時間劃分，不代表實際日出日落","現地時刻に基づく区分です。日の出・日の入り予測ではありません"},
+ ["Weekend, a slower pace"]=new[]{"周末，很多人可能正在休息","週末，許多人可能正在休息","週末。休んでいる人が多いかもしれません"},
+ ["Late at night"]=new[]{"当地已是深夜","當地已是深夜","現地は深夜です"},
+ ["The day is starting"]=new[]{"新的一天正在开始","新的一天正在開始","一日が始まる時間です"},
+ ["Possibly taking a lunch break"]=new[]{"午间，可能正在吃饭或休息","午間，可能正在用餐或休息","昼休み中かもしれません"},
+ ["The day is winding down"]=new[]{"一天渐近尾声","一天漸近尾聲","一日が終わりに近づいています"},
+ ["A typical working day"]=new[]{"工作日，城市逐渐忙碌起来","工作日，城市逐漸忙碌起來","通常の勤務日の時間帯です"},
+ ["Usually a good time to contact"]=new[]{"通常适合联系","通常適合聯絡","通常は連絡しやすい時間です"},
+ ["Consider a message; next window {0}"]=new[]{"建议留言；下个通常联系时段 {0}","建議留言；下個通常聯絡時段 {0}","メッセージ推奨。次の連絡目安 {0}"},
+ ["Could not save. The layout is still in memory. Check the data folder and try again."]=new[]{"保存失败。布局仍在内存中，请检查数据目录后重试。","儲存失敗。配置仍在記憶體中，請檢查資料目錄後重試。","保存できません。配置はメモリに残っています。データフォルダを確認して再試行してください。"},
+ ["Could not change window order; attempted to restore the previous mode."]=new[]{"层级设置失败；已尝试恢复原模式。","層級設定失敗；已嘗試恢復原模式。","重なり順を変更できません。以前のモードへの復元を試みました。"},
+ ["WorldTime could not start. Existing data was preserved."]=new[]{"WorldTime 未启动。已有数据保持原样。","WorldTime 未啟動。既有資料保持原樣。","WorldTimeを起動できません。既存のデータは保持されています。"},
+ ["Drag text: one clock · Handle/Shift: group · Right click: menu"]=new[]{"正文拖单条 · 手柄/Shift拖整组 · 右键菜单","文字拖單條 · 把手/Shift拖整組 · 右鍵選單","本文：1本 · ハンドル/Shift：グループ · 右クリック：メニュー"},
+ };
+ public static string Text(string language,string key){string code=Resolve(language);int index=code=="zh-Hans"?0:code=="zh-Hant"?1:code=="ja"?2:-1;return index>=0&&Resources.TryGetValue(key,out var text)?text[index]:key;}
+ public static string CityName(Row row,string language){if(row.Name.Length>0)return row.Name;var city=Catalog.Find(row);return city==null?row.City:Catalog.CityName(city,language);}
+}
+
+public static class DayPart {
+ public static string Key(int hour)=>hour<5?"Wee hours":hour<12?"Morning":hour<17?"Afternoon":hour<19?"Evening":hour<23?"Night":"Late night";
+ public static bool IsDay(int hour)=>hour>=5&&hour<17;
+}

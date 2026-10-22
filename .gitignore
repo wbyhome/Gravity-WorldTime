@@ -1,0 +1,18 @@
+# Build output and local experiments
+**/bin/
+**/obj/
+/artifacts/
+/.vs/
+/.idea/
+# Personal clock state and local launchers
+/data/
+**/worldtime.json
+**/worldtime.json.*
+**/instance.lock
+*.lnk
+*.log
+*.pdb
+*.user
+*.suo
+.env
+.env.*

@@ -1,0 +1,32 @@
+{
+  "Source": "Unicode CLDR release-48-2",
+  "SourceUrl": "https://github.com/unicode-org/cldr/tree/release-48-2",
+  "Locations": 419,
+  "CountriesAndRegions": 247,
+  "SourceHashes": [
+    {
+      "File": "en.xml",
+      "SHA256": "67607F4C9CF57157E70564987D8AE92A9DDCD73C00A2F1CD6ABF79524A969CBD"
+    },
+    {
+      "File": "ja.xml",
+      "SHA256": "24BC2347A4FC2D1D331F122F5F4C4F05CE435513F4F5280B16A428AAD8753FDC"
+    },
+    {
+      "File": "LICENSE.txt",
+      "SHA256": "B49D0E9F8EAD51CA8B7DF6FEC89CC3AE6809198B4B9D43C74216DA0118F23F5B"
+    },
+    {
+      "File": "windowsZones.xml",
+      "SHA256": "9CF3DB6A31FB382FEE21B70BE6FEBA1E82766B0FCD06E6261FB7936A73E537FF"
+    },
+    {
+      "File": "zh_Hant.xml",
+      "SHA256": "3AF22C10D26B47FEC92CBB1AEAB62E057A45CAF8760860DBBE6FDB548A24BC64"
+    },
+    {
+      "File": "zh.xml",
+      "SHA256": "B1EF8BCADCF19FA8914D9BA812A7BCEC124C72FECBF4ACEA02E4C8BD2FE51866"
+    }
+  ]
+}

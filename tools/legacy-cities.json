@@ -1,0 +1,146 @@
+[
+  {
+    "Zh": "北京",
+    "En": "Beijing",
+    "Code": "CN",
+    "Zone": "China Standard Time",
+    "Hant": "北京",
+    "Ja": "北京"
+  },
+  {
+    "Zh": "上海",
+    "En": "Shanghai",
+    "Code": "CN",
+    "Zone": "China Standard Time",
+    "Hant": "上海",
+    "Ja": "上海"
+  },
+  {
+    "Zh": "伦敦",
+    "En": "London",
+    "Code": "GB",
+    "Zone": "GMT Standard Time",
+    "Hant": "倫敦",
+    "Ja": "ロンドン"
+  },
+  {
+    "Zh": "纽约",
+    "En": "New York",
+    "Code": "US",
+    "Zone": "Eastern Standard Time",
+    "Hant": "紐約",
+    "Ja": "ニューヨーク"
+  },
+  {
+    "Zh": "洛杉矶",
+    "En": "Los Angeles",
+    "Code": "US",
+    "Zone": "Pacific Standard Time",
+    "Hant": "洛杉磯",
+    "Ja": "ロサンゼルス"
+  },
+  {
+    "Zh": "东京",
+    "En": "Tokyo",
+    "Code": "JP",
+    "Zone": "Tokyo Standard Time",
+    "Hant": "東京",
+    "Ja": "東京"
+  },
+  {
+    "Zh": "巴黎",
+    "En": "Paris",
+    "Code": "FR",
+    "Zone": "Romance Standard Time",
+    "Hant": "巴黎",
+    "Ja": "パリ"
+  },
+  {
+    "Zh": "悉尼",
+    "En": "Sydney",
+    "Code": "AU",
+    "Zone": "AUS Eastern Standard Time",
+    "Hant": "悉尼",
+    "Ja": "シドニー"
+  },
+  {
+    "Zh": "加德满都",
+    "En": "Kathmandu",
+    "Code": "NP",
+    "Zone": "Nepal Standard Time",
+    "Hant": "加德滿都",
+    "Ja": "カトマンズ"
+  },
+  {
+    "Zh": "新德里",
+    "En": "New Delhi",
+    "Code": "IN",
+    "Zone": "India Standard Time",
+    "Hant": "新德里",
+    "Ja": "ニューデリー"
+  },
+  {
+    "Zh": "阿德莱德",
+    "En": "Adelaide",
+    "Code": "AU",
+    "Zone": "Cen. Australia Standard Time",
+    "Hant": "阿德萊德",
+    "Ja": "アデレード"
+  },
+  {
+    "Zh": "奥克兰",
+    "En": "Auckland",
+    "Code": "NZ",
+    "Zone": "New Zealand Standard Time",
+    "Hant": "奧克蘭",
+    "Ja": "オークランド"
+  },
+  {
+    "Zh": "迪拜",
+    "En": "Dubai",
+    "Code": "AE",
+    "Zone": "Arabian Standard Time",
+    "Hant": "杜拜",
+    "Ja": "ドバイ"
+  },
+  {
+    "Zh": "新加坡",
+    "En": "Singapore",
+    "Code": "SG",
+    "Zone": "Singapore Standard Time",
+    "Hant": "新加坡",
+    "Ja": "シンガポール"
+  },
+  {
+    "Zh": "柏林",
+    "En": "Berlin",
+    "Code": "DE",
+    "Zone": "W. Europe Standard Time",
+    "Hant": "柏林",
+    "Ja": "ベルリン"
+  },
+  {
+    "Zh": "多伦多",
+    "En": "Toronto",
+    "Code": "CA",
+    "Zone": "Eastern Standard Time",
+    "Hant": "多倫多",
+    "Ja": "トロント"
+  },
+  {
+    "Zh": "圣保罗",
+    "En": "São Paulo",
+    "Code": "BR",
+    "Zone": "E. South America Standard Time",
+    "Hant": "聖保羅",
+    "Ja": "サンパウロ"
+  },
+  {
+    "Zh": "约翰内斯堡",
+    "En": "Johannesburg",
+    "Code": "ZA",
+    "Zone": "South Africa Standard Time",
+    "Hant": "約翰尼斯堡",
+    "Ja": "ヨハネスブルグ"
+  }
+]
