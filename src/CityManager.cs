@@ -43,14 +43,16 @@ public sealed class CityManager : Window {
  public void RefreshCities(){
   if(language!=host.Language)Build();
   foreach(var (button,mode) in new[]{(normal,"normal"),(top,"top")}){bool selected=host.S.Layer==mode||(mode=="normal"&&host.S.Layer=="bottom");button.Background=selected?new SolidColorBrush(Color.FromRgb(38,88,125)):Brushes.White;button.Foreground=selected?Brushes.White:Brushes.Black;}
-  count.Text=host.S.Docked.Count>0?string.Format(host.T("{0} cities · {1} groups folded"),host.S.Rows.Count,host.S.Docked.Count):string.Format(host.T("{0} cities · tray icon only"),host.S.Rows.Count);cities.Children.Clear();
+  RefreshDisplayStatus();cities.Children.Clear();
   foreach(var row in host.S.Rows){
    var line=new DockPanel{Margin=new Thickness(0,0,0,8)};
    var remove=Button(host.T("Remove"),()=>host.Remove(row));remove.Margin=new Thickness(8,0,0,0);DockPanel.SetDock(remove,Dock.Right);line.Children.Add(remove);
    var edit=Button(host.T("Edit"),()=>host.Rename(row));edit.Margin=new Thickness(8,0,0,0);DockPanel.SetDock(edit,Dock.Right);line.Children.Add(edit);
-   line.Children.Add(new TextBlock{Text=$"{row.Code}  {L10n.CityName(row,host.S.Language)}",VerticalAlignment=VerticalAlignment.Center,TextTrimming=TextTrimming.CharacterEllipsis,ToolTip=row.Zone});
+   var routine=Button(host.T("City routine"),()=>host.EditRoutine(row));routine.Margin=new Thickness(8,0,0,0);DockPanel.SetDock(routine,Dock.Right);line.Children.Add(routine);
+   var name=new StackPanel{VerticalAlignment=VerticalAlignment.Center};name.Children.Add(new TextBlock{Text=$"{row.Code}  {L10n.CityName(row,host.S.Language)}",TextTrimming=TextTrimming.CharacterEllipsis,ToolTip=row.Zone});name.Children.Add(new TextBlock{Text=host.T(row.Routine==null?"Default routine":"Custom routine")+(row.Routine==null?"":" · "+CityRoutine.Time(row.Routine.Start)+"–"+CityRoutine.Time(row.Routine.End)),Foreground=Brushes.SlateGray,FontSize=10});line.Children.Add(name);
    cities.Children.Add(new Border{Child=line,Padding=new Thickness(10,8,10,0),Background=Brushes.White,CornerRadius=new CornerRadius(6)});
   }
   if(host.S.Rows.Count==0)cities.Children.Add(new TextBlock{Text=host.T("No cities yet. Choose Add city."),Margin=new Thickness(10)});
  }
+ public void RefreshDisplayStatus(){int pending=host.Bars.Values.Count(b=>b.Layer.BindingError!=null);count.Text=pending>0?string.Format(host.T("{0} clocks waiting for desktop; retrying."),pending):host.S.Docked.Count>0?string.Format(host.T("{0} cities · {1} groups folded"),host.S.Rows.Count,host.S.Docked.Count):string.Format(host.T("{0} cities · tray icon only"),host.S.Rows.Count);}
 }

@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Interop;
 using System.Windows.Threading;
 
 namespace WorldTime;
@@ -120,6 +121,39 @@ public static class UiTests {
      Check(L10n.Resources.All(p=>p.Value.Length==3&&p.Value.All(v=>v.Length>0)),"All resources cover the three non-English translations");
      Check(JsonSerializer.Deserialize<State>(JsonSerializer.Serialize(new State{Language="ja"}))!.Language=="ja","Manual language persists");
      bool rejected=false;try{Store.Validate(new State{Language="unsupported"});}catch(InvalidDataException){rejected=true;}Check(rejected,"Reject unsupported saved language");
+     host.S.Language="zh-Hans";host.Sync();string beforeRoutine=JsonSerializer.Serialize(host.S.Rows);var routineRow=host.S.Rows[0];
+     var editor=new RoutineEditor(host,routineRow);editor.Show();editor.Inherit.IsChecked=false;editor.Wake.Text="17:00";editor.Sleep.Text="08:00";editor.Start.Text="22:00";editor.End.Text="06:00";editor.BreakEnabled.IsChecked=false;editor.DaysOff=65;editor.UpdateLayout();
+     Render(editor,Path.Combine(images,"routine-editor-zh-Hans.png"));
+     Check(editor.SaveChanges()&&routineRow.Routine is {Start:1320,End:360,Wake:1020,Sleep:480},"Routine editor saves an individual overnight routine");
+     Check(host.S.Rows.Skip(1).All(r=>r.Routine==null)&&host.S.Start==9&&host.S.End==18,"Saving one city's routine preserves every other city and default hours");
+     Check(host.Disk.Load().Rows.Single(r=>r.Id==routineRow.Id).Routine==routineRow.Routine,"Routine editor persists custom hours and rest days");
+     var originalRoutine=routineRow.Routine;var canceled=new RoutineEditor(host,routineRow);canceled.Show();canceled.Wake.Text="01:00";canceled.Close();
+     Check(ReferenceEquals(originalRoutine,routineRow.Routine),"Closing a routine editor without saving does not mutate the city");
+     var invalidEditor=new RoutineEditor(host,routineRow);invalidEditor.Show();invalidEditor.Wake.Text="nonsense";
+     Check(!invalidEditor.SaveChanges()&&invalidEditor.Error.Text.Length>0&&ReferenceEquals(originalRoutine,routineRow.Routine),"Invalid routine stays in the editor without changing saved data");
+     invalidEditor.Inherit.IsChecked=true;Check(invalidEditor.SaveChanges()&&routineRow.Routine==null,"A custom city can return to inherited defaults");
+     Check(JsonSerializer.Serialize(host.S.Rows)==beforeRoutine,"Routine UI tests retain the original city identities and geometry");
+     var newYork=host.Bars.Values.Single(b=>b.R.Zone=="Eastern Standard Time");newYork.Refresh(DateTimeOffset.Parse("2026-01-01T00:30:00Z"),TimeZoneInfo.FindSystemTimeZoneById("China Standard Time"));newYork.UpdateLayout();
+     Check(newYork.DayText=="昨天","Visible New York date says yesterday relative to a China viewer across New Year");
+     var dateImage=new RenderTargetBitmap(620,50,96,96,PixelFormats.Pbgra32);dateImage.Render((Visual)newYork.Content);var dateEncoder=new PngBitmapEncoder();dateEncoder.Frames.Add(BitmapFrame.Create(dateImage));using(var output=File.Create(Path.Combine(images,"day-yesterday-zh-Hans.png")))dateEncoder.Save(output);
+     newYork.Refresh(DateTimeOffset.Parse("2026-01-01T00:30:00Z"),TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"));Check(newYork.DayText=="今天","Changing viewer time zone refreshes the relative date at the same instant");
+     Window? fakeA=null,fakeB=null;
+     try{
+      fakeA=new Window{Title="WorldTime isolated desktop host A",Left=0,Top=0,Width=1000,Height=700,WindowStyle=WindowStyle.None,ShowInTaskbar=false,ShowActivated=false};fakeA.Show();
+      IntPtr parentA=new WindowInteropHelper(fakeA).Handle;WindowLayer.DesktopHostForTest=()=>parentA;host.SetLayer("normal");
+      var oldSurfaces=host.Bars.Values.Select(b=>b.Layer.Surface!).ToList();var renderers=host.Bars.Values.ToDictionary(b=>b.R.Id,b=>new WindowInteropHelper(b).Handle);
+      Check(oldSurfaces.All(s=>s.PaintSucceeded),"All clock bitmaps paint on an isolated substitute desktop host");
+      fakeA.Close();Check(oldSurfaces.All(s=>s.Handle==IntPtr.Zero&&!s.PaintSucceeded),"Native parent destruction clears child handles and paint status");
+      WindowLayer.DesktopHostForTest=()=>IntPtr.Zero;foreach(var bar in host.Bars.Values)bar.Layer.Maintain();
+      Check(host.Bars.Values.All(b=>b.Layer.BindingError!=null)&&host.S.Layer=="normal","Missing desktop host defers retry without silently switching to top mode");
+      fakeB=new Window{Title="WorldTime isolated desktop host B",Left=80,Top=60,Width=1000,Height=700,WindowStyle=WindowStyle.None,ShowInTaskbar=false,ShowActivated=false};fakeB.Show();
+      IntPtr parentB=new WindowInteropHelper(fakeB).Handle;WindowLayer.DesktopHostForTest=()=>parentB;foreach(var bar in host.Bars.Values)bar.Layer.Maintain();
+      Check(host.Bars.Values.All(b=>b.Layer.IsDesktopHosted&&b.Layer.Surface is {PaintSucceeded:true}&&new WindowInteropHelper(b).Handle==renderers[b.R.Id]),"Desktop host recreation restores native painting while preserving each WPF renderer");
+      Check(host.Bars.Values.All(b=>Math.Abs(DockScreen.Bounds(b).Left-DisplayLayout.Physical(b.R).X)<1&&Math.Abs(DockScreen.Bounds(b).Top-DisplayLayout.Physical(b.R).Y)<1),"Recreated desktop host with a shifted origin preserves physical clock positions");
+      host.CollapseAll();foreach(var bar in host.Bars.Values)bar.Layer.Maintain();Check(host.Bars.Values.All(b=>!b.Layer.Surface!.IsShown),"Maintenance never reopens intentionally folded clocks");host.ExpandAll();
+     }finally{WindowLayer.DesktopHostForTest=null;if(fakeA?.IsVisible==true)fakeA.Close();if(fakeB?.IsVisible==true)fakeB.Close();foreach(var bar in host.Bars.Values)bar.Layer.Maintain();host.Sync();}
+     Check(host.Bars.Values.All(b=>b.Layer.IsDesktopHosted&&b.Layer.Surface is {PaintSucceeded:true}),"Clock presentation returns to the real desktop after isolated recovery tests");
+     Check(JsonSerializer.Serialize(host.S.Rows)==beforeRoutine,"Desktop recovery simulations preserve all city settings and positions");
      host.S.Language="zh-Hans";host.Sync();string beforePicker=JsonSerializer.Serialize(host.S.Rows);
      var picker=new CityPicker(host,null);picker.Show();picker.UpdateLayout();
      Check(picker.CountrySelector.Items.Count>=241&&picker.CityList.Items.Count>=400,"City picker offers country filtering and the expanded offline catalog");

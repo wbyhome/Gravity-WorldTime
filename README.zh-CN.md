@@ -4,13 +4,21 @@
 
 将城市时钟组合成组、拖到屏幕边缘收起，用朋友视角的提示了解什么时候再联系。
 
-[下载 0.1.11](https://github.com/wbyhome/Gravity-WorldTime/releases/tag/v0.1.11) · [English](README.md)
+[下载 0.1.12](https://github.com/wbyhome/Gravity-WorldTime/releases/tag/v0.1.12) · [English](README.md)
 
 ![凌晨时钟示例](media/clock-example-zh-CN.png)
 
 *真实 WPF 界面渲染，采用洛杉矶凌晨 04:26 的固定示例时间。提示是一般估计，不是对方的真实状态。*
 
 ## 功能
+
+### 0.1.12 新增功能
+
+- **每座城市独立作息：**在托盘管理界面选择城市旁的“独立作息”，也可从时钟右键菜单进入。取消“跟随默认作息”后，可设置起床、入睡、方便联系时段、可选休息时段和休息日。跨午夜的联系时段归开始当天；取消不会更改已保存设置，重新勾选默认作息则恢复继承全局设置。提示仍是估计，不代表对方的真实状态。
+- **昨天／今天／明天：**日期栏比较目标城市与本机当地的日历日期，支持跨月和跨年。
+- **桌面恢复：**桌面宿主消失时重试原生桌面绑定，不自动改成置顶；记录显示器工作区，在显示配置变化后调整分组，避免留在已移除的屏幕上。
+
+本预发布版已通过隔离的逻辑、WPF 与原生窗口检查。用户已确认本机按 Win+D 后三个时钟仍可见；真实 Explorer 重启、休眠恢复和混合 DPI 显示器变化仍待单独验收。参见[版本验证记录](docs/RELEASE-0.1.12.md)。
 
 - **磁吸分组**：整组移动，靠近其他组松手即可吸附。
 - **从头部拆分**：拖下方时钟左侧头部，移动本条及其以下部分。
@@ -25,7 +33,7 @@
 
 ## 下载和启动
 
-1. 前往 [Releases](https://github.com/wbyhome/Gravity-WorldTime/releases/tag/v0.1.11) 下载 Windows x64 ZIP。
+1. 前往 [Releases](https://github.com/wbyhome/Gravity-WorldTime/releases/tag/v0.1.12) 下载 Windows x64 ZIP。
 2. 完整解压到可写入目录，保留 EXE 和配套文件。
 3. 如未安装，请安装 **.NET 8 Desktop Runtime（x64）**。普通 .NET Runtime 不包含 WPF。
 4. 打开 `Gravity.WorldTime.exe`，点击系统托盘图标管理城市和设置。
@@ -104,7 +112,7 @@ Get-Content .\artifacts\self-test.txt
 
 ## 原型状态
 
-桌面驻留显示已在本地确认。实际 Win+D、真实鼠标操作的自动折叠/拆分/组合、混合 DPI 多显示器、Explorer 重启恢复仍需分别验收，没有全部标记通过。
+桌面驻留显示已在本地确认。真实鼠标操作的自动折叠/拆分/组合、混合 DPI 多显示器、Explorer 重启恢复仍需分别验收，没有全部标记通过。
 
 自动绘制和界面检查是有限证据，不保证所有桌面配置均正常。[验证说明](docs/VALIDATION.md)
 

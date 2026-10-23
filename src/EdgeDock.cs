@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -43,6 +44,8 @@ public static class DockScreen {
  [StructLayout(LayoutKind.Sequential,CharSet=CharSet.Unicode)]struct MonitorInfo{public int Size;public NativeRect Bounds,Work;public uint Flags;[MarshalAs(UnmanagedType.ByValTStr,SizeConst=32)]public string Device;}
  delegate bool MonitorCallback(IntPtr monitor,IntPtr dc,IntPtr rect,IntPtr data);
  [DllImport("user32.dll")]static extern IntPtr MonitorFromWindow(IntPtr hwnd,uint flags);
+ [StructLayout(LayoutKind.Sequential)]struct NativePoint{public int X,Y;}
+ [DllImport("user32.dll")]static extern IntPtr MonitorFromPoint(NativePoint point,uint flags);
  [DllImport("user32.dll",CharSet=CharSet.Unicode)]static extern bool GetMonitorInfo(IntPtr monitor,ref MonitorInfo info);
  [DllImport("user32.dll")]static extern bool EnumDisplayMonitors(IntPtr dc,IntPtr clip,MonitorCallback callback,IntPtr data);
  [DllImport("user32.dll")]static extern bool GetWindowRect(IntPtr hwnd,out NativeRect rect);
@@ -51,6 +54,8 @@ public static class DockScreen {
  static ScreenArea Read(IntPtr monitor){var info=new MonitorInfo{Size=Marshal.SizeOf<MonitorInfo>(),Device=""};if(!GetMonitorInfo(monitor,ref info))throw new InvalidOperationException("Cannot locate screen work area");double scale=1;if(GetDpiForMonitor(monitor,0,out uint x,out _)==0)scale=x/96d;return new(info.Device,info.Work.Left,info.Work.Top,info.Work.Right,info.Work.Bottom,scale);}
  static IntPtr Handle(Window window)=>window is Bar bar?bar.Layer.NativeHandle:new WindowInteropHelper(window).Handle;
  public static ScreenArea For(Window window)=>Read(MonitorFromWindow(Handle(window),2));
+ public static ScreenArea AtPoint(Point point)=>Read(MonitorFromPoint(new NativePoint{X=(int)Math.Round(point.X),Y=(int)Math.Round(point.Y)},2));
+ public static IReadOnlyList<ScreenArea> All(){var result=new List<ScreenArea>();EnumDisplayMonitors(IntPtr.Zero,IntPtr.Zero,(m,_,_,_)=>{result.Add(Read(m));return true;},IntPtr.Zero);return result;}
  public static ScreenArea Find(string device){ScreenArea? found=null;EnumDisplayMonitors(IntPtr.Zero,IntPtr.Zero,(m,_,_,_)=>{var area=Read(m);if(area.Device==device)found=area;return true;},IntPtr.Zero);return found??Read(MonitorFromWindow(IntPtr.Zero,1));}
  public static Rect Bounds(Window window){if(!GetWindowRect(Handle(window),out var r))throw new InvalidOperationException("Cannot read clock bounds");return new Rect(r.Left,r.Top,r.Right-r.Left,r.Bottom-r.Top);}
  public static void Place(Window window,Rect bounds){if(!SetWindowPos(new WindowInteropHelper(window).Handle,IntPtr.Zero,(int)Math.Round(bounds.X),(int)Math.Round(bounds.Y),(int)Math.Round(bounds.Width),(int)Math.Round(bounds.Height),0x14))throw new System.ComponentModel.Win32Exception(Marshal.GetLastWin32Error());}

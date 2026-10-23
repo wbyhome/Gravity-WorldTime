@@ -20,6 +20,8 @@ public sealed class DesktopSurface : IDisposable {
  public int PaintError {get;private set;}
  public int OpaquePixels {get;private set;}
  public int PaintCount {get;private set;}
+ public bool IsAlive=>Handle!=IntPtr.Zero&&IsWindow(Handle)&&Owner(Handle)==(uint)Environment.ProcessId;
+ public bool IsShown=>IsAlive&&IsWindowVisible(Handle);
  bool visible,dragging;int x,y,width,height;double scale=1;
  static readonly Dictionary<IntPtr,DesktopSurface> surfaces=new();
  static readonly WindowProc route=Route;static ushort atom;
@@ -31,9 +33,9 @@ public sealed class DesktopSurface : IDisposable {
   if(Handle==IntPtr.Zero)throw new Win32Exception(Marshal.GetLastWin32Error());surfaces.Add(Handle,this);
  }
  public void Move(int x,int y,int width,int height,double scale){this.x=x;this.y=y;this.width=width;this.height=height;this.scale=scale;Present();}
- public void Show(bool value){visible=value;if(Handle!=IntPtr.Zero){ShowWindow(Handle,value?4:0);if(value)Present();}}
+ public void Show(bool value){visible=value;if(IsAlive){ShowWindow(Handle,value?4:0);if(value)Present();}}
  public void Present(){
-  if(!visible||Handle==IntPtr.Zero||width<=0||height<=0||bar.Content is not FrameworkElement visual)return;
+  if(!visible||!IsAlive||width<=0||height<=0||bar.Content is not FrameworkElement visual)return;
   IntPtr dc=IntPtr.Zero,bitmap=IntPtr.Zero,old=IntPtr.Zero;
   try{
    visual.Measure(new Size(width/scale,height/scale));visual.Arrange(new Rect(0,0,width/scale,height/scale));visual.UpdateLayout();
@@ -42,13 +44,17 @@ public sealed class DesktopSurface : IDisposable {
    dc=CreateCompatibleDC(IntPtr.Zero);var info=new BitmapInfo{Size=40,Width=width,Height=-height,Planes=1,Bits=32};
    bitmap=CreateDIBSection(dc,ref info,0,out var bits,IntPtr.Zero,0);if(bitmap==IntPtr.Zero)throw new Win32Exception(Marshal.GetLastWin32Error());
    old=SelectObject(dc,bitmap);Marshal.Copy(pixels,0,bits,pixels.Length);
-   var point=new PointI{X=x,Y=y};var origin=new PointI();var size=new SizeI{X=width,Y=height};var blend=new Blend{Alpha=255,Format=1};
+   var point=new PointI{X=x,Y=y};
+   // Layered child placement is relative to its host's client origin.
+   if(!ScreenToClient(GetParent(Handle),ref point))throw new Win32Exception(Marshal.GetLastWin32Error());
+   var origin=new PointI();var size=new SizeI{X=width,Y=height};var blend=new Blend{Alpha=255,Format=1};
    PaintSucceeded=UpdateLayeredWindow(Handle,IntPtr.Zero,ref point,ref size,dc,ref origin,0,ref blend,2);PaintError=PaintSucceeded?0:Marshal.GetLastWin32Error();PaintCount++;
    if(PaintSucceeded)SetWindowPos(Handle,IntPtr.Zero,0,0,0,0,0x213);
   }finally{if(old!=IntPtr.Zero)SelectObject(dc,old);if(bitmap!=IntPtr.Zero)DeleteObject(bitmap);if(dc!=IntPtr.Zero)DeleteDC(dc);}
  }
  static IntPtr Route(IntPtr hwnd,uint message,IntPtr wp,IntPtr lp){
   if(surfaces.TryGetValue(hwnd,out var surface)){
+   if(message==0x82){var result=DefWindowProc(hwnd,message,wp,lp);surfaces.Remove(hwnd);surface.Handle=IntPtr.Zero;surface.PaintSucceeded=false;return result;}
    try{return surface.Input(message,wp,lp);}catch(Exception ex){WindowLayer.Diagnostics?.Invoke("Desktop surface input: "+ex.Message);}
   }
   return DefWindowProc(hwnd,message,wp,lp);
@@ -73,7 +79,8 @@ public sealed class DesktopSurface : IDisposable {
   }
   return DefWindowProc(Handle,message,wp,lp);
  }
- public void Dispose(){if(Handle!=IntPtr.Zero){surfaces.Remove(Handle);DestroyWindow(Handle);Handle=IntPtr.Zero;}}
+ public void Dispose(){if(Handle!=IntPtr.Zero){var old=Handle;bool owned=IsAlive;surfaces.Remove(old);Handle=IntPtr.Zero;PaintSucceeded=false;if(owned)DestroyWindow(old);}}
+ static uint Owner(IntPtr hwnd){GetWindowThreadProcessId(hwnd,out uint pid);return pid;}
  delegate IntPtr WindowProc(IntPtr h,uint m,IntPtr w,IntPtr l);
  [StructLayout(LayoutKind.Sequential,CharSet=CharSet.Unicode)]struct ClassInfo{public uint Size,Style;public WindowProc Procedure;public int ClassExtra,WindowExtra;public IntPtr Instance,Icon,Cursor,Background;public string? Menu;public string Name;public IntPtr SmallIcon;}
  [StructLayout(LayoutKind.Sequential)]struct PointI{public int X,Y;}
@@ -86,6 +93,11 @@ public sealed class DesktopSurface : IDisposable {
  [DllImport("user32.dll",CharSet=CharSet.Unicode,SetLastError=true)]static extern IntPtr CreateWindowEx(uint ex,string name,string title,uint style,int x,int y,int w,int h,IntPtr parent,IntPtr menu,IntPtr instance,IntPtr data);
  [DllImport("user32.dll")]static extern IntPtr DefWindowProc(IntPtr h,uint m,IntPtr w,IntPtr l);
  [DllImport("user32.dll")]static extern bool DestroyWindow(IntPtr h);
+ [DllImport("user32.dll")]static extern bool IsWindow(IntPtr h);
+ [DllImport("user32.dll")]static extern IntPtr GetParent(IntPtr h);
+ [DllImport("user32.dll",SetLastError=true)]static extern bool ScreenToClient(IntPtr h,ref PointI point);
+ [DllImport("user32.dll")]static extern bool IsWindowVisible(IntPtr h);
+ [DllImport("user32.dll")]static extern uint GetWindowThreadProcessId(IntPtr h,out uint pid);
  [DllImport("user32.dll")]static extern bool ShowWindow(IntPtr h,int command);
  [DllImport("user32.dll")]static extern bool SetWindowPos(IntPtr h,IntPtr after,int x,int y,int width,int height,uint flags);
  [DllImport("user32.dll")]static extern IntPtr SetCapture(IntPtr h);

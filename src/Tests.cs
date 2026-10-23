@@ -75,6 +75,7 @@ public static class Tests {
  Check(DockGeometry.Contact(a1,new System.Windows.Rect(3000,300,620,158))==null,"An unrelated monitor rectangle does not auto-fold here");
  Check(DockGeometry.Contact(screen,new System.Windows.Rect(-1900,100,700,160))=="left","Auto-fold threshold scales on negative-coordinate monitor");
  var clock=System.Diagnostics.Stopwatch.StartNew();var large=new State();for(int i=0;i<500;i++)large.Rows.Add(new Row{X=i*5,Y=i*54});for(int i=0;i<100;i++)Layout.Find(large,new(){large.Rows[0]});clock.Stop();lines.Add("BENCH 500 rows, 100 candidate searches: "+clock.ElapsedMilliseconds+" ms (model only)");
+ FeatureChecks.Run(Check);
  lines.Add("TOTAL "+count+" PASS");Environment.ExitCode=0;
  }catch(Exception e){lines.Add(e.ToString());Environment.ExitCode=1;}
  string dest=args.Contains("--report")?args[Array.IndexOf(args,"--report")+1]:"test-results.txt";File.WriteAllLines(dest,lines);

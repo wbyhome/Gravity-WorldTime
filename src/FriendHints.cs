@@ -91,7 +91,7 @@ public static class FriendHints {
  static int Language(string language)=>L10n.Resolve(language) switch{"zh-Hans"=>1,"zh-Hant"=>2,"ja"=>3,_=>0};
  public static string Get(string phase,string language,int length)=>copy[phase][Language(language)].Split('~')[Math.Clamp(length,0,2)];
  public static string When(string day,string language,int length,string time,string date){
-  string[] text=length>=2?new[]{"Local "+time,"当地 "+time,"當地 "+time,"現地 "+time}:
+  string[] text=length>=2?(day=="today"?new[]{"Local "+time,"当地 "+time,"當地 "+time,"現地 "+time}:day=="tomorrow"?new[]{"Tmrw "+time,"明天 "+time,"明天 "+time,"明日 "+time}:new[]{date+" "+time,date+" "+time,date+" "+time,date+" "+time}):
    day=="today"?new[]{"Try gently after "+time+" their time.","等当地 "+time+"，再轻轻戳TA。","等當地 "+time+"，再輕輕戳TA。","現地 "+time+" 頃、そっと声をかけよう。"}:
    day=="tomorrow"?new[]{"Try tomorrow at "+time+" their time.","等当地明天 "+time+" 再戳TA。","等當地明天 "+time+" 再戳TA。","現地の明日 "+time+" 頃、声をかけよう。"}:
    new[]{"Next usual window: "+date+" "+time+" local.","按所设作息：当地 "+date+" "+time,"按所設作息：當地 "+date+" "+time,"設定の目安：現地 "+date+" "+time};

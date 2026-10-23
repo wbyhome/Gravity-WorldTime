@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -11,6 +12,7 @@ namespace WorldTime;
 // subclass, inject, resize, disable, or reorder Explorer/Gravity windows.
 public sealed class WindowLayer {
  public static Action<string>? Diagnostics;
+ internal static Func<IntPtr>? DesktopHostForTest;
  readonly Window window;
  HwndSource? source;
  string mode;
@@ -45,18 +47,18 @@ public sealed class WindowLayer {
     Detach();window.Topmost=true;
     Position(new IntPtr(-1),0,0,0,0,NoMove|NoSize|NoActivate|NoOwnerZOrder);BindingError=null;
    }else{window.Topmost=false;Attach();}
-  }finally{binding=false;Diagnostics?.Invoke("Set complete parent="+GetParent(handle));}
+  }catch(Exception ex) when(mode!="top"){BindingError=ex.Message;Diagnostics?.Invoke("Desktop bind deferred: "+ex.Message);}
+  finally{binding=false;Diagnostics?.Invoke("Set complete parent="+GetParent(handle));}
  }
- void Attach(){
-  if(IsDesktopHosted){BindingError=null;return;}
+ void Attach(bool force=false){
+  if(IsDesktopHosted&&!force){BindingError=null;return;}
+  if(window is Bar){SetStyle(-16,(GetWindowLongPtr(handle,-16).ToInt64()&~Popup)|Child);SetParent(handle,new IntPtr(-3));}
   IntPtr parent=FindDesktopHost();
   if(parent==IntPtr.Zero){BindingError="Explorer desktop host is not ready.";return;}
   if(window is Bar bar){
    // Keep WPF's compositor away from the Explorer window tree. Its HWND is
    // message-only; a separately created native child presents the bitmap.
-   SetStyle(-16,(GetWindowLongPtr(handle,-16).ToInt64()&~Popup)|Child);
-   SetParent(handle,new IntPtr(-3));
-   surface?.Dispose();surface=new DesktopSurface(bar,parent);desktop=parent;
+   var replacement=new DesktopSurface(bar,parent);surface?.Dispose();surface=replacement;desktop=parent;
    surface.Show(window.IsVisible);Place(bar.R.X,bar.R.Y,bar.R.Width,50);BindingError=null;return;
   }
   if(!GetWindowRect(handle,out var bounds))throw new Win32Exception(Marshal.GetLastWin32Error());
@@ -78,12 +80,22 @@ public sealed class WindowLayer {
   desktop=IntPtr.Zero;
   Position(new IntPtr(-2),bounds.Left,bounds.Top,bounds.Right-bounds.Left,bounds.Bottom-bounds.Top,NoActivate|NoOwnerZOrder|FrameChanged);
  }
- public void Maintain(){if(mode!="top"&&!IsDesktopHosted&&handle!=IntPtr.Zero&&IsWindow(handle))Set(mode);}
+ public void Maintain(){
+  if(mode=="top"||handle==IntPtr.Zero||!IsWindow(handle))return;
+  try{
+   var current=FindDesktopHost();
+   if(!IsDesktopHosted||current!=IntPtr.Zero&&current!=desktop){binding=true;try{Attach(true);}finally{binding=false;}}
+   else if(current==IntPtr.Zero)BindingError="Explorer desktop host is not ready.";
+   else {BindingError=null;if(surface!=null&&window.IsVisible&&(!surface.IsShown||!surface.PaintSucceeded))surface.Show(true);}
+  }catch(Exception ex){BindingError=ex.Message;Diagnostics?.Invoke("Desktop retry deferred: "+ex.Message);}
+ }
  public void Invalidate(){if(surface!=null)window.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Render,new Action(()=>surface?.Present()));}
  public void Place(double x,double y,double width,double height){
+  if(handle==IntPtr.Zero||!IsWindow(handle))return;
+  var dpi=VisualTreeHelper.GetDpi(window);double scale=window is Bar bar?bar.R.PositionScale:dpi.DpiScaleX;
+  if(mode=="top"){Position(new IntPtr(-1),(int)Math.Round(x*scale),(int)Math.Round(y*scale),(int)Math.Round(width*scale),(int)Math.Round(height*scale),NoActivate|NoOwnerZOrder);return;}
   if(!IsDesktopHosted)return;
-  var dpi=VisualTreeHelper.GetDpi(window);
-  if(surface!=null){surface.Move((int)Math.Round(x*dpi.DpiScaleX),(int)Math.Round(y*dpi.DpiScaleY),(int)Math.Round(width*dpi.DpiScaleX),(int)Math.Round(height*dpi.DpiScaleY),dpi.DpiScaleX);return;}
+  if(surface!=null){surface.Move((int)Math.Round(x*scale),(int)Math.Round(y*scale),(int)Math.Round(width*scale),(int)Math.Round(height*scale),scale);return;}
   var point=new NativePoint{X=(int)Math.Round(x*dpi.DpiScaleX),Y=(int)Math.Round(y*dpi.DpiScaleY)};
   if(!ScreenToClient(desktop,ref point))return;
   Position(IntPtr.Zero,point.X,point.Y,(int)Math.Round(width*dpi.DpiScaleX),(int)Math.Round(height*dpi.DpiScaleY),NoActivate|NoOwnerZOrder);
@@ -104,8 +116,12 @@ public sealed class WindowLayer {
   return IntPtr.Zero;
  }
  public static IntPtr FindDesktopHost(){
+  if(DesktopHostForTest!=null)return DesktopHostForTest();
+  var shell=GetShellWindow();GetWindowThreadProcessId(shell,out uint shellPid);
+  bool Ready(IntPtr hwnd){var name=new StringBuilder(32);GetClassName(hwnd,name,name.Capacity);GetWindowThreadProcessId(hwnd,out uint pid);return IsWindowVisible(hwnd)&&(name.ToString()=="Progman"||name.ToString()=="WorkerW")&&(shellPid==0||pid==shellPid)&&FindWindowEx(hwnd,IntPtr.Zero,"SHELLDLL_DefView",null)!=IntPtr.Zero;}
+  var progman=FindWindow("Progman",null);if(progman!=IntPtr.Zero&&Ready(progman))return progman;
   IntPtr found=IntPtr.Zero;
-  EnumWindows((hwnd,_)=>{if(FindWindowEx(hwnd,IntPtr.Zero,"SHELLDLL_DefView",null)!=IntPtr.Zero){found=hwnd;return false;}return true;},IntPtr.Zero);
+  EnumWindows((hwnd,_)=>{if(Ready(hwnd)){found=hwnd;return false;}return true;},IntPtr.Zero);
   return found;
  }
  [StructLayout(LayoutKind.Sequential)]struct NativePoint{public int X,Y;}
@@ -116,6 +132,11 @@ public sealed class WindowLayer {
  [DllImport("user32.dll",CharSet=CharSet.Unicode)]static extern IntPtr FindWindowEx(IntPtr parent,IntPtr after,string className,string? title);
  [DllImport("user32.dll")]static extern IntPtr GetParent(IntPtr hwnd);
  [DllImport("user32.dll")]static extern bool IsWindow(IntPtr hwnd);
+ [DllImport("user32.dll")]static extern bool IsWindowVisible(IntPtr hwnd);
+ [DllImport("user32.dll")]static extern IntPtr GetShellWindow();
+ [DllImport("user32.dll")]static extern uint GetWindowThreadProcessId(IntPtr hwnd,out uint pid);
+ [DllImport("user32.dll",CharSet=CharSet.Unicode)]static extern IntPtr FindWindow(string name,string? title);
+ [DllImport("user32.dll",CharSet=CharSet.Unicode)]static extern int GetClassName(IntPtr hwnd,StringBuilder name,int size);
  [DllImport("user32.dll",SetLastError=true)]static extern bool GetWindowRect(IntPtr hwnd,out NativeRect rect);
  [DllImport("user32.dll",SetLastError=true)]static extern bool ScreenToClient(IntPtr hwnd,ref NativePoint point);
  [DllImport("user32.dll",SetLastError=true)]static extern IntPtr SetParent(IntPtr child,IntPtr parent);

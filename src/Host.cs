@@ -13,21 +13,29 @@ public class Host {
  public State S;public Store Disk;public Dictionary<string,Bar> Bars=new();
  public readonly Dictionary<string,EdgeTab> EdgeTabs=new();
  readonly DispatcherTimer timer=new(){Interval=TimeSpan.FromSeconds(1)};
+ readonly DispatcherTimer environmentTimer=new(){Interval=TimeSpan.FromMilliseconds(300)};
  public readonly CityManager Manager;public readonly DesktopTray Tray;public bool Exiting;string minute="";
  public string Language=>L10n.Resolve(S.Language);
  public string T(string key)=>L10n.Text(S.Language,key);
  public Host(Store disk){Disk=disk;bool firstRun=!File.Exists(disk.FilePath);S=disk.Load();
   if(S.AppearanceVersion<2){if(S.AppearanceVersion<1||Math.Abs(S.Opacity-.72)<.0001)S.Opacity=.35;S.AppearanceVersion=2;disk.Save(S);}
   Manager=new CityManager(this);Tray=new DesktopTray(this);
-  foreach(var r in S.Rows.ToList())Open(r);
-  if(firstRun){string g=Guid.NewGuid().ToString("N");foreach(var name in new[]{"伦敦","纽约","东京"}){var r=Make(Catalog.All.First(x=>x.Zh==name));r.Group=g;r.Order=S.Rows.Count;r.Y=160+r.Order*Layout.Step;S.Rows.Add(r);Open(r);}Save();}
+  if(firstRun){string g=Guid.NewGuid().ToString("N");foreach(var name in new[]{"伦敦","纽约","东京"}){var r=Make(Catalog.All.First(x=>x.Zh==name));r.Group=g;r.Order=S.Rows.Count;r.Y=160+r.Order*Layout.Step;S.Rows.Add(r);}}
+  if(S.Displays.Count==0){double legacyScale=DockScreen.Find("").Scale;foreach(var r in S.Rows.Where(r=>r.Monitor.Length==0&&Math.Abs(r.PositionScale-1)<.001))r.PositionScale=legacyScale;}
+  bool adjusted=DisplayLayout.Reconcile(S,DockScreen.All());foreach(var r in S.Rows.ToList())Open(r);
   Sync();Manager.RefreshCities(); // Startup stays in tray; never show or minimize a taskbar panel.
+  if(firstRun||adjusted)Save();
+  environmentTimer.Tick+=(_,_)=>{environmentTimer.Stop();try{RefreshEnvironment();}catch(Exception e){WindowLayer.Diagnostics?.Invoke("Display refresh deferred: "+e.Message);environmentTimer.Start();}};
   timer.Tick+=(_,_)=>Tick();timer.Start();SystemEvents.TimeChanged+=TimeChanged;SystemEvents.PowerModeChanged+=PowerChanged;SystemEvents.DisplaySettingsChanged+=ScreensChanged;
  }
- void TimeChanged(object? o,EventArgs e)=>Application.Current.Dispatcher.BeginInvoke(()=>{TimeZoneInfo.ClearCachedData();Tick(true);});
- void PowerChanged(object o,PowerModeChangedEventArgs e)=>Application.Current.Dispatcher.BeginInvoke(()=>Tick(true));
- void ScreensChanged(object? o,EventArgs e)=>Application.Current.Dispatcher.BeginInvoke(()=>Sync());
- void Tick(bool force=false){foreach(var b in Bars.Values)b.Layer.Maintain();string m=DateTimeOffset.UtcNow.ToString("yyyyMMddHHmm");if(force||m!=minute){minute=m;foreach(var b in Bars.Values)b.Refresh();}}
+ void TimeChanged(object? o,EventArgs e)=>Application.Current.Dispatcher.BeginInvoke(()=>{TimeZoneInfo.ClearCachedData();Rules.ClearCache();Tick(true);});
+ void PowerChanged(object o,PowerModeChangedEventArgs e)=>Application.Current.Dispatcher.BeginInvoke(()=>{if(e.Mode==PowerModes.Resume){environmentTimer.Stop();environmentTimer.Start();}Tick(true);});
+ void ScreensChanged(object? o,EventArgs e)=>Application.Current.Dispatcher.BeginInvoke(()=>{environmentTimer.Stop();environmentTimer.Start();});
+ void Tick(bool force=false){foreach(var b in Bars.Values)b.Layer.Maintain();Manager.RefreshDisplayStatus();string m=DateTimeOffset.UtcNow.ToString("yyyyMMddHHmm");if(force||m!=minute){minute=m;foreach(var b in Bars.Values)b.Refresh();}}
+ public void RefreshEnvironment(){
+  if(Exiting)return;if(Bars.Values.Any(b=>b.IsDragging)){environmentTimer.Start();return;}
+  bool changed=DisplayLayout.Reconcile(S,DockScreen.All());foreach(var b in Bars.Values)b.Layer.Maintain();Sync();Tick(true);if(changed)Save();
+ }
  public bool TryAutoCollapse(Row row){
   var rows=Layout.Group(S,row);if(rows.Count==0)return false;
   var area=DockScreen.For(Bars[row.Id]);var bounds=DockScreen.Bounds(Bars[rows[0].Id]);
@@ -40,7 +48,9 @@ public class Host {
   Sync();CollapseGroup(row,edge);return true;
  }
  public Row Make(City c)=>new(){City=c.Zh,Zone=c.Zone,Code=c.Code};
+ public void EditRoutine(Row row)=>new RoutineEditor(this,row).ShowDialog();
  public void RecoverClocks(){
+  RefreshEnvironment();
   S.Docked.Clear();
   foreach(var group in S.Rows.GroupBy(r=>r.Group)){
    var rows=group.OrderBy(r=>r.Order).ToList();var bounds=DockScreen.Bounds(Bars[rows[0].Id]);
@@ -98,7 +108,7 @@ public class Host {
  public bool Save(){try{Disk.Save(S);Manager.RefreshCities();Tray.Refresh();return true;}catch(Exception e){MessageBox.Show(T("Could not save. The layout is still in memory. Check the data folder and try again.")+"\n"+e.Message,"WorldTime");return false;}}
  public void Add(Row? anchor)=>new CityPicker(this,anchor).ShowDialog();
  public void AddRow(Row r,Row? anchor){
-  if(anchor!=null&&S.Rows.Contains(anchor)){var g=Layout.Group(S,anchor);r.Group=anchor.Group;r.Order=g.Count;r.X=g[0].X;r.Y=g[^1].Y+Layout.Step;r.Width=anchor.Width;}else{r.X=140+(S.Rows.Count%8)*20;r.Y=140+(S.Rows.Count%8)*30;}
+  if(anchor!=null&&S.Rows.Contains(anchor)){var g=Layout.Group(S,anchor);r.Group=anchor.Group;r.Order=g.Count;r.X=g[0].X;r.Y=g[^1].Y+Layout.Step;r.Width=anchor.Width;r.PositionScale=anchor.PositionScale;r.Monitor=anchor.Monitor;}else{var screen=DockScreen.Find("");r.PositionScale=screen.Scale;r.Monitor=screen.Device;r.X=screen.Left/screen.Scale+140+(S.Rows.Count%8)*20;r.Y=screen.Top/screen.Scale+140+(S.Rows.Count%8)*30;}
   S.Rows.Add(r);Open(r);Sync();Save();
  }
  public Window Dialog(string title){Manager.Reveal();return new Window{Owner=Manager,ShowInTaskbar=false,Title="WorldTime · "+title,Width=540,SizeToContent=SizeToContent.Height,WindowStartupLocation=WindowStartupLocation.CenterOwner,ResizeMode=ResizeMode.NoResize,Background=new SolidColorBrush(Color.FromRgb(242,244,247)),FontFamily=Manager.FontFamily,FontSize=14,Content=new StackPanel{Margin=new Thickness(22)}};}
@@ -115,5 +125,5 @@ public class Host {
  public void Rename(Row r){var w=Dialog(T("Name and width"));var p=(StackPanel)w.Content;var name=new TextBox{Text=L10n.CityName(r,S.Language),MaxLength=80};p.Children.Add(name);p.Children.Add(new TextBlock{Text=T("Width (480–900 DIP)"),Margin=new Thickness(0,10,0,4)});var width=new TextBox{Text=r.Width.ToString()};p.Children.Add(width);var ok=new Button{Content=T("Save"),Margin=new Thickness(0,12,0,0)};p.Children.Add(ok);ok.Click+=(_,_)=>{if(!double.TryParse(width.Text,out double x)||!double.IsFinite(x)||x<480||x>900){MessageBox.Show(T("Invalid values"));return;}r.Name=name.Text.Trim();var g=Layout.Group(S,r);Layout.Arrange(g,g[0].X,g[0].Y,x);Sync();Save();w.Close();};w.ShowDialog();}
  public void Reorder(Row r,int delta){var g=Layout.Group(S,r);int i=g.IndexOf(r),j=i+delta;if(j<0||j>=g.Count)return;(g[i],g[j])=(g[j],g[i]);Layout.Arrange(g,g[0].X,g.Min(x=>x.Y),r.Width);Sync();Save();}
  public void Remove(Row r){Layout.Detach(S,r);S.Rows.Remove(r);Bars[r.Id].Close();Bars.Remove(r.Id);Sync();Save();}
- public void Quit(){if(!Save())return;timer.Stop();SystemEvents.TimeChanged-=TimeChanged;SystemEvents.PowerModeChanged-=PowerChanged;SystemEvents.DisplaySettingsChanged-=ScreensChanged;Exiting=true;Tray.Dispose();Disk.Dispose();Application.Current.Shutdown();}
+ public void Quit(){if(!Save())return;timer.Stop();environmentTimer.Stop();SystemEvents.TimeChanged-=TimeChanged;SystemEvents.PowerModeChanged-=PowerChanged;SystemEvents.DisplaySettingsChanged-=ScreensChanged;Exiting=true;Tray.Dispose();Disk.Dispose();Application.Current.Shutdown();}
 }
