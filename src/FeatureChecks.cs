@@ -38,10 +38,6 @@ public static class FeatureChecks {
   row.Routine=new CityRoutine{Start=120,End=180,DaysOff=0,SleepEnabled=false,BreakEnabled=false};
   var changed=Rules.NextContact(T("2026-11-01T05:50:00Z"),state,row);
   check(changed!=fall&&changed==T("2026-11-01T07:00:00Z"),"Changing a routine invalidates the next-contact cache key");
-  check(CalendarRelation.Label(T("2025-12-31T23:00:00-05:00"),T("2026-01-01T12:00:00+08:00"),"zh-Hans")=="昨天","Relative date crosses a year boundary");
-  check(CalendarRelation.Label(T("2026-03-01T01:00:00+09:00"),T("2026-02-28T08:00:00-08:00"),"en")=="Tomorrow","Relative date crosses a month boundary");
-  check(CalendarRelation.Difference(T("2026-10-24T01:00:00+14:00"),T("2026-10-22T23:00:00-12:00"))==2,"Date-line extremes can differ by two calendar days");
-  foreach(string language in new[]{"en","zh-Hans","zh-Hant","ja"})check(CalendarRelation.Label(T("2026-10-23T01:00:00Z"),T("2026-10-23T23:00:00Z"),language)==L10n.Text(language,"Today"),"Today label is localized: "+language);
   var main=new ScreenArea("main",0,0,1920,1040,1);var left=new ScreenArea("left",-2560,0,0,1440,1.5);
   var group=new State{Displays=new(){main,left},Rows=new(){new Row{Group="g",Monitor="left",PositionScale=1.5,X=-1500,Y=100},new Row{Group="g",Order=1,Monitor="left",PositionScale=1.5,X=-1500,Y=154}}};
   string unchanged=JsonSerializer.Serialize(group.Rows);check(!DisplayLayout.Reconcile(group,new[]{main,left})&&JsonSerializer.Serialize(group.Rows)==unchanged,"Stable mixed-DPI topology preserves exact saved positions");

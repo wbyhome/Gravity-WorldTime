@@ -49,6 +49,8 @@ public class Host {
  }
  public Row Make(City c)=>new(){City=c.Zh,Zone=c.Zone,Code=c.Code};
  public void EditRoutine(Row row)=>new RoutineEditor(this,row).ShowDialog();
+ public void SetComputerTimeZone(Row row)=>new TimeZoneDialog(this,row.Zone).ShowDialog();
+ public void RestoreComputerTimeZone(){if(S.OriginalSystemTimeZone.Length>0)new TimeZoneDialog(this,S.OriginalSystemTimeZone,true).ShowDialog();}
  public void RecoverClocks(){
   RefreshEnvironment();
   S.Docked.Clear();

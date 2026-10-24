@@ -35,8 +35,3 @@ public sealed record CityRoutine {
   minute=0;var parts=value.Trim().Split(':');if(parts.Length!=2||!int.TryParse(parts[0],out int h)||!int.TryParse(parts[1],out int m)||h<0||m<0||m>59||h>23&&!(allow24&&h==24&&m==0))return false;minute=h*60+m;return true;
  }
 }
-
-public static class CalendarRelation {
- public static int Difference(DateTimeOffset target,DateTimeOffset viewer)=>(target.Date-viewer.Date).Days;
- public static string Label(DateTimeOffset target,DateTimeOffset viewer,string language)=>L10n.Text(language,Difference(target,viewer) switch{-2=>"Two days behind",-1=>"Yesterday",0=>"Today",1=>"Tomorrow",2=>"Two days ahead",_=>"Different day"});
-}

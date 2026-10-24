@@ -14,7 +14,7 @@ public class Bar : Window {
  public string PeriodText=>period.Text;
  public string HintText=>hint.Text;
  public string ContactText=>contact.Text;
- public string DayText {get;private set;}="";
+ public string DateText=>date.Text;
  public bool IsDragging=>moving!=null;
  public bool HintFits=>hint.ActualWidth>0&&Fits(hint.Text,hint.ActualWidth)&&(contact.Visibility==Visibility.Collapsed||Fits(contact.Text,contact.ActualWidth,contact));
  public void SurfaceHover(bool entered)=>fold.Visibility=entered?Visibility.Visible:Visibility.Hidden;
@@ -22,7 +22,7 @@ public class Bar : Window {
  public void SurfaceMenu(Point point){ContextMenu=Menu();ContextMenu.Placement=System.Windows.Controls.Primitives.PlacementMode.AbsolutePoint;ContextMenu.HorizontalOffset=point.X;ContextMenu.VerticalOffset=point.Y;ContextMenu.IsOpen=true;}
  public Bar(Host h,Row r){host=h;R=r;Title="WorldTime · "+r.City;Width=r.Width;Height=50;Left=r.X;Top=r.Y;WindowStyle=WindowStyle.None;ResizeMode=ResizeMode.NoResize;AllowsTransparency=true;Background=Brushes.Transparent;ShowInTaskbar=false;ShowActivated=false;Topmost=false;Layer=new WindowLayer(this,h.S.Layer);
   TextOptions.SetTextRenderingMode(this,TextRenderingMode.Grayscale);
-  var grid=new Grid{Margin=new Thickness(10,0,12,0)};foreach(double x in new[]{24d,28,82,78,64,88})grid.ColumnDefinitions.Add(new ColumnDefinition{Width=new GridLength(x)});grid.ColumnDefinitions.Add(new ColumnDefinition());grid.ColumnDefinitions.Add(new ColumnDefinition{Width=new GridLength(24)});
+  var grid=new Grid{Margin=new Thickness(10,0,12,0)};foreach(double x in new[]{24d,28,82,78,44,88})grid.ColumnDefinitions.Add(new ColumnDefinition{Width=new GridLength(x)});grid.ColumnDefinitions.Add(new ColumnDefinition());grid.ColumnDefinitions.Add(new ColumnDefinition{Width=new GridLength(24)});
   TextBlock Label(string text,int col,double size,Brush brush){var t=new TextBlock{Text=text,FontSize=size,Foreground=brush,VerticalAlignment=VerticalAlignment.Center,TextTrimming=TextTrimming.CharacterEllipsis};Grid.SetColumn(t,col);grid.Children.Add(t);return t;}
   var headerBackground=new Border{Background=new SolidColorBrush(Color.FromArgb(20,210,230,240)),CornerRadius=new CornerRadius(5),Margin=new Thickness(-4,6,8,6)};Grid.SetColumnSpan(headerBackground,3);grid.Children.Add(headerBackground);
   handle=Label("⠿",0,21,new SolidColorBrush(Color.FromRgb(135,153,165)));Label(r.Code,1,11,Brushes.LightSteelBlue);city=Label("",2,14,Brushes.WhiteSmoke);time=Label("",3,23,Brushes.White);time.FontFamily=new FontFamily("Consolas");date=Label("",4,10,Brushes.LightSteelBlue);
@@ -60,12 +60,14 @@ public class Bar : Window {
  ContextMenu Menu(){var menu=new ContextMenu();void Item(string key,Action a){var m=new MenuItem{Header=host.T(key)};m.Click+=(_,_)=>a();menu.Items.Add(m);}
   Item("Collapse group to edge",()=>host.CollapseGroup(R));
   var dock=new MenuItem{Header=host.T("Collapse group to edge")+"…"};foreach(string edge in DockGeometry.Edges){string chosen=edge;var item=new MenuItem{Header=host.T("Dock "+edge)};item.Click+=(_,_)=>host.CollapseGroup(R,chosen);dock.Items.Add(item);}menu.Items.Add(dock);
+  Item("Set computer time zone",()=>host.SetComputerTimeZone(R));
+  if(host.S.OriginalSystemTimeZone.Length>0)Item("Restore original computer time zone",host.RestoreComputerTimeZone);
   Item("City routine",()=>host.EditRoutine(R));Item("Manage cities",()=>host.Manager.Reveal());Item("Add city to group",()=>host.Add(R));Item("Add separate city",()=>host.Add(null));Item("Detach this clock",()=>{Layout.Detach(host.S,R);R.X+=40;host.Sync();host.Save();});Item("Split group here",()=>{var tail=Layout.DragSelection(host.S,R,true);Layout.SplitForDrag(host.S,tail);foreach(var r in tail)r.X+=40;host.Sync();host.Save();});Item("Move up",()=>host.Reorder(R,-1));Item("Move down",()=>host.Reorder(R,1));Item("Name and width",()=>host.Rename(R));Item("Settings",host.Settings);Item("Remove",()=>host.Remove(R));Item("Exit WorldTime",host.Quit);return menu;
  }
   string last="";
- public void Refresh(DateTimeOffset? utc=null,TimeZoneInfo? viewerZone=null){var s=host.S;var instant=utc??DateTimeOffset.UtcNow;var t=Catalog.Local(R.Zone,instant);var viewer=TimeZoneInfo.ConvertTime(instant,viewerZone??TimeZoneInfo.Local);string text=Rules.Text(t,s,R);string key=t.ToString("yyyyMMddHHmmzzz")+viewer.Date.ToString("yyyyMMdd")+text+host.Language+s.Twelve+s.Opacity+s.Font+R.Name+R.Group+R.Order+R.Routine?.GetHashCode();if(key==last)return;last=key;
-  DayText=CalendarRelation.Label(t,viewer,s.Language);int day=CalendarRelation.Difference(t,viewer);
-  Opacity=1;border.Background=new SolidColorBrush(Color.FromArgb((byte)Math.Round(255*s.Opacity),60,80,104));time.Text=t.ToString(s.Twelve?"hh:mm":"HH:mm",CultureInfo.InvariantCulture);date.FontSize=9;date.Text=t.ToString("MM/dd")+(s.Twelve?"\n"+t.ToString("tt",CultureInfo.InvariantCulture):"")+"\n"+DayText;date.Foreground=day<0?Brushes.LightSalmon:day>0?Brushes.LightSkyBlue:Brushes.LightSteelBlue;date.ToolTip=host.T("Compared with this computer's local date")+"\n"+DayText;city.Text=L10n.CityName(R,s.Language);city.ToolTip=city.Text;displayTime=t;hint.ToolTip=text;FitHint();handle.Text=Layout.Group(s,R).First().Id==R.Id?"⠿":"⋮";handle.ToolTip=host.T(Layout.Group(s,R).First().Id==R.Id?"Drag the whole stack":"Drag this clock and those below");fold.ToolTip=host.T("Collapse group to edge");
+ public void Refresh(DateTimeOffset? utc=null){var s=host.S;var instant=utc??DateTimeOffset.UtcNow;var t=Catalog.Local(R.Zone,instant);string text=Rules.Text(t,s,R);string key=t.ToString("yyyyMMddHHmmzzz")+text+host.Language+s.Twelve+s.Opacity+s.Font+R.Name+R.Group+R.Order+R.Routine?.GetHashCode();if(key==last)return;last=key;
+
+  Opacity=1;border.Background=new SolidColorBrush(Color.FromArgb((byte)Math.Round(255*s.Opacity),60,80,104));time.Text=t.ToString(s.Twelve?"hh:mm":"HH:mm",CultureInfo.InvariantCulture);date.FontSize=10;date.Text=t.ToString("MM/dd")+(s.Twelve?"\n"+t.ToString("tt",CultureInfo.InvariantCulture):"");date.Foreground=Brushes.LightSteelBlue;date.ToolTip=t.ToString("yyyy-MM-dd HH:mm zzz");city.Text=L10n.CityName(R,s.Language);city.ToolTip=city.Text;displayTime=t;hint.ToolTip=text;FitHint();handle.Text=Layout.Group(s,R).First().Id==R.Id?"⠿":"⋮";handle.ToolTip=host.T(Layout.Group(s,R).First().Id==R.Id?"Drag the whole stack":"Drag this clock and those below");fold.ToolTip=host.T("Collapse group to edge");
   string part=DayPart.Key(t.Hour);period.Text=host.T(part);badge.ToolTip=host.T("Local clock period; not a sunrise or sunset forecast");
   bool light=DayPart.IsDay(t.Hour);badge.Background=new SolidColorBrush(light?Color.FromArgb((byte)(255*Math.Min(.65,s.Opacity+.18)),242,208,133):Color.FromArgb((byte)(255*Math.Min(.65,s.Opacity+.18)),85,106,160));period.Foreground=light?new SolidColorBrush(Color.FromRgb(45,38,24)):Brushes.White;
   ToolTip=$"{t:yyyy-MM-dd HH:mm zzz}\n{R.Zone}\n"+host.T("Top clock: move stack · Lower header: split from here · Edge: auto-fold")+"\n"+host.T("Typical schedules only; holidays and personal calendars are unknown.");

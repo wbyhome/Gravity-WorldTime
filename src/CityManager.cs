@@ -8,7 +8,7 @@ namespace WorldTime;
 public sealed class CityManager : Window {
  readonly Host host;
  StackPanel cities=null!;
- Button normal=null!,top=null!;
+ Button normal=null!,top=null!,restoreZone=null!;
  TextBlock count=null!;
  string language="";
  public CityManager(Host host){
@@ -30,6 +30,7 @@ public sealed class CityManager : Window {
   tools.Children.Add(Button(host.T("Recover clocks (pin on top)"),host.RecoverClocks));
   tools.Children.Add(Button(host.T("Collapse all to edge"),host.CollapseAll));
   tools.Children.Add(Button(host.T("Expand all clocks"),host.ExpandAll));
+  restoreZone=Button(host.T("Restore original computer time zone"),host.RestoreComputerTimeZone);tools.Children.Add(restoreZone);
   var layers=new WrapPanel{Margin=new Thickness(0,0,0,14)};head.Children.Add(layers);
   normal=Button(host.T("On desktop"),()=>host.SetLayer("normal"));top=Button("↑ "+host.T("Pin on top"),()=>host.SetLayer("top"));
   normal.ToolTip=host.T("Stay on the desktop when using Win+D");top.ToolTip=host.T("Keep clocks above ordinary windows");layers.Children.Add(normal);layers.Children.Add(top);
@@ -42,6 +43,7 @@ public sealed class CityManager : Window {
  public void Reveal(){RefreshCities();Show();WindowState=WindowState.Normal;Activate();}
  public void RefreshCities(){
   if(language!=host.Language)Build();
+  restoreZone.IsEnabled=host.S.OriginalSystemTimeZone.Length>0;
   foreach(var (button,mode) in new[]{(normal,"normal"),(top,"top")}){bool selected=host.S.Layer==mode||(mode=="normal"&&host.S.Layer=="bottom");button.Background=selected?new SolidColorBrush(Color.FromRgb(38,88,125)):Brushes.White;button.Foreground=selected?Brushes.White:Brushes.Black;}
   RefreshDisplayStatus();cities.Children.Clear();
   foreach(var row in host.S.Rows){

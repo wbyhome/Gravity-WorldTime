@@ -1,6 +1,6 @@
 # Source code and licensing
 
-This repository contains the Gravity WorldTime 0.1.11 prototype source and its supporting documentation. Gravity WorldTime is a separate application; this repository does not contain the Gravity Desktop application's source.
+This repository contains Gravity WorldTime prototype source and its supporting documentation. Gravity WorldTime is a separate application; this repository does not contain the Gravity Desktop application's source.
 
 Copyright © 2026 Gravity Desktop. All rights reserved unless otherwise specified.
 

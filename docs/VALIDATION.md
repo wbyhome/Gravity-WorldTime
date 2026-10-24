@@ -2,6 +2,10 @@
 
 This is an early Windows prototype. A successful automated check is not a promise of compatibility with every desktop environment.
 
+## 0.1.14
+
+The archived 0.1.14 binaries were packaged unchanged and rerun on 2026-10-25: **544 model/catalog checks**, **791 programmatic WPF checks**, **16 native-window checks**, and a successful native layered-child upload (Win32 error 0). Tests use synthetic data and mock system-zone writes. Real Windows time-zone mutation/UAC, physical 0.1.14 Win+D and the remaining system scenarios are not claimed as passed. See [0.1.14 release evidence and limits](RELEASE-0.1.14.md).
+
 ## 0.1.12
 
 See [0.1.12 verification and limitations](RELEASE-0.1.12.md): 529 logic/catalog checks, 735 WPF integration checks and 16 native-window checks passed. The user confirmed three clocks remain visible after Win+D on the tested computer. Actual Explorer restart, sleep/resume and mixed-DPI monitor reconfiguration remain unverified.

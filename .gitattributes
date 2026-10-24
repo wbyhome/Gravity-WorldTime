@@ -6,3 +6,6 @@
 *.md text eol=lf
 *.json text eol=lf
 *.png binary
+# Preserve compiler-input bytes for the verified 0.1.14 source snapshot.
+src/*.cs -text diff
+src/Data/cities.json -text diff

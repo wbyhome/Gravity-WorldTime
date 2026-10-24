@@ -29,6 +29,7 @@ public class Row {
  public double PositionScale {get;set;}=1;
 }
 public class State {
+ public string OriginalSystemTimeZone {get;set;}="";
  public int Schema {get;set;} = 1;
  public string Layer {get;set;} = "normal";
  public List<Row> Rows {get;set;} = new();
@@ -104,6 +105,8 @@ public sealed class Store : IDisposable {
   Validate(s);return s;
  }
  public static void Validate(State s){
+  if(s.OriginalSystemTimeZone==null)throw new InvalidDataException("Invalid saved system time zone");
+  if(s.OriginalSystemTimeZone.Length>0)WindowsTimeZone.Validate(s.OriginalSystemTimeZone);
   if(s.Rows==null||s.Displays==null||s.Displays.Any(d=>d.Right<=d.Left||d.Bottom<=d.Top||!double.IsFinite(d.Scale)||d.Scale<.5||d.Scale>8))throw new InvalidDataException("Invalid display layout");
   if(s.Docked==null||s.Docked.Any(d=>string.IsNullOrEmpty(d.Group)||!DockGeometry.Edges.Contains(d.Edge)||!double.IsFinite(d.Offset)||d.Offset<0||d.Offset>1)||s.Docked.Select(d=>d.Group).Distinct().Count()!=s.Docked.Count)throw new InvalidDataException("Invalid folded layout");
   if(Array.IndexOf(L10n.Languages,s.Language)<0 || (s.Layer!="normal" && s.Layer!="top" && s.Layer!="bottom") || s.Schema!=1 || s.Start<0 || s.End>24 || s.Start>=s.End || (s.End-s.Start==1 && s.Lunch==s.Start) || s.Lunch<0 || s.Lunch>23 || !double.IsFinite(s.Opacity) || s.Opacity<.15 || s.Opacity>1 || !double.IsFinite(s.Font) || s.Font<11 || s.Font>18)throw new InvalidDataException("Unsupported or invalid settings");

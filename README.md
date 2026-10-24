@@ -4,7 +4,7 @@
 
 Stack city clocks, fold groups against a screen edge, and get a friendly hint about when to reach someone.
 
-[Download 0.1.12](https://github.com/wbyhome/Gravity-WorldTime/releases/tag/v0.1.12) · [简体中文](README.zh-CN.md)
+[Download 0.1.14](https://github.com/wbyhome/Gravity-WorldTime/releases/tag/v0.1.14) · [简体中文](README.zh-CN.md)
 
 ![Small-hours clock example](media/clock-example-zh-CN.png)
 
@@ -12,13 +12,23 @@ Stack city clocks, fold groups against a screen edge, and get a friendly hint ab
 
 ## Features
 
-### New in 0.1.12
+### New in 0.1.14
+
+- **A simpler date column:** each clock shows its local month/day, with AM/PM in 12-hour mode. Yesterday/today/tomorrow labels and their date-column colors have been removed. Contact advice can still mention the next suitable day.
+- **Optional Windows time-zone switching, added in 0.1.13:** right-click a city → **Set computer time zone** → review the preview → **Apply to Windows**. This changes the computer-wide time zone, not UTC or time synchronization. The original zone is saved for restoration; administrator retry is explicit. Real system changes and UAC have not yet been accepted in a physical test environment. [Usage and limits](docs/RELEASE-0.1.14.md)
+
+This release is the **multi-row translucent magnetic clock** version. It does not include the later 0.2.x time-ruler previews.
+
+![0.1.14 date column](media/date-only-0.1.14-zh-CN.png)
+
+*Actual 0.1.14 WPF control render with synthetic time and city data; not a private desktop capture.*
+
+### Retained from 0.1.12
 
 - **A routine for each city:** open the tray manager and choose **City routine** beside a city (also available from the clock's context menu). Disable the default schedule to set wake/sleep times, contact hours, an optional break and days off. Overnight contact windows belong to the day they start. Cancel leaves the saved routine unchanged; enable the default schedule to inherit global settings again. Hints remain estimates, not someone's real availability.
-- **Yesterday, today or tomorrow:** the date column compares each city's calendar date with the computer's local date, including across month and year boundaries.
 - **Desktop recovery:** retry native desktop attachment when the host disappears, without silently switching to pinned-on-top mode. Monitor snapshots help keep clock groups within a remaining display's work area when the display configuration changes.
 
-This prerelease has passed isolated logic, WPF and native-window checks. The user confirmed that all three clocks remain visible after Win+D on the tested computer. Actual Explorer restart, sleep/resume and mixed-DPI monitor changes still need separate acceptance. See [release validation](docs/RELEASE-0.1.12.md).
+The unchanged 0.1.14 download binaries passed 544 model/catalog checks, 791 programmatic WPF checks, 16 native-window checks and the layered-child rendering probe. The user's physical Win+D confirmation applies to 0.1.12 on the tested computer; it is not a new 0.1.14 physical acceptance result. Actual Explorer restart, sleep/resume and mixed-DPI monitor changes still need separate acceptance. See [0.1.14 validation](docs/RELEASE-0.1.14.md).
 
 - **Magnetic groups:** move a stack or snap it to another group.
 - **Split from a header:** drag a lower clock's left header to move that clock and everything below it.
@@ -33,7 +43,7 @@ This is a standalone Windows prototype, separate from the Gravity Desktop applic
 
 ## Download and start
 
-1. Download the Windows x64 ZIP from [Releases](https://github.com/wbyhome/Gravity-WorldTime/releases/tag/v0.1.12).
+1. Download the Windows x64 ZIP from [Releases](https://github.com/wbyhome/Gravity-WorldTime/releases/tag/v0.1.14).
 2. Extract the entire ZIP to a writable folder. Keep the EXE and supporting files together.
 3. Install **.NET 8 Desktop Runtime (x64)** if needed. The plain .NET runtime does not include WPF.
 4. Run `Gravity.WorldTime.exe`. Click its system-tray icon to manage cities and settings.

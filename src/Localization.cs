@@ -16,6 +16,19 @@ public static class L10n {
  // English is the complete base resource and the fallback for unsupported OS languages.
  // Every entry supplies Simplified Chinese, Traditional Chinese and Japanese.
  public static readonly Dictionary<string,string[]> Resources=new(){
+ ["Cancel"]=new[]{"取消","取消","キャンセル"},
+ ["Set computer time zone"]=new[]{"将电脑时区设为此城市","將電腦時區設為此城市","パソコンをこの都市のタイムゾーンに設定"},
+ ["Restore original computer time zone"]=new[]{"恢复电脑原时区","還原電腦原時區","元のタイムゾーンに戻す"},
+ ["This changes the Windows time zone for all apps. UTC stays unchanged. Automatic time-zone settings may override it."]=new[]{"这会更改整台电脑的 Windows 时区，所有应用的当地时间显示可能随之变化。实际时间（UTC）不变。Windows 自动时区设置可能覆盖本次选择。","這會更改整台電腦的 Windows 時區，所有應用的當地時間顯示可能隨之變化。實際時間（UTC）不變。Windows 自動時區設定可能覆蓋本次選擇。","Windowsのタイムゾーンを変更し、全アプリの現地時刻表示に影響する場合があります。UTCは変わりません。Windowsの自動設定で上書きされることがあります。"},
+ ["Apply to Windows"]=new[]{"应用到 Windows","套用至 Windows","Windowsに適用"},
+ ["Retry as administrator"]=new[]{"以管理员身份重试","以系統管理員身分重試","管理者として再試行"},
+ ["Open Windows date and time settings"]=new[]{"打开 Windows 日期和时间设置","開啟 Windows 日期與時間設定","Windowsの日付と時刻の設定を開く"},
+ ["Current time zone"]=new[]{"电脑当前时区","電腦目前時區","現在のタイムゾーン"},
+ ["Target time zone"]=new[]{"目标时区及当地时间（预览）","目標時區與當地時間（預覽）","変更先と現地時刻（プレビュー）"},
+ ["Windows already uses this time zone."]=new[]{"电脑已经使用此时区。","電腦已使用此時區。","すでにこのタイムゾーンを使用しています。"},
+ ["Windows time zone updated."]=new[]{"Windows 时区已更改，系统时钟现在按目标时区显示。","Windows 時區已更改，系統時鐘現在依目標時區顯示。","Windowsのタイムゾーンを変更しました。システム時計も変更先の時刻を表示します。"},
+ ["Administrator approval was cancelled. Check the current Windows time zone."]=new[]{"已取消管理员授权，请核对当前 Windows 时区。","已取消系統管理員授權，請核對目前 Windows 時區。","管理者の承認がキャンセルされました。現在のタイムゾーンを確認してください。"},
+ ["Could not complete the time zone change."]=new[]{"未能完成时区更改。","未能完成時區變更。","タイムゾーンの変更を完了できませんでした。"},
  ["City routine"]=new[]{"独立作息","獨立作息","都市別の生活時間"},
  ["Use default schedule"]=new[]{"跟随默认作息","使用預設作息","既定の時間設定を使う"},
  ["Default routine"]=new[]{"默认作息","預設作息","既定の時間設定"},

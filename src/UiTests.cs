@@ -52,6 +52,16 @@ public static class UiTests {
       host.Manager.Close();Check(!host.Manager.IsVisible&&host.Bars.Values.All(b=>b.IsVisible),"Close panel hides manager and preserves clocks: "+code);
      }
      host.S.Life=false;host.S.Advice=false;host.Sync();Check(host.Bars.Values.All(b=>b.PeriodText.Length>0),"Period badge survives hidden hints");
+     host.S.Language="zh-Hans";host.Sync();
+     var fakeZone=new TimeZoneChecks.Fake();
+     var zoneDialog=new TimeZoneDialog(host,"Eastern Standard Time",system:fakeZone);zoneDialog.Show();zoneDialog.UpdateLayout();
+     Check(fakeZone.Sets==0&&zoneDialog.Summary.Text.Contains("China Standard Time")&&zoneDialog.Summary.Text.Contains("Eastern Standard Time"),"Time-zone preview shows both zones without changing Windows");
+     Render(zoneDialog,Path.Combine(images,"computer-time-zone-zh-Hans.png"));zoneDialog.Close();
+     Check(fakeZone.Sets==0&&host.S.OriginalSystemTimeZone=="","Closing time-zone preview cancels without settings changes");
+     zoneDialog=new TimeZoneDialog(host,"Eastern Standard Time",system:fakeZone);zoneDialog.Show();
+     Check(zoneDialog.ApplyChanges().GetAwaiter().GetResult()&&fakeZone.Zone=="Eastern Standard Time"&&host.Disk.Load().OriginalSystemTimeZone=="China Standard Time","Confirmation applies fake zone and persists recovery state");zoneDialog.Close();
+     zoneDialog=new TimeZoneDialog(host,"China Standard Time",true,fakeZone);zoneDialog.Show();
+     Check(zoneDialog.ApplyChanges().GetAwaiter().GetResult()&&fakeZone.Zone=="China Standard Time"&&host.S.OriginalSystemTimeZone=="","Restore dialog uses saved zone and clears verified recovery state");zoneDialog.Close();
      Check(JsonSerializer.Serialize(host.S.Rows)==layout,"Language switches preserve exact layout");
      foreach(string edge in DockGeometry.Edges){
       host.CollapseGroup(host.S.Rows[0],edge);var tab=host.EdgeTabs.Values.Single();tab.UpdateLayout();var area=DockScreen.Find(tab.Dock.Monitor);var rect=DockScreen.Bounds(tab);
@@ -133,10 +143,10 @@ public static class UiTests {
      Check(!invalidEditor.SaveChanges()&&invalidEditor.Error.Text.Length>0&&ReferenceEquals(originalRoutine,routineRow.Routine),"Invalid routine stays in the editor without changing saved data");
      invalidEditor.Inherit.IsChecked=true;Check(invalidEditor.SaveChanges()&&routineRow.Routine==null,"A custom city can return to inherited defaults");
      Check(JsonSerializer.Serialize(host.S.Rows)==beforeRoutine,"Routine UI tests retain the original city identities and geometry");
-     var newYork=host.Bars.Values.Single(b=>b.R.Zone=="Eastern Standard Time");newYork.Refresh(DateTimeOffset.Parse("2026-01-01T00:30:00Z"),TimeZoneInfo.FindSystemTimeZoneById("China Standard Time"));newYork.UpdateLayout();
-     Check(newYork.DayText=="昨天","Visible New York date says yesterday relative to a China viewer across New Year");
-     var dateImage=new RenderTargetBitmap(620,50,96,96,PixelFormats.Pbgra32);dateImage.Render((Visual)newYork.Content);var dateEncoder=new PngBitmapEncoder();dateEncoder.Frames.Add(BitmapFrame.Create(dateImage));using(var output=File.Create(Path.Combine(images,"day-yesterday-zh-Hans.png")))dateEncoder.Save(output);
-     newYork.Refresh(DateTimeOffset.Parse("2026-01-01T00:30:00Z"),TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"));Check(newYork.DayText=="今天","Changing viewer time zone refreshes the relative date at the same instant");
+     var newYork=host.Bars.Values.Single(b=>b.R.Zone=="Eastern Standard Time");newYork.Refresh(DateTimeOffset.Parse("2026-01-01T00:30:00Z"));newYork.UpdateLayout();
+     Check(newYork.DateText=="12/31","Date column shows the city calendar date without relative-day labels");
+     var dateImage=new RenderTargetBitmap(620,50,96,96,PixelFormats.Pbgra32);dateImage.Render((Visual)newYork.Content);var dateEncoder=new PngBitmapEncoder();dateEncoder.Frames.Add(BitmapFrame.Create(dateImage));using(var output=File.Create(Path.Combine(images,"date-only-zh-Hans.png")))dateEncoder.Save(output);
+     host.S.Twelve=true;newYork.Refresh(DateTimeOffset.Parse("2026-01-01T00:30:00Z"));Check(newYork.DateText=="12/31\nPM","Twelve-hour mode retains AM/PM without a relative-day label");host.S.Twelve=false;newYork.Refresh();
      Window? fakeA=null,fakeB=null;
      try{
       fakeA=new Window{Title="WorldTime isolated desktop host A",Left=0,Top=0,Width=1000,Height=700,WindowStyle=WindowStyle.None,ShowInTaskbar=false,ShowActivated=false};fakeA.Show();
