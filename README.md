@@ -1,135 +1,103 @@
 # Gravity WorldTime
 
-**Magnetic world clocks for your Windows desktop.**
+**A living world-time ruler for your Windows desktop.**
 
-Stack city clocks, fold groups against a screen edge, and get a friendly hint about when to reach someone.
+See where friends are in their day: each person sits at their local hour on one compact ruler, with their own date and a small routine-based life illustration. Quiet stars, soft sun and moon glow, and slowly drifting clouds add movement without a large dashboard.
 
-[Download 0.1.14](https://github.com/wbyhome/Gravity-WorldTime/releases/tag/v0.1.14) · [简体中文](README.zh-CN.md)
+[Download 0.2.8 time-ruler preview](https://github.com/wbyhome/Gravity-WorldTime/releases/tag/v0.2.8) · [简体中文](README.zh-CN.md) · [Earlier multi-row clocks](docs/CLASSIC-CLOCKS.md)
 
-![Small-hours clock example](media/clock-example-zh-CN.png)
+![WorldTime time-ruler animation](media/ruler-0.2.8/028-motion-preview.gif)
 
-*Real WPF interface render in Simplified Chinese at a fixed example time: 04:26 in Los Angeles. The hint is an estimate, not a person's actual status.*
+*Actual product WPF render with synthetic people and a fixed example time. The dark backdrop is illustrative; this is not an OS screen recording. Life illustrations estimate a routine, not someone's real activity.*
 
-## Features
+## One ruler, different days
 
-### New in 0.1.14
+Instead of reading several separate clock rows, look along the ruler to compare local times. A person near 04:00 may be asleep while another is starting the afternoon. Each representative has a nearby date, so people on different calendar days remain distinguishable. Nearby people can aggregate; open the group to see each person's details.
 
-- **A simpler date column:** each clock shows its local month/day, with AM/PM in 12-hour mode. Yesterday/today/tomorrow labels and their date-column colors have been removed. Contact advice can still mention the next suitable day.
-- **Optional Windows time-zone switching, added in 0.1.13:** right-click a city → **Set computer time zone** → review the preview → **Apply to Windows**. This changes the computer-wide time zone, not UTC or time synchronization. The original zone is saved for restoration; administrator retry is explicit. Real system changes and UAC have not yet been accepted in a physical test environment. [Usage and limits](docs/RELEASE-0.1.14.md)
+The central scale is a daily clock cycle, **not one global chronological timeline**. The two edge hours repeat the cycle for continuity. The gradient and sky are generic ambience, not live weather or a person's measured daylight.
 
-This release is the **multi-row translucent magnetic clock** version. It does not include the later 0.2.x time-ruler previews.
+## What's in 0.2.8
 
-![0.1.14 date column](media/date-only-0.1.14-zh-CN.png)
+- **Quiet sky animation:** staggered star brightness, gentle sun/moon glow and clouds moving within the ruler.
+- **Routine-based people:** waking, getting ready, daily activity, resting and sleeping. Preset cartoons have small gestures; imported photos retain their appearance and receive only a small state marker.
+- **Your own names:** rename contacts and your own display name without changing city, time zone, avatar or routine.
+- **Three motion modes:** Dynamic, Low motion and Completely static. Optionally follow Windows' animation preference; choosing Dynamic explicitly overrides it only inside this app.
+- **The compact ruler remains:** desktop residence, optional pin-on-top, translucent background, width adjustment, contact details, avatars, personal routines and nearby-person aggregation.
+- **Four interface languages:** English, Simplified Chinese, Traditional Chinese and Japanese. Twelve- and 24-hour time formats are supported.
 
-*Actual 0.1.14 WPF control render with synthetic time and city data; not a private desktop capture.*
+![Ruler overview](media/ruler-0.2.8/028-overall-on-dark.png)
 
-### Retained from 0.1.12
+### Small gestures, careful meanings
 
-- **A routine for each city:** open the tray manager and choose **City routine** beside a city (also available from the clock's context menu). Disable the default schedule to set wake/sleep times, contact hours, an optional break and days off. Overnight contact windows belong to the day they start. Cancel leaves the saved routine unchanged; enable the default schedule to inherit global settings again. Hints remain estimates, not someone's real availability.
-- **Desktop recovery:** retry native desktop attachment when the host disappears, without silently switching to pinned-on-top mode. Monitor snapshots help keep clock groups within a remaining display's work area when the display configuration changes.
+| Waking | Getting ready | Sleeping |
+|---|---|---|
+| ![Waking gesture](media/ruler-0.2.8/028-action-waking.gif) | ![Preparation gesture](media/ruler-0.2.8/028-action-preparing.gif) | ![Sleep marker](media/ruler-0.2.8/028-action-sleeping.gif) |
 
-The unchanged 0.1.14 download binaries passed 544 model/catalog checks, 791 programmatic WPF checks, 16 native-window checks and the layered-child rendering probe. The user's physical Win+D confirmation applies to 0.1.12 on the tested computer; it is not a new 0.1.14 physical acceptance result. Actual Explorer restart, sleep/resume and mixed-DPI monitor changes still need separate acceptance. See [0.1.14 validation](docs/RELEASE-0.1.14.md).
+*Crops enlarged from real renderer output; avatars stay small in the application.*
 
-- **Magnetic groups:** move a stack or snap it to another group.
-- **Split from a header:** drag a lower clock's left header to move that clock and everything below it.
-- **Automatic edge folding:** release near a screen work-area edge to fold a group into a small tab; click to expand.
-- **Desktop or pinned on top:** choose native desktop presentation or floating clocks above ordinary windows.
-- **419 cities and places across 247 countries/regions**, searchable offline in four languages.
-- **Friendly two-line hints:** a tentative life situation plus a contact suggestion or a destination-local time.
-- **Translucent backgrounds with opaque text**, configurable opacity and hint size.
-- **System-tray application entry**, with no taskbar button for every city.
+The first 30 minutes after configured waking show a waking illustration, the following hour a preparation illustration. Explicit breaks and the period before sleep can show resting. Sleep is evaluated first, so a night-shift person's daytime sleep works too. Other configured waking hours use neutral daily activity. **Contactable hours do not imply work.** The app does not detect presence, activity, calendars or actual sleep.
 
-This is a standalone Windows prototype, separate from the Gravity Desktop application.
+## Download and start the time ruler
 
-## Download and start
+1. Download `Gravity-WorldTime-v0.2.8-win-x64.zip` from the [0.2.8 prerelease](https://github.com/wbyhome/Gravity-WorldTime/releases/tag/v0.2.8).
+2. Extract the entire ZIP into a new writable folder.
+3. Install **.NET 8 Desktop Runtime x64**, including WPF, if needed. Target: Windows 10/11 x64 with an interactive Explorer desktop; not every Windows build is certified.
+4. Double-click **`Start-WorldTime-Ruler.cmd`**. It runs `Gravity.WorldTime.exe --ruler-desktop` and creates a separate `ruler-preview-data` profile.
+5. Right-click the ruler to add contacts and change its appearance. The tray icon opens management and exit controls.
 
-1. Download the Windows x64 ZIP from [Releases](https://github.com/wbyhome/Gravity-WorldTime/releases/tag/v0.1.14).
-2. Extract the entire ZIP to a writable folder. Keep the EXE and supporting files together.
-3. Install **.NET 8 Desktop Runtime (x64)** if needed. The plain .NET runtime does not include WPF.
-4. Run `Gravity.WorldTime.exe`. Click its system-tray icon to manage cities and settings.
+Keep all application files together. This is a framework-dependent portable prototype, not an installer or Store package. The plain EXE without `--ruler-desktop` retains the classic multi-row mode; **use the included launcher for this release's ruler UI**. Download archives include no personal configuration or PDBs. Verify the ZIP with the release's `SHA256SUMS.txt`.
 
-The target environment is Windows 10/11 x64 with an interactive desktop. Compatibility with every Windows build is not certified. This is a framework-dependent portable prototype, not an installer or Microsoft Store package. A fresh start creates example clocks; the download contains no personal layout.
+## Everyday controls
 
-## Add cities
+| Action | Where |
+|---|---|
+| Move the ruler | Drag its embedded left grip |
+| Resize | Drag the right end, or right-click → Display size |
+| Add a person | Right-click → Add contact; select a city or zone and display name |
+| Open individual details | Click a person or aggregate group |
+| Rename a person | Person menu/details → Contact name |
+| Rename yourself | More settings → My display name… |
+| Change avatar/routine | Person edit actions and the existing routine editor |
+| Change transparency | Right-click → Adjust transparency… |
+| Change motion | More settings → Animation effects |
+| Float above ordinary windows | Right-click → Pin on top; uncheck to return to the desktop |
+| Recover a misplaced ruler | Right-click → Reset ruler position |
 
-Click the tray icon → **Add city**. Filter by country/region or search English, Simplified Chinese, Traditional Chinese or Japanese names. Country codes and common aliases such as `US`, `USA`, `UK` also work. You can combine names (`United States New York`) or omit Latin accents (`Sao Paulo`).
+The location catalog has 419 places across 247 countries/regions, searchable offline. Place names derive from CLDR; current offsets and DST use Windows' time-zone database. See [catalog provenance](docs/catalog-provenance.json) and [nature estimates](docs/NATURE-DATA-0.2.1.md). Coordinates, where known, are reference city coordinates, not your location.
 
-![City picker](media/city-picker-zh-CN.png)
+### Prefer a still desktop?
 
-*Isolated WPF interface render in Simplified Chinese. The catalog works offline.*
+Low motion retains static life markers; Completely static keeps the clock and dates without animated decorations or life badges. Both stop the animation timer. Menus, settings and hidden rulers also pause it. When following Windows and system animations are disabled, Dynamic becomes effectively Low motion; explicitly selecting Dynamic disables that following option for this app only.
 
-Multi-zone countries offer multiple places. This is not a complete list of every city. For an unlisted place, choose its Windows time zone directly and change the clock's display name.
+![Low-motion rendering](media/ruler-0.2.8/028-low-motion-on-dark.png)
 
-Names and mappings derive from **Unicode CLDR 48.2**. Current offsets and daylight-saving transitions come from the installed Windows time-zone database. The 247 total includes countries, territories and regions, not only sovereign countries. [Provenance](docs/catalog-provenance.json) · [Third-party notices](THIRD_PARTY_NOTICES.md)
+## Updates and data
 
-## Move, group and fold
+This ruler uses `ruler-preview-data` beside the application, separately from the classic `data` folder. It stores contacts, ruler settings and any imported avatar copies there. Exit before backing up or replacing files. Prefer extracting this preview into a new folder: old 0.1.x or 0.2.x directories are not automatically migrated or overwritten. To carry forward an existing ruler profile, back it up and copy the **whole** marked ruler-profile directory while both applications are closed; do not pass the classic profile as ruler data.
 
-| Action | Result |
-| --- | --- |
-| Drag the first clock | Move its whole stack |
-| Drag a lower clock's left header | Split and move that clock and all clocks below |
-| Drag a lower clock's main body | Do not split the group |
-| Release near another compatible group | Snap together, when snapping is enabled |
-| Release near a screen work-area edge | Fold automatically |
-| Hold **Alt** on release | Cancel snapping and automatic folding for that drag |
-| Click an edge tab | Expand its group |
-| Right-click a clock or tab | Open its available actions |
+Adding/removing contacts does not organize or delete your desktop files. The existing classic manager includes optional computer-time-zone changes; those are explicit system-wide actions, not a requirement for viewing city clocks. Real Windows time-zone/UAC acceptance remains separate.
 
-Manual fold actions and **Expand all clocks** are also available. Folded state is remembered on restart. Expanding does not immediately fold the group again. A missing monitor makes edge tabs fall back to an available screen; clock order and saved layout are retained.
+## Validation and limits
 
-## Appearance and display modes
+The released DLL and EXE are the locally reviewed binaries, packaged unchanged. All 64 C# compiler input documents match the original portable PDB, and both embedded data resources match the published source. The final build passed 104 ruler-specific, 68 information-layer, 216 nature/date, 544 logic, 1243 WPF/localization and 22 own-native-window checks. The user confirmed **stable display and visible small gestures after Win+D** on the tested machine.
 
-**On desktop** attaches small native alpha windows to Explorer's desktop host; WPF generates the clock images. **Pin on top** uses floating WPF windows. Switching modes recreates the presentation windows while retaining cities and groups.
+These are not a certification of all Windows configurations. Long-running stability, Explorer restart, sleep/resume, multi-monitor hot-plug and mixed-DPI physical acceptance remain incomplete. The 100-contact resource sample aggregates into six visible representatives, not 100 independently animated avatars. Native frames still upload the whole window even though static content is cached.
 
-**Recover clocks (pin on top)** expands clocks, brings their groups into the work area and selects top mode. It may adjust out-of-bounds positions.
+[Release evidence and known limits](docs/RELEASE-0.2.8.md) · [Compiler input checksums](docs/evidence-0.2.8/compiler-source-check.json) · [Media provenance](media/ruler-0.2.8/PROVENANCE.md)
 
-Background opacity defaults to **35%** (65% transparent); text stays opaque. Settings support 15–100% background opacity, hint size, 12/24-hour time, magnetic snapping, life hints, contact advice, usual work/contact hours and a one-hour break.
+## Earlier multi-row magnetic clocks
 
-English is the base language. Supported system languages are English, Simplified Chinese, Traditional Chinese and Japanese; others fall back to English. Manual language selection is available.
+Prefer stacked translucent city rows, magnetic grouping and automatic edge folding? The preserved [0.1.14 download](https://github.com/wbyhome/Gravity-WorldTime/releases/tag/v0.1.14) remains available with its [English guide](docs/CLASSIC-CLOCKS.md) and [完整中文介绍](docs/CLASSIC-CLOCKS.zh-CN.md). Those are classic-mode features, not claims that the ruler has the same row-splitting/folding interaction.
 
-## A friend's perspective
-
-The clock distinguishes the small hours, morning, afternoon, evening, night and late night. At 04:26 it suggests that a friend may be asleep. Meals, work, getting home and winding down get different wording. The second line gives a contact suggestion or an explicitly **destination-local** time based on the configured schedule.
-
-These are general estimates. The app does not know someone's real activity, sleep, holidays or calendar. It has no presence service and requires no account or API key. Life hints and contact advice can be disabled independently.
-
-## Data and updates
-
-State is stored beside the EXE in `data/worldtime.json`; saving keeps a `.bak` generation. Use `--data-dir` to select another folder.
-
-Exit before replacing program files. Preserve your existing `data` folder when updating; release ZIPs do not contain one. Removing a clock city does not delete desktop files.
-
-## Build and check
+## Build
 
 Use a Windows x64 .NET SDK capable of targeting .NET 8:
 
 ```powershell
 dotnet build .\src\WorldTime.csproj -c Release
-.\src\bin\Release\net8.0-windows\Gravity.WorldTime.exe
+.\src\bin\Release\net8.0-windows\Gravity.WorldTime.exe --ruler-desktop
 ```
 
-For isolated model/catalog checks:
+This is a standalone WorldTime prototype, separate from Gravity Desktop. [Source code and licensing](SOURCE_AND_LICENSING.md) · [Third-party notices](THIRD_PARTY_NOTICES.md)
 
-```powershell
-New-Item -ItemType Directory -Force .\artifacts | Out-Null
-Start-Process .\src\bin\Release\net8.0-windows\Gravity.WorldTime.exe -ArgumentList '--self-test --report artifacts/self-test.txt' -Wait
-Get-Content .\artifacts\self-test.txt
-```
-
-`--ui-test`, `--layer-test` and `--layered-child-test` also take `--report <path>`. UI/native tests create temporary probe windows and require an interactive Windows session.
-
-The generated catalog is included. To regenerate it on Windows with **PowerShell 7**, run `tools/Fetch-CatalogSources.ps1`, then `tools/Build-CityCatalog.ps1`. The fetch script pins CLDR release-48-2 and checks source hashes.
-
-## Prototype status
-
-Desktop visibility was confirmed locally. Actual Explorer restart, pointer-driven auto-fold/split/merge, mixed-DPI multi-monitor setups and Explorer restart recovery still need separate acceptance; they are not all marked passed.
-
-Automated rendering and UI checks are limited evidence, not universal compatibility guarantees. [Validation notes](docs/VALIDATION.md)
-
-Report reproducible problems through [Issues](https://github.com/wbyhome/Gravity-WorldTime/issues), with version, Windows build, display scaling and steps. Do not publish private layouts or desktop screenshots unintentionally.
-
-## Source code and licensing
-
-Copyright © 2026 Gravity Desktop. All rights reserved unless otherwise specified.
-
-This publication makes prototype source visible; it does not add an open-source license. Unicode-derived data retains its separate terms. [Source and licensing](SOURCE_AND_LICENSING.md) · [Third-party notices](THIRD_PARTY_NOTICES.md)
+Copyright © 2026 Gravity Desktop. All rights reserved unless otherwise specified. No additional open-source license is granted.

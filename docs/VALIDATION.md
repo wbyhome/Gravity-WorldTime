@@ -2,6 +2,10 @@
 
 This is an early Windows prototype. A successful automated check is not a promise of compatibility with every desktop environment.
 
+## 0.2.8 time-ruler preview
+
+The preserved final DLL passed 104 ruler-specific, 68 information-layer, 216 nature/date, 544 logic, 1243 WPF/localization and 22 own-native-window checks. The user confirmed stable display and visible gestures after Win+D on one tested computer. This does not certify long-term, Explorer restart, sleep/resume or mixed-DPI multi-monitor behavior. See [0.2.8 evidence and limits](RELEASE-0.2.8.md). All 64 C# compiler input documents and both embedded resources match the published source. The older multi-row release remains available separately.
+
 ## 0.1.14
 
 The archived 0.1.14 binaries were packaged unchanged and rerun on 2026-10-25: **544 model/catalog checks**, **791 programmatic WPF checks**, **16 native-window checks**, and a successful native layered-child upload (Win32 error 0). Tests use synthetic data and mock system-zone writes. Real Windows time-zone mutation/UAC, physical 0.1.14 Win+D and the remaining system scenarios are not claimed as passed. See [0.1.14 release evidence and limits](RELEASE-0.1.14.md).

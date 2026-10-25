@@ -25,17 +25,17 @@ public sealed class CityManager : Window {
   head.Children.Add(new TextBlock{Text=host.T("City clocks"),FontSize=23,FontWeight=FontWeights.SemiBold});
   count=new TextBlock{Foreground=Brushes.SlateGray,Margin=new Thickness(0,8,0,16)};head.Children.Add(count);
   var tools=new WrapPanel{Margin=new Thickness(0,0,0,14)};head.Children.Add(tools);
-  tools.Children.Add(Button("＋ "+host.T("Add city"),()=>host.Add(host.S.Rows.LastOrDefault())));
-  tools.Children.Add(Button(host.T("Settings"),()=>host.Settings()));
-  tools.Children.Add(Button(host.T("Recover clocks (pin on top)"),host.RecoverClocks));
-  tools.Children.Add(Button(host.T("Collapse all to edge"),host.CollapseAll));
-  tools.Children.Add(Button(host.T("Expand all clocks"),host.ExpandAll));
+  tools.Children.Add(Button(host.T("Time ruler (preview)"),host.ShowRuler));
+  tools.Children.Add(Button("＋ "+host.T("Add city"),()=>{if(host.RulerPreviewOnly)host.EnsureRuler().AddContact();else host.Add(host.S.Rows.LastOrDefault());}));
+  tools.Children.Add(Button(host.T("Settings"),()=>{if(host.RulerPreviewOnly)host.EnsureRuler().OpenAppearance();else host.Settings();}));
+  tools.Children.Add(Button(host.T(host.RulerPreviewOnly?"Restore ruler":"Recover clocks (pin on top)"),host.RecoverClocks));
+  if(!host.RulerPreviewOnly){tools.Children.Add(Button(host.T("Collapse all to edge"),host.CollapseAll));tools.Children.Add(Button(host.T("Expand all clocks"),host.ExpandAll));}
   restoreZone=Button(host.T("Restore original computer time zone"),host.RestoreComputerTimeZone);tools.Children.Add(restoreZone);
   var layers=new WrapPanel{Margin=new Thickness(0,0,0,14)};head.Children.Add(layers);
-  normal=Button(host.T("On desktop"),()=>host.SetLayer("normal"));top=Button("↑ "+host.T("Pin on top"),()=>host.SetLayer("top"));
+  normal=Button(host.T("On desktop"),()=>{if(host.RulerPreviewOnly)host.EnsureRuler().SetPinned(false);else host.SetLayer("normal");});top=Button("↑ "+host.T("Pin on top"),()=>{if(host.RulerPreviewOnly)host.EnsureRuler().SetPinned(true);else host.SetLayer("top");});
   normal.ToolTip=host.T("Stay on the desktop when using Win+D");top.ToolTip=host.T("Keep clocks above ordinary windows");layers.Children.Add(normal);layers.Children.Add(top);
   var foot=new StackPanel{Margin=new Thickness(0,14,0,0)};DockPanel.SetDock(foot,Dock.Bottom);root.Children.Add(foot);
-  foot.Children.Add(new TextBlock{Text=host.T("Top clock: move stack · Lower header: split from here · Edge: auto-fold"),Foreground=Brushes.SlateGray,TextWrapping=TextWrapping.Wrap});
+  foot.Children.Add(new TextBlock{Text=host.T(host.RulerPreviewOnly?"Drag the left end to move. Right-click to switch desktop or always-on-top mode.":"Top clock: move stack · Lower header: split from here · Edge: auto-fold"),Foreground=Brushes.SlateGray,TextWrapping=TextWrapping.Wrap});
   var exit=Button(host.T("Exit WorldTime"),host.Quit);exit.HorizontalAlignment=HorizontalAlignment.Right;exit.Margin=new Thickness(0,12,0,0);foot.Children.Add(exit);
   cities=new StackPanel();root.Children.Add(new ScrollViewer{Content=cities,VerticalScrollBarVisibility=ScrollBarVisibility.Auto});
  }
@@ -43,18 +43,19 @@ public sealed class CityManager : Window {
  public void Reveal(){RefreshCities();Show();WindowState=WindowState.Normal;Activate();}
  public void RefreshCities(){
   if(language!=host.Language)Build();
-  restoreZone.IsEnabled=host.S.OriginalSystemTimeZone.Length>0;
-  foreach(var (button,mode) in new[]{(normal,"normal"),(top,"top")}){bool selected=host.S.Layer==mode||(mode=="normal"&&host.S.Layer=="bottom");button.Background=selected?new SolidColorBrush(Color.FromRgb(38,88,125)):Brushes.White;button.Foreground=selected?Brushes.White:Brushes.Black;}
+  restoreZone.Visibility=host.RulerPreviewOnly?Visibility.Collapsed:Visibility.Visible;restoreZone.IsEnabled=!host.RulerPreviewOnly&&host.S.OriginalSystemTimeZone.Length>0;normal.IsEnabled=top.IsEnabled=true;
+  RefreshLayerStatus();
   RefreshDisplayStatus();cities.Children.Clear();
   foreach(var row in host.S.Rows){
    var line=new DockPanel{Margin=new Thickness(0,0,0,8)};
-   var remove=Button(host.T("Remove"),()=>host.Remove(row));remove.Margin=new Thickness(8,0,0,0);DockPanel.SetDock(remove,Dock.Right);line.Children.Add(remove);
-   var edit=Button(host.T("Edit"),()=>host.Rename(row));edit.Margin=new Thickness(8,0,0,0);DockPanel.SetDock(edit,Dock.Right);line.Children.Add(edit);
-   var routine=Button(host.T("City routine"),()=>host.EditRoutine(row));routine.Margin=new Thickness(8,0,0,0);DockPanel.SetDock(routine,Dock.Right);line.Children.Add(routine);
+   var remove=Button(host.T("Remove"),()=>{if(host.RulerPreviewOnly)host.EnsureRuler().ConfirmRemove(row);else host.Remove(row);});remove.Margin=new Thickness(8,0,0,0);DockPanel.SetDock(remove,Dock.Right);line.Children.Add(remove);
+   var edit=Button(host.T("Edit"),()=>{if(host.RulerPreviewOnly)host.EnsureRuler().Rename(row);else host.Rename(row);});edit.Margin=new Thickness(8,0,0,0);DockPanel.SetDock(edit,Dock.Right);line.Children.Add(edit);
+   var routine=Button(host.T("City routine"),()=>{if(host.RulerPreviewOnly)host.EnsureRuler().EditRoutine(row);else host.EditRoutine(row);});routine.Margin=new Thickness(8,0,0,0);DockPanel.SetDock(routine,Dock.Right);line.Children.Add(routine);
    var name=new StackPanel{VerticalAlignment=VerticalAlignment.Center};name.Children.Add(new TextBlock{Text=$"{row.Code}  {L10n.CityName(row,host.S.Language)}",TextTrimming=TextTrimming.CharacterEllipsis,ToolTip=row.Zone});name.Children.Add(new TextBlock{Text=host.T(row.Routine==null?"Default routine":"Custom routine")+(row.Routine==null?"":" · "+CityRoutine.Time(row.Routine.Start)+"–"+CityRoutine.Time(row.Routine.End)),Foreground=Brushes.SlateGray,FontSize=10});line.Children.Add(name);
    cities.Children.Add(new Border{Child=line,Padding=new Thickness(10,8,10,0),Background=Brushes.White,CornerRadius=new CornerRadius(6)});
   }
   if(host.S.Rows.Count==0)cities.Children.Add(new TextBlock{Text=host.T("No cities yet. Choose Add city."),Margin=new Thickness(10)});
  }
+ public void RefreshLayerStatus(){foreach(var (button,mode) in new[]{(normal,"normal"),(top,"top")}){bool selected=host.RulerPreviewOnly?(mode=="top"?host.Ruler?.ActualPinned==true:host.Ruler?.Desktop.DesktopHosted==true):host.S.Layer==mode||(mode=="normal"&&host.S.Layer=="bottom");button.Background=selected?new SolidColorBrush(Color.FromRgb(38,88,125)):Brushes.White;button.Foreground=selected?Brushes.White:Brushes.Black;}}
  public void RefreshDisplayStatus(){int pending=host.Bars.Values.Count(b=>b.Layer.BindingError!=null);count.Text=pending>0?string.Format(host.T("{0} clocks waiting for desktop; retrying."),pending):host.S.Docked.Count>0?string.Format(host.T("{0} cities · {1} groups folded"),host.S.Rows.Count,host.S.Docked.Count):string.Format(host.T("{0} cities · tray icon only"),host.S.Rows.Count);}
 }

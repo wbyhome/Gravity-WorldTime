@@ -51,3 +51,7 @@ dealings in these Data Files or Software without prior written
 authorization of the copyright holder.
 
 SPDX-License-Identifier: Unicode-3.0
+
+## Reference coordinates added by the ruler preview
+
+`src/Data/zone.tab` is the unmodified IANA tzdb 2025b compatibility table. Its original public-domain notice is retained in the file. See [provenance and model limitations](docs/NATURE-DATA-0.2.1.md). This data notice grants no license to WorldTime application code.

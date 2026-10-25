@@ -16,3 +16,10 @@
 *.suo
 .env
 .env.*
+# Isolated time-ruler profiles and local evidence
+**/ruler-preview-data/
+**/preview-data/
+**/ruler-view.json*
+**/ruler-view-writes.jsonl
+**/ruler-avatars.json
+**/.worldtime-ruler-preview

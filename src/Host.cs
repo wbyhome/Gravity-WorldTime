@@ -10,6 +10,9 @@ using System.Windows.Threading;
 using Microsoft.Win32;
 namespace WorldTime;
 public class Host {
+ public readonly bool RulerPreviewOnly;public readonly bool RulerDesktopRequested;public RulerWindow? Ruler {get;private set;}
+ public RulerWindow EnsureRuler()=>Ruler??=new RulerWindow(this);
+ public void ShowRuler()=>EnsureRuler().Reveal();
  public State S;public Store Disk;public Dictionary<string,Bar> Bars=new();
  public readonly Dictionary<string,EdgeTab> EdgeTabs=new();
  readonly DispatcherTimer timer=new(){Interval=TimeSpan.FromSeconds(1)};
@@ -17,12 +20,12 @@ public class Host {
  public readonly CityManager Manager;public readonly DesktopTray Tray;public bool Exiting;string minute="";
  public string Language=>L10n.Resolve(S.Language);
  public string T(string key)=>L10n.Text(S.Language,key);
- public Host(Store disk){Disk=disk;bool firstRun=!File.Exists(disk.FilePath);S=disk.Load();
-  if(S.AppearanceVersion<2){if(S.AppearanceVersion<1||Math.Abs(S.Opacity-.72)<.0001)S.Opacity=.35;S.AppearanceVersion=2;disk.Save(S);}
+ public Host(Store disk,bool rulerPreviewOnly=false,bool rulerDesktopRequested=false){RulerPreviewOnly=rulerPreviewOnly;RulerDesktopRequested=rulerDesktopRequested;Disk=disk;bool firstRun=!File.Exists(disk.FilePath);S=disk.Load();
+  if(!RulerPreviewOnly&&S.AppearanceVersion<2){if(S.AppearanceVersion<1||Math.Abs(S.Opacity-.72)<.0001)S.Opacity=.35;S.AppearanceVersion=2;disk.Save(S);}
   Manager=new CityManager(this);Tray=new DesktopTray(this);
   if(firstRun){string g=Guid.NewGuid().ToString("N");foreach(var name in new[]{"伦敦","纽约","东京"}){var r=Make(Catalog.All.First(x=>x.Zh==name));r.Group=g;r.Order=S.Rows.Count;r.Y=160+r.Order*Layout.Step;S.Rows.Add(r);}}
-  if(S.Displays.Count==0){double legacyScale=DockScreen.Find("").Scale;foreach(var r in S.Rows.Where(r=>r.Monitor.Length==0&&Math.Abs(r.PositionScale-1)<.001))r.PositionScale=legacyScale;}
-  bool adjusted=DisplayLayout.Reconcile(S,DockScreen.All());foreach(var r in S.Rows.ToList())Open(r);
+  if(!RulerPreviewOnly&&S.Displays.Count==0){double legacyScale=DockScreen.Find("").Scale;foreach(var r in S.Rows.Where(r=>r.Monitor.Length==0&&Math.Abs(r.PositionScale-1)<.001))r.PositionScale=legacyScale;}
+  bool adjusted=!RulerPreviewOnly&&DisplayLayout.Reconcile(S,DockScreen.All());foreach(var r in S.Rows.ToList())Open(r);
   Sync();Manager.RefreshCities(); // Startup stays in tray; never show or minimize a taskbar panel.
   if(firstRun||adjusted)Save();
   environmentTimer.Tick+=(_,_)=>{environmentTimer.Stop();try{RefreshEnvironment();}catch(Exception e){WindowLayer.Diagnostics?.Invoke("Display refresh deferred: "+e.Message);environmentTimer.Start();}};
@@ -31,8 +34,9 @@ public class Host {
  void TimeChanged(object? o,EventArgs e)=>Application.Current.Dispatcher.BeginInvoke(()=>{TimeZoneInfo.ClearCachedData();Rules.ClearCache();Tick(true);});
  void PowerChanged(object o,PowerModeChangedEventArgs e)=>Application.Current.Dispatcher.BeginInvoke(()=>{if(e.Mode==PowerModes.Resume){environmentTimer.Stop();environmentTimer.Start();}Tick(true);});
  void ScreensChanged(object? o,EventArgs e)=>Application.Current.Dispatcher.BeginInvoke(()=>{environmentTimer.Stop();environmentTimer.Start();});
- void Tick(bool force=false){foreach(var b in Bars.Values)b.Layer.Maintain();Manager.RefreshDisplayStatus();string m=DateTimeOffset.UtcNow.ToString("yyyyMMddHHmm");if(force||m!=minute){minute=m;foreach(var b in Bars.Values)b.Refresh();}}
+ void Tick(bool force=false){if(!RulerPreviewOnly)foreach(var b in Bars.Values)b.Layer.Maintain();Manager.RefreshDisplayStatus();string m=DateTimeOffset.UtcNow.ToString("yyyyMMddHHmm");if(force||m!=minute){minute=m;if(!RulerPreviewOnly)foreach(var b in Bars.Values)b.Refresh();Ruler?.Refresh();}}
  public void RefreshEnvironment(){
+  if(RulerPreviewOnly){Ruler?.Refresh(force:true);Ruler?.Desktop.Retry();return;}
   if(Exiting)return;if(Bars.Values.Any(b=>b.IsDragging)){environmentTimer.Start();return;}
   bool changed=DisplayLayout.Reconcile(S,DockScreen.All());foreach(var b in Bars.Values)b.Layer.Maintain();Sync();Tick(true);if(changed)Save();
  }
@@ -49,9 +53,10 @@ public class Host {
  }
  public Row Make(City c)=>new(){City=c.Zh,Zone=c.Zone,Code=c.Code};
  public void EditRoutine(Row row)=>new RoutineEditor(this,row).ShowDialog();
- public void SetComputerTimeZone(Row row)=>new TimeZoneDialog(this,row.Zone).ShowDialog();
- public void RestoreComputerTimeZone(){if(S.OriginalSystemTimeZone.Length>0)new TimeZoneDialog(this,S.OriginalSystemTimeZone,true).ShowDialog();}
+ public void SetComputerTimeZone(Row row){if(!RulerPreviewOnly)new TimeZoneDialog(this,row.Zone).ShowDialog();}
+ public void RestoreComputerTimeZone(){if(!RulerPreviewOnly&&S.OriginalSystemTimeZone.Length>0)new TimeZoneDialog(this,S.OriginalSystemTimeZone,true).ShowDialog();}
  public void RecoverClocks(){
+  if(RulerPreviewOnly){ShowRuler();return;}
   RefreshEnvironment();
   S.Docked.Clear();
   foreach(var group in S.Rows.GroupBy(r=>r.Group)){
@@ -67,8 +72,9 @@ public class Host {
   try{foreach(var b in Bars.Values)b.Layer.RestoreNoActivate();Save();}
   catch(Exception e){MessageBox.Show(T("Could not restore every clock.")+"\n"+e.Message,"WorldTime");}
  }
- void Open(Row r){var b=new Bar(this,r);Bars[r.Id]=b;b.Show();if(S.Docked.Any(d=>d.Group==r.Group))b.Hide();}
+ void Open(Row r){var b=new Bar(this,r);Bars[r.Id]=b;if(!RulerPreviewOnly)b.Show();if(S.Docked.Any(d=>d.Group==r.Group))b.Hide();}
  public void CollapseGroup(Row row,string? edge=null){
+  if(RulerPreviewOnly)return;
   if(S.Docked.Any(d=>d.Group==row.Group))return;
   var rows=Layout.Group(S,row);if(rows.Count==0)return;
   var area=DockScreen.For(Bars[row.Id]);var bounds=DockScreen.Bounds(Bars[rows[0].Id]);
@@ -76,10 +82,11 @@ public class Host {
   string chosen=edge??DockGeometry.Nearest(area,bounds);
   S.Docked.Add(new DockedGroup{Group=row.Group,Edge=chosen,Monitor=area.Device,Offset=DockGeometry.Anchor(area,bounds,chosen)});Sync();Save();
  }
- public void CollapseAll(){foreach(var row in S.Rows.GroupBy(r=>r.Group).Select(g=>g.OrderBy(r=>r.Order).First()).ToList())CollapseGroup(row);}
- public void ExpandGroup(string group){S.Docked.RemoveAll(d=>d.Group==group);Sync();Save();}
- public void ExpandAll(){S.Docked.Clear();Sync();Save();}
+ public void CollapseAll(){if(RulerPreviewOnly)return;foreach(var row in S.Rows.GroupBy(r=>r.Group).Select(g=>g.OrderBy(r=>r.Order).First()).ToList())CollapseGroup(row);}
+ public void ExpandGroup(string group){if(RulerPreviewOnly)return;S.Docked.RemoveAll(d=>d.Group==group);Sync();Save();}
+ public void ExpandAll(){if(RulerPreviewOnly)return;S.Docked.Clear();Sync();Save();}
  public void SetLayer(string mode){
+  if(RulerPreviewOnly)return;
   if(mode is not ("normal" or "top" or "bottom"))throw new ArgumentException("Unknown layer");
   var previous=S.Layer;var old=Bars;var replacements=new Dictionary<string,Bar>();
   try{
@@ -94,6 +101,7 @@ public class Host {
   Bars=replacements;foreach(var b in old.Values)b.Close();Sync();Save();
  }
  public void Sync(){
+  Ruler?.Refresh();if(RulerPreviewOnly)return;
   S.Docked.RemoveAll(d=>!S.Rows.Any(r=>r.Group==d.Group));
   foreach(string group in EdgeTabs.Keys.Where(g=>!S.Docked.Any(d=>d.Group==g)).ToList()){EdgeTabs[group].Close();EdgeTabs.Remove(group);}
   foreach(var b in Bars.Values){b.Left=b.R.X;b.Top=b.R.Y;b.Width=b.R.Width;b.Refresh();if(S.Docked.Any(d=>d.Group==b.R.Group))b.Hide();else if(!b.IsVisible)b.Show();b.Layer.Place(b.R.X,b.R.Y,b.R.Width,50);}
@@ -127,5 +135,5 @@ public class Host {
  public void Rename(Row r){var w=Dialog(T("Name and width"));var p=(StackPanel)w.Content;var name=new TextBox{Text=L10n.CityName(r,S.Language),MaxLength=80};p.Children.Add(name);p.Children.Add(new TextBlock{Text=T("Width (480–900 DIP)"),Margin=new Thickness(0,10,0,4)});var width=new TextBox{Text=r.Width.ToString()};p.Children.Add(width);var ok=new Button{Content=T("Save"),Margin=new Thickness(0,12,0,0)};p.Children.Add(ok);ok.Click+=(_,_)=>{if(!double.TryParse(width.Text,out double x)||!double.IsFinite(x)||x<480||x>900){MessageBox.Show(T("Invalid values"));return;}r.Name=name.Text.Trim();var g=Layout.Group(S,r);Layout.Arrange(g,g[0].X,g[0].Y,x);Sync();Save();w.Close();};w.ShowDialog();}
  public void Reorder(Row r,int delta){var g=Layout.Group(S,r);int i=g.IndexOf(r),j=i+delta;if(j<0||j>=g.Count)return;(g[i],g[j])=(g[j],g[i]);Layout.Arrange(g,g[0].X,g.Min(x=>x.Y),r.Width);Sync();Save();}
  public void Remove(Row r){Layout.Detach(S,r);S.Rows.Remove(r);Bars[r.Id].Close();Bars.Remove(r.Id);Sync();Save();}
- public void Quit(){if(!Save())return;timer.Stop();environmentTimer.Stop();SystemEvents.TimeChanged-=TimeChanged;SystemEvents.PowerModeChanged-=PowerChanged;SystemEvents.DisplaySettingsChanged-=ScreensChanged;Exiting=true;Tray.Dispose();Disk.Dispose();Application.Current.Shutdown();}
+ public void Quit(){if(!Save())return;timer.Stop();environmentTimer.Stop();SystemEvents.TimeChanged-=TimeChanged;SystemEvents.PowerModeChanged-=PowerChanged;SystemEvents.DisplaySettingsChanged-=ScreensChanged;Exiting=true;Ruler?.DisposeMotion();Ruler?.Desktop.Dispose();Tray.Dispose();Disk.Dispose();Application.Current.Shutdown();}
 }

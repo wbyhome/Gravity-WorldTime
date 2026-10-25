@@ -1,0 +1,106 @@
+PASS Small hours sleep follows configured sleep, not contact hours
+PASS Wake and morning preparation are separate relative-to-wake phases
+PASS Daytime uses neutral activity, never a work claim
+PASS Pre-sleep wind-down follows sleep time
+PASS Night-shift contact sleeps at 14:00 according to personal routine
+PASS Night-shift waking and preparation can occur in the evening
+PASS Cross-midnight configured break remains a break
+PASS Contactable alone does not imply work or active state
+PASS DST instant remains authoritative: 2026-03-08T06:59:00.0000000+00:00
+PASS DST instant remains authoritative: 2026-03-08T07:00:00.0000000+00:00
+PASS DST instant remains authoritative: 2026-11-01T05:30:00.0000000+00:00
+PASS DST instant remains authoritative: 2026-11-01T06:30:00.0000000+00:00
+PASS Three actual dates and extreme zones remain intact
+PASS Gallery shows five distinct routine-based stages on the same ruler
+PASS Continuous animation source frames actually change
+PASS Repeated native animation paints never re-show or reorder an existing surface
+PASS 72 animation frames reuse one static raster and never rebuild scene/time model
+PASS Animation does not move true time anchors or change local timestamps
+INFO 72 frame composition ms median=5.08 max=10.74; not physical input latency
+PASS Ordinary minute refresh does not restart a life-stage transition
+PASS Low motion has static markers and no animation timer
+PASS Completely static stops motion while retaining clock render
+PASS Static removes life badges; low motion retains them
+PASS Returning to dynamic starts the single scheduler
+PASS Reduced system motion preference lowers effective mode without changing chosen mode
+PASS Explicit dynamic selection overrides reduction only inside WorldTime
+PASS Hide immediately stops scheduling
+PASS Hidden to manager pin resumes animation
+PASS Hidden to reset-position resumes animation
+PASS Hidden to desktop mode resumes animation
+PASS No nature and no life markers produces no idle animation work
+PASS Transparent ambience with no life markers produces no idle animation work
+PASS No animation-created mouse-hit pixels at width 200, opacity 0, scale 1
+PASS No animation-created mouse-hit pixels at width 200, opacity 0, scale 1.5
+PASS No animation-created mouse-hit pixels at width 200, opacity 0, scale 2
+PASS No animation-created mouse-hit pixels at width 200, opacity 0.3, scale 1
+PASS No animation-created mouse-hit pixels at width 200, opacity 0.3, scale 1.5
+PASS No animation-created mouse-hit pixels at width 200, opacity 0.3, scale 2
+PASS No animation-created mouse-hit pixels at width 200, opacity 0.65, scale 1
+PASS No animation-created mouse-hit pixels at width 200, opacity 0.65, scale 1.5
+PASS No animation-created mouse-hit pixels at width 200, opacity 0.65, scale 2
+PASS No animation-created mouse-hit pixels at width 200, opacity 1, scale 1
+PASS No animation-created mouse-hit pixels at width 200, opacity 1, scale 1.5
+PASS No animation-created mouse-hit pixels at width 200, opacity 1, scale 2
+PASS No animation-created mouse-hit pixels at width 300, opacity 0, scale 1
+PASS No animation-created mouse-hit pixels at width 300, opacity 0, scale 1.5
+PASS No animation-created mouse-hit pixels at width 300, opacity 0, scale 2
+PASS No animation-created mouse-hit pixels at width 300, opacity 0.3, scale 1
+PASS No animation-created mouse-hit pixels at width 300, opacity 0.3, scale 1.5
+PASS No animation-created mouse-hit pixels at width 300, opacity 0.3, scale 2
+PASS No animation-created mouse-hit pixels at width 300, opacity 0.65, scale 1
+PASS No animation-created mouse-hit pixels at width 300, opacity 0.65, scale 1.5
+PASS No animation-created mouse-hit pixels at width 300, opacity 0.65, scale 2
+PASS No animation-created mouse-hit pixels at width 300, opacity 1, scale 1
+PASS No animation-created mouse-hit pixels at width 300, opacity 1, scale 1.5
+PASS No animation-created mouse-hit pixels at width 300, opacity 1, scale 2
+PASS No animation-created mouse-hit pixels at width 560, opacity 0, scale 1
+PASS No animation-created mouse-hit pixels at width 560, opacity 0, scale 1.5
+PASS No animation-created mouse-hit pixels at width 560, opacity 0, scale 2
+PASS No animation-created mouse-hit pixels at width 560, opacity 0.3, scale 1
+PASS No animation-created mouse-hit pixels at width 560, opacity 0.3, scale 1.5
+PASS No animation-created mouse-hit pixels at width 560, opacity 0.3, scale 2
+PASS No animation-created mouse-hit pixels at width 560, opacity 0.65, scale 1
+PASS No animation-created mouse-hit pixels at width 560, opacity 0.65, scale 1.5
+PASS No animation-created mouse-hit pixels at width 560, opacity 0.65, scale 2
+PASS No animation-created mouse-hit pixels at width 560, opacity 1, scale 1
+PASS No animation-created mouse-hit pixels at width 560, opacity 1, scale 1.5
+PASS No animation-created mouse-hit pixels at width 560, opacity 1, scale 2
+PASS No animation-created mouse-hit pixels at width 1000, opacity 0, scale 1
+PASS No animation-created mouse-hit pixels at width 1000, opacity 0, scale 1.5
+PASS No animation-created mouse-hit pixels at width 1000, opacity 0, scale 2
+PASS No animation-created mouse-hit pixels at width 1000, opacity 0.3, scale 1
+PASS No animation-created mouse-hit pixels at width 1000, opacity 0.3, scale 1.5
+PASS No animation-created mouse-hit pixels at width 1000, opacity 0.3, scale 2
+PASS No animation-created mouse-hit pixels at width 1000, opacity 0.65, scale 1
+PASS No animation-created mouse-hit pixels at width 1000, opacity 0.65, scale 1.5
+PASS No animation-created mouse-hit pixels at width 1000, opacity 0.65, scale 2
+PASS No animation-created mouse-hit pixels at width 1000, opacity 1, scale 1
+PASS No animation-created mouse-hit pixels at width 1000, opacity 1, scale 1.5
+PASS No animation-created mouse-hit pixels at width 1000, opacity 1, scale 2
+PASS Contact rename saves successfully
+PASS Contact display name survives configuration reload
+PASS Rename preserves city zone, routine, actual position and avatar identity
+PASS Self display name saves independently
+PASS Self rename keeps real computer/viewer time zone semantics
+PASS Self name survives preference reload
+PASS Custom image bytes/source identity are unchanged by life animations
+PASS Renaming a photo contact is supported
+PASS Renaming retains custom photo selection and routine
+PASS Failed self-name save rolls back in-memory name
+PASS Failed mode save retains previous mode
+PASS Self-name save failure shows an error and keeps dialog cancellable
+PASS New preferences reject control names and unknown motion mode
+PASS All new mode/name/stage labels localize: en
+PASS All new mode/name/stage labels localize: zh-Hans
+PASS All new mode/name/stage labels localize: zh-Hant
+PASS All new mode/name/stage labels localize: ja
+PASS 12-hour names/states retain AM/PM
+PASS Grip hover invalidates the cached raster
+PASS High-DPI frame composition uses requested scale
+PASS Main menu stays at eight items and pauses animation
+PASS Closing menu resumes animation
+PASS A fresh executable process reloads saved names and motion preference
+PASS Fresh-process readback matches saved self/contact names and mode
+PASS Dispose releases the animation scheduler
+TOTAL 104 PASS; synthetic states, actual WPF rendering and own native host; not physical Explorer acceptance
