@@ -1,0 +1,79 @@
+PASS Large offline city catalog
+PASS Stable IDs are unique
+PASS All places retain source ID and IANA
+PASS Partial/multilingual/alias/pinyin 旧
+PASS Partial/multilingual/alias/pinyin 旧金
+PASS Partial/multilingual/alias/pinyin 旧金山
+PASS Partial/multilingual/alias/pinyin San F
+PASS Partial/multilingual/alias/pinyin Francisco
+PASS Partial/multilingual/alias/pinyin SF
+PASS Partial/multilingual/alias/pinyin jiujinshan
+PASS Partial/multilingual/alias/pinyin bei
+PASS Partial/multilingual/alias/pinyin bj
+PASS Partial/multilingual/alias/pinyin beijing
+PASS Partial/multilingual/alias/pinyin sh
+PASS Partial/multilingual/alias/pinyin gz
+PASS Partial/multilingual/alias/pinyin Tokyo
+PASS Partial/multilingual/alias/pinyin 東京
+PASS Partial/multilingual/alias/pinyin 东京
+PASS Partial/multilingual/alias/pinyin São Paulo
+PASS Partial/multilingual/alias/pinyin Sao Paulo
+PASS Partial/multilingual/alias/pinyin 샌프란시스코
+PASS Partial/multilingual/alias/pinyin سان فرانسيسكو
+PASS Partial/multilingual/alias/pinyin Сан-Франциско
+PASS Exact canonical match first
+PASS Paris identities remain separate
+PASS Springfield states remain distinct
+PASS San Jose countries remain distinct
+PASS No invented places
+PASS Broad search is not truncated
+PASS Optional country intersects search
+PASS Place-to-zone identity San Francisco
+PASS Winter/summer fractional/DST San Francisco
+PASS Place-to-zone identity New York
+PASS Winter/summer fractional/DST New York
+PASS Place-to-zone identity London
+PASS Winter/summer fractional/DST London
+PASS Place-to-zone identity Paris
+PASS Winter/summer fractional/DST Paris
+PASS Place-to-zone identity Beijing
+PASS Winter/summer fractional/DST Beijing
+PASS Place-to-zone identity Tokyo
+PASS Winter/summer fractional/DST Tokyo
+PASS Place-to-zone identity Kathmandu
+PASS Winter/summer fractional/DST Kathmandu
+PASS Place-to-zone identity Adelaide
+PASS Winter/summer fractional/DST Adelaide
+PASS Place-to-zone identity Auckland
+PASS Winter/summer fractional/DST Auckland
+PASS Sourced curated San Francisco Chinese alias
+PASS Sourced Tokyo kana reading
+PASS All results virtualized, no default auto-selection
+PASS List virtualization enabled
+PASS Real picker has every query result 旧
+PASS Query refresh clears stale selection 旧
+PASS Real picker has every query result 旧金
+PASS Query refresh clears stale selection 旧金
+PASS Real picker has every query result Francisco
+PASS Query refresh clears stale selection Francisco
+PASS Real picker has every query result bj
+PASS Query refresh clears stale selection bj
+PASS Real picker has every query result Tokyo
+PASS Query refresh clears stale selection Tokyo
+PASS Real picker has every query result Paris
+PASS Query refresh clears stale selection Paris
+PASS Explicit selection enables add
+PASS Shared actual picker adds selected San Francisco
+PASS Saved stable place ID and full zone identity
+PASS Legacy identity/name/routine/zone unchanged
+PASS Disk reopen preserves new ID
+PASS Shared ruler/ring snapshot uses same selected city time
+PASS Manual name requires explicit real zone
+PASS Xinjiang time convention requires explicit choice
+PASS Explicit China civil time preserves city ID with UTC+8 zone
+PASS Explicit Xinjiang local time uses UTC+6
+PASS Search language independent of UI en
+PASS Search language independent of UI zh-Hans
+PASS Search language independent of UI zh-Hant
+PASS Search language independent of UI ja
+TOTAL 78 PASS; programmatic synthetic WPF, not real IME input acceptance

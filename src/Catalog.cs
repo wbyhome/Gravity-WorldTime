@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.Json;
 
 namespace WorldTime;
-public record City(string Zh,string En,string Code,string Zone,string Hant="",string Ja="",string CountryEn="",string CountryZh="",string CountryHant="",string CountryJa="",string Iana="",string Aliases="");
+public record City(string Zh,string En,string Code,string Zone,string Hant="",string Ja="",string CountryEn="",string CountryZh="",string CountryHant="",string CountryJa="",string Iana="",string Aliases="",string Id="",string Admin="",string AdminCode="",string AdminZh="",string AdminHant="",string AdminJa="",double Latitude=0,double Longitude=0,long Population=0,string Feature="",Dictionary<string,string[]>? Names=null,string[]? Terms=null);
 public record CountryChoice(string Code,string Label);
 public static class Catalog {
  public static readonly City[] All=Load();
@@ -19,7 +19,7 @@ public static class Catalog {
   using var stream=Assembly.GetExecutingAssembly().GetManifestResourceStream("WorldTime.cities.json")??throw new InvalidDataException("Missing embedded city catalog.");
   return JsonSerializer.Deserialize<City[]>(stream)??throw new InvalidDataException("Empty city catalog.");
  }
- public static City? Find(Row row)=>Array.Find(All,c=>c.Zh==row.City&&c.Zone==row.Zone&&c.Code==row.Code)??Array.Find(All,c=>c.Zh==row.City&&c.Zone==row.Zone);
+ public static City? Find(Row row)=>row.PlaceId.Length>0?Places033.Find(row.PlaceId):Array.Find(All,c=>c.Zh==row.City&&c.Zone==row.Zone&&c.Code==row.Code)??Array.Find(All,c=>c.Zh==row.City&&c.Zone==row.Zone);
  public static string CityName(City city,string language)=>L10n.Resolve(language) switch{"zh-Hans"=>city.Zh,"zh-Hant"=>city.Hant.Length>0?city.Hant:city.Zh,"ja"=>city.Ja.Length>0?city.Ja:city.En,_=>city.En};
  public static string CountryName(City city,string language)=>L10n.Resolve(language) switch{"zh-Hans"=>city.CountryZh,"zh-Hant"=>city.CountryHant,"ja"=>city.CountryJa,_=>city.CountryEn};
  public static IEnumerable<CountryChoice> Countries(string language)=>Supported.GroupBy(c=>c.Code).Select(g=>new CountryChoice(g.Key,CountryName(g.First(),language)+" ("+g.Key+")")).OrderBy(c=>c.Label,StringComparer.CurrentCultureIgnoreCase);

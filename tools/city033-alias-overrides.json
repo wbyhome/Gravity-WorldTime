@@ -1,0 +1,18 @@
+[
+  {
+    "id": "5391959",
+    "language": "zh-CN",
+    "names": ["圣弗朗西斯科", "三藩市"],
+    "source": "https://wwj.beijing.gov.cn/bjww/wwjzzcslm/1737418/1738090/wwgs/436415533/index.html",
+    "verified": "2026-10-26",
+    "note": "Verified place-name facts only; no article prose copied. GeoNames already identifies this as San Francisco, California."
+  },
+  {
+    "id": "1850147",
+    "language": "ja",
+    "names": ["とうきょう"],
+    "source": "https://www.sangyo-rodo1.metro.tokyo.lg.jp/tourism/accessible/pdf/2026_tbf_jp.pdf",
+    "verified": "2026-10-26",
+    "note": "Tokyo government guide gives 東京 reading とうきょう; reading only, no guide content copied."
+  }
+]

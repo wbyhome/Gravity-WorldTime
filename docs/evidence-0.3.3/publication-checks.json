@@ -1,0 +1,588 @@
+{
+  "Version": "0.3.3.0",
+  "DLLSHA256": "8BCE5B72AFC14570FE051E150E71CF12B99AB12B35E9FA7924B390941F21E2C0",
+  "ProductRebuilt": false,
+  "CompilerCheck": {
+    "Pdb": "Original 0.3.3 portable PDB (not published)",
+    "PdbAssemblyIdentityMatch": true,
+    "SourceCount": 74,
+    "AllMatch": true,
+    "Rows": [
+      {
+        "Path": "AcceptanceProbe.cs",
+        "Algorithm": "SHA256",
+        "Expected": "E55A3EC480AD52F0E70F93603EAF41F96DCB8ED33F4C1C176ADA1DAD8E1709B1",
+        "Actual": "E55A3EC480AD52F0E70F93603EAF41F96DCB8ED33F4C1C176ADA1DAD8E1709B1",
+        "Match": true
+      },
+      {
+        "Path": "Bar.cs",
+        "Algorithm": "SHA256",
+        "Expected": "37D3B5C2ADB9989AEE3E87F29F096DEE3FC89B55247580C602AD0742B36871D7",
+        "Actual": "37D3B5C2ADB9989AEE3E87F29F096DEE3FC89B55247580C602AD0742B36871D7",
+        "Match": true
+      },
+      {
+        "Path": "Catalog.cs",
+        "Algorithm": "SHA256",
+        "Expected": "0F86707BD5FF3C001AFFA38A08180B305D7713EBD4A5E19C28C63187DB175636",
+        "Actual": "0F86707BD5FF3C001AFFA38A08180B305D7713EBD4A5E19C28C63187DB175636",
+        "Match": true
+      },
+      {
+        "Path": "City033Tests.cs",
+        "Algorithm": "SHA256",
+        "Expected": "E8A4A098BEC6EF697AB28497AF431D74036EF5B30623C9E61C86F4528BA7B8A9",
+        "Actual": "E8A4A098BEC6EF697AB28497AF431D74036EF5B30623C9E61C86F4528BA7B8A9",
+        "Match": true
+      },
+      {
+        "Path": "CityManager.cs",
+        "Algorithm": "SHA256",
+        "Expected": "D6DE7E43DB4A3793C485605F1048637A0D8DFE4DBE7D7759BB4C9A32F358A1EF",
+        "Actual": "D6DE7E43DB4A3793C485605F1048637A0D8DFE4DBE7D7759BB4C9A32F358A1EF",
+        "Match": true
+      },
+      {
+        "Path": "CityPicker.cs",
+        "Algorithm": "SHA256",
+        "Expected": "10EB67852A59136DBCC936339A52C97C2CBC997EA9AC7AC2134E7D395C0B4E25",
+        "Actual": "10EB67852A59136DBCC936339A52C97C2CBC997EA9AC7AC2134E7D395C0B4E25",
+        "Match": true
+      },
+      {
+        "Path": "CityRoutine.cs",
+        "Algorithm": "SHA256",
+        "Expected": "9747B37E355A1560E8061F5854287204ED900EF133B4D7C2C1F80A41DBE3DACC",
+        "Actual": "9747B37E355A1560E8061F5854287204ED900EF133B4D7C2C1F80A41DBE3DACC",
+        "Match": true
+      },
+      {
+        "Path": "CitySearchControl.cs",
+        "Algorithm": "SHA256",
+        "Expected": "B799939B32254FA69E35BA89C3057DA6357FD42B285E1A7C11816B1F14F5759F",
+        "Actual": "B799939B32254FA69E35BA89C3057DA6357FD42B285E1A7C11816B1F14F5759F",
+        "Match": true
+      },
+      {
+        "Path": "ClockDiagnostics.cs",
+        "Algorithm": "SHA256",
+        "Expected": "DF9671DFF9486F0EC6F9F80E1F90B8EFC657A95C173E45E7C58E264334EA6A0F",
+        "Actual": "DF9671DFF9486F0EC6F9F80E1F90B8EFC657A95C173E45E7C58E264334EA6A0F",
+        "Match": true
+      },
+      {
+        "Path": "ClockPeriod.cs",
+        "Algorithm": "SHA256",
+        "Expected": "5159A150BEB68A8B3EF4FFFD4A391D01FBF835A5063C3C5288B0B072241CE312",
+        "Actual": "5159A150BEB68A8B3EF4FFFD4A391D01FBF835A5063C3C5288B0B072241CE312",
+        "Match": true
+      },
+      {
+        "Path": "DesktopSurface.cs",
+        "Algorithm": "SHA256",
+        "Expected": "99FB2E060C2CC86557840AA19CD2D3F4E87F0C32355820407408892CAAD0FFEB",
+        "Actual": "99FB2E060C2CC86557840AA19CD2D3F4E87F0C32355820407408892CAAD0FFEB",
+        "Match": true
+      },
+      {
+        "Path": "DesktopTray.cs",
+        "Algorithm": "SHA256",
+        "Expected": "9BE2B6DE803B9C1121D8119C8C117F85B16AB3B5682A616B9F095418CE74B1F5",
+        "Actual": "9BE2B6DE803B9C1121D8119C8C117F85B16AB3B5682A616B9F095418CE74B1F5",
+        "Match": true
+      },
+      {
+        "Path": "DisplayLayout.cs",
+        "Algorithm": "SHA256",
+        "Expected": "E828903ACE9E9CEFEA74301D56064A021484563DCF29398CFD92791D1C6D7DA0",
+        "Actual": "E828903ACE9E9CEFEA74301D56064A021484563DCF29398CFD92791D1C6D7DA0",
+        "Match": true
+      },
+      {
+        "Path": "EdgeDock.cs",
+        "Algorithm": "SHA256",
+        "Expected": "E48D885D3EE3B48E7F866EF79BDD8CB4E5A9321BE13B4294833DD14EF0432132",
+        "Actual": "E48D885D3EE3B48E7F866EF79BDD8CB4E5A9321BE13B4294833DD14EF0432132",
+        "Match": true
+      },
+      {
+        "Path": "FeatureChecks.cs",
+        "Algorithm": "SHA256",
+        "Expected": "F1118C795185E8ED49FDBD5C8AB87ACBD7D215E071333017DAD271112DC97FCF",
+        "Actual": "F1118C795185E8ED49FDBD5C8AB87ACBD7D215E071333017DAD271112DC97FCF",
+        "Match": true
+      },
+      {
+        "Path": "FriendHints.cs",
+        "Algorithm": "SHA256",
+        "Expected": "93AE2BFA3EBBD3DAF83D9D2853F99B46A12E11093F999AD5DA75846C9B636644",
+        "Actual": "93AE2BFA3EBBD3DAF83D9D2853F99B46A12E11093F999AD5DA75846C9B636644",
+        "Match": true
+      },
+      {
+        "Path": "Host.cs",
+        "Algorithm": "SHA256",
+        "Expected": "9688D125D4985107CEC05CA20EA36DD4D59685648D7AA6BA42026E9AB105B240",
+        "Actual": "9688D125D4985107CEC05CA20EA36DD4D59685648D7AA6BA42026E9AB105B240",
+        "Match": true
+      },
+      {
+        "Path": "LayeredChildProbe.cs",
+        "Algorithm": "SHA256",
+        "Expected": "9AA68204D10DC6EE590A7CDB388692B11C9E37B3FEDDB5A9970018BDE2047EFB",
+        "Actual": "9AA68204D10DC6EE590A7CDB388692B11C9E37B3FEDDB5A9970018BDE2047EFB",
+        "Match": true
+      },
+      {
+        "Path": "LayerTests.cs",
+        "Algorithm": "SHA256",
+        "Expected": "E70A571CC0A61DAE9C042E66A4273C6427EB45A36E285A78843850CB2D85CD0A",
+        "Actual": "E70A571CC0A61DAE9C042E66A4273C6427EB45A36E285A78843850CB2D85CD0A",
+        "Match": true
+      },
+      {
+        "Path": "Localization.cs",
+        "Algorithm": "SHA256",
+        "Expected": "CFC398458352A69769E897CAA18F024B868FDE73B2BD3758AD0F5891243D3FAD",
+        "Actual": "CFC398458352A69769E897CAA18F024B868FDE73B2BD3758AD0F5891243D3FAD",
+        "Match": true
+      },
+      {
+        "Path": "NatureModel.cs",
+        "Algorithm": "SHA256",
+        "Expected": "B0D967F8E6E7FA11F46CEB3D3C4FE1B386EDB3DCBFEC888C1C437BABB9C870C2",
+        "Actual": "B0D967F8E6E7FA11F46CEB3D3C4FE1B386EDB3DCBFEC888C1C437BABB9C870C2",
+        "Match": true
+      },
+      {
+        "Path": "OutlinedLabel.cs",
+        "Algorithm": "SHA256",
+        "Expected": "A5FE8FDE3C3AFB3011EBDBFE73762B0676A5E21042F6F9CFA4625017F1C18357",
+        "Actual": "A5FE8FDE3C3AFB3011EBDBFE73762B0676A5E21042F6F9CFA4625017F1C18357",
+        "Match": true
+      },
+      {
+        "Path": "PersonAvatar.cs",
+        "Algorithm": "SHA256",
+        "Expected": "C58A74E2AF572715CAE876D9F0EC05FBA64E7562A20764D5CB98BB802E032815",
+        "Actual": "C58A74E2AF572715CAE876D9F0EC05FBA64E7562A20764D5CB98BB802E032815",
+        "Match": true
+      },
+      {
+        "Path": "Places033.cs",
+        "Algorithm": "SHA256",
+        "Expected": "6960659362E502842D3C00D9BF01DF221E8DAB4B2C30C5C536B02D3977497C2A",
+        "Actual": "6960659362E502842D3C00D9BF01DF221E8DAB4B2C30C5C536B02D3977497C2A",
+        "Match": true
+      },
+      {
+        "Path": "PreviewProfile.cs",
+        "Algorithm": "SHA256",
+        "Expected": "601E4F51ECEA26B1FE4FD683F12B62846EDC5AF1CC530785384EA55C341D5749",
+        "Actual": "601E4F51ECEA26B1FE4FD683F12B62846EDC5AF1CC530785384EA55C341D5749",
+        "Match": true
+      },
+      {
+        "Path": "Program.cs",
+        "Algorithm": "SHA256",
+        "Expected": "4E941A4843ADD56E734D1229517C06DBFEA5109D019DC0E69F6F0F7B5320A578",
+        "Actual": "4E941A4843ADD56E734D1229517C06DBFEA5109D019DC0E69F6F0F7B5320A578",
+        "Match": true
+      },
+      {
+        "Path": "RingLayout.cs",
+        "Algorithm": "SHA256",
+        "Expected": "C09B43A57DF9268A734233A2465DAFB393656253E5D2B1E52FEF6F5022EE4B16",
+        "Actual": "C09B43A57DF9268A734233A2465DAFB393656253E5D2B1E52FEF6F5022EE4B16",
+        "Match": true
+      },
+      {
+        "Path": "RingVisuals.cs",
+        "Algorithm": "SHA256",
+        "Expected": "364FF352ED78F3E4E4E3823EB7A0A6AD5C02410490FC5AA9AE972B1D9C5C3241",
+        "Actual": "364FF352ED78F3E4E4E3823EB7A0A6AD5C02410490FC5AA9AE972B1D9C5C3241",
+        "Match": true
+      },
+      {
+        "Path": "RoutineEditor.cs",
+        "Algorithm": "SHA256",
+        "Expected": "D6E8BF79A2BAA29063C89D48BA19B3B4680221193BCED3772A4596A565BBC27E",
+        "Actual": "D6E8BF79A2BAA29063C89D48BA19B3B4680221193BCED3772A4596A565BBC27E",
+        "Match": true
+      },
+      {
+        "Path": "Ruler021Tests.cs",
+        "Algorithm": "SHA256",
+        "Expected": "C7A63715AC383044666F876F93491D4A2321D6B2DA3D61C83E3C271684F41BA0",
+        "Actual": "C7A63715AC383044666F876F93491D4A2321D6B2DA3D61C83E3C271684F41BA0",
+        "Match": true
+      },
+      {
+        "Path": "Ruler022Tests.cs",
+        "Algorithm": "SHA256",
+        "Expected": "F745F4F78D65F04E9A83DC727FD8916855F1652EE555EA3AB12E124153347F8A",
+        "Actual": "F745F4F78D65F04E9A83DC727FD8916855F1652EE555EA3AB12E124153347F8A",
+        "Match": true
+      },
+      {
+        "Path": "Ruler023Tests.cs",
+        "Algorithm": "SHA256",
+        "Expected": "318C73E8E2C0098D5931E4A32A974FFF893CBFF2A565B5ECFD27E283B199A1FE",
+        "Actual": "318C73E8E2C0098D5931E4A32A974FFF893CBFF2A565B5ECFD27E283B199A1FE",
+        "Match": true
+      },
+      {
+        "Path": "Ruler024Tests.cs",
+        "Algorithm": "SHA256",
+        "Expected": "3C11C4CE154DB1F4A9F8387214F4E16BA556F35021F9FF42892BFD08A28573A1",
+        "Actual": "3C11C4CE154DB1F4A9F8387214F4E16BA556F35021F9FF42892BFD08A28573A1",
+        "Match": true
+      },
+      {
+        "Path": "Ruler025Tests.cs",
+        "Algorithm": "SHA256",
+        "Expected": "6B4B8479A55604B2E05B02B1BFDA711019E9147DC7DA267EE7A75155FA93FF03",
+        "Actual": "6B4B8479A55604B2E05B02B1BFDA711019E9147DC7DA267EE7A75155FA93FF03",
+        "Match": true
+      },
+      {
+        "Path": "Ruler026Tests.cs",
+        "Algorithm": "SHA256",
+        "Expected": "B8037ED67E576628483BBD6F06B1BF00A45BDF759A4B572921F32B9A6D20899F",
+        "Actual": "B8037ED67E576628483BBD6F06B1BF00A45BDF759A4B572921F32B9A6D20899F",
+        "Match": true
+      },
+      {
+        "Path": "Ruler027Tests.cs",
+        "Algorithm": "SHA256",
+        "Expected": "9D4CF7AC4D993F4B1FBCD9EA5960C54A6B1ED4DF345D943D673EFCC409DD83CE",
+        "Actual": "9D4CF7AC4D993F4B1FBCD9EA5960C54A6B1ED4DF345D943D673EFCC409DD83CE",
+        "Match": true
+      },
+      {
+        "Path": "Ruler028Performance.cs",
+        "Algorithm": "SHA256",
+        "Expected": "E30D112A347D8164F784C831C6341581653D68A67AAE1DA7EEA54492ABDF21A7",
+        "Actual": "E30D112A347D8164F784C831C6341581653D68A67AAE1DA7EEA54492ABDF21A7",
+        "Match": true
+      },
+      {
+        "Path": "Ruler028Tests.cs",
+        "Algorithm": "SHA256",
+        "Expected": "6526CAA766C0F4E47474C2464D2F5EDFEB957BFC45E9CBAA2B5536F4638024D1",
+        "Actual": "6526CAA766C0F4E47474C2464D2F5EDFEB957BFC45E9CBAA2B5536F4638024D1",
+        "Match": true
+      },
+      {
+        "Path": "Ruler030Tests.cs",
+        "Algorithm": "SHA256",
+        "Expected": "8C7CA784D4459052385CA2344281FB07D88F322FE4762FF7B8D04B59C0A23CA5",
+        "Actual": "8C7CA784D4459052385CA2344281FB07D88F322FE4762FF7B8D04B59C0A23CA5",
+        "Match": true
+      },
+      {
+        "Path": "Ruler031Tests.cs",
+        "Algorithm": "SHA256",
+        "Expected": "D1C2B2C0022490977A9450BE4F80763364F3F25BC3A1C9A613998D4158CF6960",
+        "Actual": "D1C2B2C0022490977A9450BE4F80763364F3F25BC3A1C9A613998D4158CF6960",
+        "Match": true
+      },
+      {
+        "Path": "RulerAppearanceDialog.cs",
+        "Algorithm": "SHA256",
+        "Expected": "C9E920724ED7306C0786520E0AF01F6E8AB0108217643CC119119B1AB7F8A63B",
+        "Actual": "C9E920724ED7306C0786520E0AF01F6E8AB0108217643CC119119B1AB7F8A63B",
+        "Match": true
+      },
+      {
+        "Path": "RulerAvatarDialog.cs",
+        "Algorithm": "SHA256",
+        "Expected": "1CE885F9602E035A6A875D37684FC47E6FEC44E3CCFCBEEEC085CD418AB82E5C",
+        "Actual": "1CE885F9602E035A6A875D37684FC47E6FEC44E3CCFCBEEEC085CD418AB82E5C",
+        "Match": true
+      },
+      {
+        "Path": "RulerAvatarStore.cs",
+        "Algorithm": "SHA256",
+        "Expected": "DC65EB54E0A82897BDB16E05E2AED3F25AD2C3C3755805C52438EE063F1986BF",
+        "Actual": "DC65EB54E0A82897BDB16E05E2AED3F25AD2C3C3755805C52438EE063F1986BF",
+        "Match": true
+      },
+      {
+        "Path": "RulerAxis.cs",
+        "Algorithm": "SHA256",
+        "Expected": "90B7F70EB7358717B8289A5A3FE8E3D492E3487B9626593BCF2F8692E7C0576F",
+        "Actual": "90B7F70EB7358717B8289A5A3FE8E3D492E3487B9626593BCF2F8692E7C0576F",
+        "Match": true
+      },
+      {
+        "Path": "RulerContactDialog.cs",
+        "Algorithm": "SHA256",
+        "Expected": "EECE506D4E4EF1E68136414D4FB20A6774053C114726EE9193B600D92DD65409",
+        "Actual": "EECE506D4E4EF1E68136414D4FB20A6774053C114726EE9193B600D92DD65409",
+        "Match": true
+      },
+      {
+        "Path": "RulerDateBand.cs",
+        "Algorithm": "SHA256",
+        "Expected": "41437B77AADE81E55819629098CDE6AC07F1BCF586BBD48132B432380B959E02",
+        "Actual": "41437B77AADE81E55819629098CDE6AC07F1BCF586BBD48132B432380B959E02",
+        "Match": true
+      },
+      {
+        "Path": "RulerDateLayout.cs",
+        "Algorithm": "SHA256",
+        "Expected": "139893A03688CA5A826A3D90480C057B661FDCA64AC5BA37008F4846AF7EC438",
+        "Actual": "139893A03688CA5A826A3D90480C057B661FDCA64AC5BA37008F4846AF7EC438",
+        "Match": true
+      },
+      {
+        "Path": "RulerDesktopBridge.cs",
+        "Algorithm": "SHA256",
+        "Expected": "57D998DD35FF578041EA97C2DC48BC03240F97D90D0624F4F3873E61783728CA",
+        "Actual": "57D998DD35FF578041EA97C2DC48BC03240F97D90D0624F4F3873E61783728CA",
+        "Match": true
+      },
+      {
+        "Path": "RulerDesktopDiagnostics.cs",
+        "Algorithm": "SHA256",
+        "Expected": "A77CE24C025C653A5017BE77D99B4C25999147BADB9243089ED194CAF49B0F7B",
+        "Actual": "A77CE24C025C653A5017BE77D99B4C25999147BADB9243089ED194CAF49B0F7B",
+        "Match": true
+      },
+      {
+        "Path": "RulerDesktopProbe.cs",
+        "Algorithm": "SHA256",
+        "Expected": "EC5E4FB948C51F940060CC38AF7105D9FC1CDD3A76C0A81486FF6AF33A8FE562",
+        "Actual": "EC5E4FB948C51F940060CC38AF7105D9FC1CDD3A76C0A81486FF6AF33A8FE562",
+        "Match": true
+      },
+      {
+        "Path": "RulerDisplayModes.cs",
+        "Algorithm": "SHA256",
+        "Expected": "59A45C4C3161C6798DAA07E0D80BF5BB51CABD47400BD54701BBCE582DBF6BCC",
+        "Actual": "59A45C4C3161C6798DAA07E0D80BF5BB51CABD47400BD54701BBCE582DBF6BCC",
+        "Match": true
+      },
+      {
+        "Path": "RulerLifeStage.cs",
+        "Algorithm": "SHA256",
+        "Expected": "CA004A56BDE00CF358DC90C55B4AE604E130BD5E0141680C009795DCB888E19A",
+        "Actual": "CA004A56BDE00CF358DC90C55B4AE604E130BD5E0141680C009795DCB888E19A",
+        "Match": true
+      },
+      {
+        "Path": "RulerMenu.cs",
+        "Algorithm": "SHA256",
+        "Expected": "59326CC7F2DDA1C62EC62DDAD48A12FFCBD810A268E7E879398E14F3D5251F76",
+        "Actual": "59326CC7F2DDA1C62EC62DDAD48A12FFCBD810A268E7E879398E14F3D5251F76",
+        "Match": true
+      },
+      {
+        "Path": "RulerModel.cs",
+        "Algorithm": "SHA256",
+        "Expected": "115D89AE7BCC27833EEBF89BD42575E1FA9DAC9C972205187B430AB3A784EC20",
+        "Actual": "115D89AE7BCC27833EEBF89BD42575E1FA9DAC9C972205187B430AB3A784EC20",
+        "Match": true
+      },
+      {
+        "Path": "RulerMotion.cs",
+        "Algorithm": "SHA256",
+        "Expected": "B4BB3FD5DD8ADBAA722B98E15AA7200B0C216CEB8ABB103A973564917CEA6E06",
+        "Actual": "B4BB3FD5DD8ADBAA722B98E15AA7200B0C216CEB8ABB103A973564917CEA6E06",
+        "Match": true
+      },
+      {
+        "Path": "RulerMotionDrawing.cs",
+        "Algorithm": "SHA256",
+        "Expected": "0D08EE4B879C37CB12AB002212F58C96CE11315E0152B41F8885EA94FB089EEC",
+        "Actual": "0D08EE4B879C37CB12AB002212F58C96CE11315E0152B41F8885EA94FB089EEC",
+        "Match": true
+      },
+      {
+        "Path": "RulerMotionRecording.cs",
+        "Algorithm": "SHA256",
+        "Expected": "2C54A95DBD0DC9668E8E147130BB2B0E7F745644E4E3BA13B3613F7B238DBBA6",
+        "Actual": "2C54A95DBD0DC9668E8E147130BB2B0E7F745644E4E3BA13B3613F7B238DBBA6",
+        "Match": true
+      },
+      {
+        "Path": "RulerNameDialog.cs",
+        "Algorithm": "SHA256",
+        "Expected": "0D4496651CF259AA54C461B83A21D62C15D23F921A3638BC0B14CFE67095F088",
+        "Actual": "0D4496651CF259AA54C461B83A21D62C15D23F921A3638BC0B14CFE67095F088",
+        "Match": true
+      },
+      {
+        "Path": "RulerNativeProbe.cs",
+        "Algorithm": "SHA256",
+        "Expected": "D513E44F530250A81C6E5AA4BC39DF827F50326A60811066448B7203BA430BC6",
+        "Actual": "D513E44F530250A81C6E5AA4BC39DF827F50326A60811066448B7203BA430BC6",
+        "Match": true
+      },
+      {
+        "Path": "RulerNativeSurface.cs",
+        "Algorithm": "SHA256",
+        "Expected": "1DA654345C80C47ED581F6841AE00DCD0DB6E706C520082E3654770F1ADDD667",
+        "Actual": "1DA654345C80C47ED581F6841AE00DCD0DB6E706C520082E3654770F1ADDD667",
+        "Match": true
+      },
+      {
+        "Path": "RulerResize.cs",
+        "Algorithm": "SHA256",
+        "Expected": "4454DC03AFD11E2CFE7DEC0F2AEFEDB46CEA4FFFF6B4E773155C35279700D437",
+        "Actual": "4454DC03AFD11E2CFE7DEC0F2AEFEDB46CEA4FFFF6B4E773155C35279700D437",
+        "Match": true
+      },
+      {
+        "Path": "RulerTests.cs",
+        "Algorithm": "SHA256",
+        "Expected": "DA102D75316C9009A761FDF23A2C85AF18BECBDE0895667B14CE8D844D979F04",
+        "Actual": "DA102D75316C9009A761FDF23A2C85AF18BECBDE0895667B14CE8D844D979F04",
+        "Match": true
+      },
+      {
+        "Path": "RulerTipWindow.cs",
+        "Algorithm": "SHA256",
+        "Expected": "64FF871E4519C28A30043FA691AA670ED4CEC49B5DDBEBFBD92C668ED0691982",
+        "Actual": "64FF871E4519C28A30043FA691AA670ED4CEC49B5DDBEBFBD92C668ED0691982",
+        "Match": true
+      },
+      {
+        "Path": "RulerViewAudit.cs",
+        "Algorithm": "SHA256",
+        "Expected": "213357FAB29B74C137387E328E1B621C5C3B99D0BCC73E45D00C9342AC0CDE2D",
+        "Actual": "213357FAB29B74C137387E328E1B621C5C3B99D0BCC73E45D00C9342AC0CDE2D",
+        "Match": true
+      },
+      {
+        "Path": "RulerVisuals.cs",
+        "Algorithm": "SHA256",
+        "Expected": "8443B7D0E6F8F06251416359B485D20B3B7DF2D748412BF7FC1523C64CBEB897",
+        "Actual": "8443B7D0E6F8F06251416359B485D20B3B7DF2D748412BF7FC1523C64CBEB897",
+        "Match": true
+      },
+      {
+        "Path": "RulerWidthDialog.cs",
+        "Algorithm": "SHA256",
+        "Expected": "742A0D4876EAA92ECA2DC99FCB0ADA35CB45D64B7FED708FB0323FA27E23D669",
+        "Actual": "742A0D4876EAA92ECA2DC99FCB0ADA35CB45D64B7FED708FB0323FA27E23D669",
+        "Match": true
+      },
+      {
+        "Path": "RulerWindow.cs",
+        "Algorithm": "SHA256",
+        "Expected": "E35B803086279230278FD94E36AA1357DF5CA2F0BA4E74B87B83502EF9E6C60E",
+        "Actual": "E35B803086279230278FD94E36AA1357DF5CA2F0BA4E74B87B83502EF9E6C60E",
+        "Match": true
+      },
+      {
+        "Path": "Rules.cs",
+        "Algorithm": "SHA256",
+        "Expected": "6A39A5BB143DDB2F831475C7C98886DA28453FD67F8A092FC362E529AAA47B59",
+        "Actual": "6A39A5BB143DDB2F831475C7C98886DA28453FD67F8A092FC362E529AAA47B59",
+        "Match": true
+      },
+      {
+        "Path": "SystemTimeZone.cs",
+        "Algorithm": "SHA256",
+        "Expected": "B318160562B1028E7751412822E5CB607A6954632F89896492AC8AB079F5A155",
+        "Actual": "B318160562B1028E7751412822E5CB607A6954632F89896492AC8AB079F5A155",
+        "Match": true
+      },
+      {
+        "Path": "Tests.cs",
+        "Algorithm": "SHA256",
+        "Expected": "0E93DF7A3EE037C32CA6147C0C9E16FC8060F45F0E4F37244EC4374C6B480C22",
+        "Actual": "0E93DF7A3EE037C32CA6147C0C9E16FC8060F45F0E4F37244EC4374C6B480C22",
+        "Match": true
+      },
+      {
+        "Path": "TimeZoneChecks.cs",
+        "Algorithm": "SHA256",
+        "Expected": "8D0CDD0CC30183863D75D5CF895CA0F4FACD9D4C440D622EBADEC06AD38B9CF2",
+        "Actual": "8D0CDD0CC30183863D75D5CF895CA0F4FACD9D4C440D622EBADEC06AD38B9CF2",
+        "Match": true
+      },
+      {
+        "Path": "TimeZoneDialog.cs",
+        "Algorithm": "SHA256",
+        "Expected": "5BC647C8D30A35B6A24D37409CCBCCB8DA79887B1B28471A7AB4AA21F00CB040",
+        "Actual": "5BC647C8D30A35B6A24D37409CCBCCB8DA79887B1B28471A7AB4AA21F00CB040",
+        "Match": true
+      },
+      {
+        "Path": "UiTests.cs",
+        "Algorithm": "SHA256",
+        "Expected": "42D7FA7CC2BCFBA88C9212390359DAC0C818030B2B594B7022941984D1ECA928",
+        "Actual": "42D7FA7CC2BCFBA88C9212390359DAC0C818030B2B594B7022941984D1ECA928",
+        "Match": true
+      },
+      {
+        "Path": "WindowLayer.cs",
+        "Algorithm": "SHA256",
+        "Expected": "1A1A695A8034D42D8C314CAF1B681741086E78C105BFE2E83DA28E2529A71330",
+        "Actual": "1A1A695A8034D42D8C314CAF1B681741086E78C105BFE2E83DA28E2529A71330",
+        "Match": true
+      }
+    ],
+    "Resources": [
+      {
+        "Name": "WorldTime.cities.json",
+        "Actual": "F2415D6A557AA510EDF6207EF00DF21A6AAB414E170CD94869DF2DB0E8F6F261",
+        "Expected": "F2415D6A557AA510EDF6207EF00DF21A6AAB414E170CD94869DF2DB0E8F6F261",
+        "Match": true
+      },
+      {
+        "Name": "WorldTime.zone.tab",
+        "Actual": "586B4207E6C76722DE82ADCDA6BF49D761F668517F45A673F64DA83B333EECC4",
+        "Expected": "586B4207E6C76722DE82ADCDA6BF49D761F668517F45A673F64DA83B333EECC4",
+        "Match": true
+      },
+      {
+        "Name": "WorldTime.places033.json.gz",
+        "Actual": "512CC4CE3EDB4734D54D71BBAB08E149F3157BDE0968B321DECA72F8BFC52003",
+        "Expected": "512CC4CE3EDB4734D54D71BBAB08E149F3157BDE0968B321DECA72F8BFC52003",
+        "Match": true
+      }
+    ]
+  },
+  "PackagedChecks": [
+    {
+      "Suite": "logic",
+      "AssertionsPassed": 544,
+      "OriginalExpectedAssertions": 544,
+      "Status": "PASS",
+      "Failure": null,
+      "RemainingOriginalAssertionsNotReached": 0,
+      "ReportSHA256": "B0604BB20953844F72B5C27C5695475EACE9B65BD605793DE3FD1300F34BAAB8",
+      "Scope": "Original packaged binary, synthetic profile; not physical desktop/IME acceptance"
+    },
+    {
+      "Suite": "city",
+      "AssertionsPassed": 78,
+      "OriginalExpectedAssertions": 78,
+      "Status": "PASS",
+      "Failure": null,
+      "RemainingOriginalAssertionsNotReached": 0,
+      "ReportSHA256": "5F91FBCAB6D53B66B4AE23F302FAB0711AE01B80EEC4E50B4F4E651A5D3172F6",
+      "Scope": "Original packaged binary, synthetic profile; not physical desktop/IME acceptance"
+    },
+    {
+      "Suite": "ring",
+      "AssertionsPassed": 441,
+      "OriginalExpectedAssertions": 455,
+      "Status": "FAIL_KNOWN_AND_DISCLOSED",
+      "Failure": "Amber grip retains fully opaque color at background opacity 0",
+      "RemainingOriginalAssertionsNotReached": 14,
+      "ReportSHA256": "3DB74CCD6B0432DD9E17C12EAEC9FF5C2087B3ABE4F1268EDD4EEAFE34DC0DC2",
+      "Scope": "Original packaged binary, synthetic profile; not physical desktop/IME acceptance"
+    }
+  ],
+  "ZipSHA256": "3A3BCC15C0CFF5E7DF52D80CB7EC99A02CDF620D069D5302C27B072E4033D00F",
+  "ZipFiles": 12,
+  "PrivateProfilesIncluded": false,
+  "KnownLaterFeaturesExcluded": true,
+  "KnownRingRecheckFailurePubliclyDisclosed": true
+}

@@ -10,7 +10,7 @@ public sealed partial class RulerWindow {
   if(!built)return;double t=EffectiveMotionMode==RulerMotionMode.Dynamic?motionSeconds:0;
   // All ambience is inside the existing ruler body, above tick stems. At zero
   // background alpha it vanishes, so it cannot add animated mouse-hit islands.
-  if(NatureEnabled&&BackgroundOpacity>0){var safeBody=BodyBounds;safeBody.Inflate(-1.5,-1.5);dc.PushClip(new RectangleGeometry(safeBody,18.5,18.5));dc.PushClip(new RectangleGeometry(new Rect(BandOrigin,ScaleTop+2,SkyWidth,10)));dc.PushOpacity(BackgroundOpacity);
+  if(IsRing){DrawRingAmbience(dc,t);}else if(NatureEnabled&&BackgroundOpacity>0){var safeBody=BodyBounds;safeBody.Inflate(-1.5,-1.5);dc.PushClip(new RectangleGeometry(safeBody,18.5,18.5));dc.PushClip(new RectangleGeometry(new Rect(BandOrigin,ScaleTop+2,SkyWidth,10)));dc.PushOpacity(BackgroundOpacity);
    double X(double h)=>CoreOrigin+h/24*trackWidth;
    int index=0;foreach(var (hour,y) in new[]{(2.8,5d),(4.2,8d),(20.5,5d),(21.3,8d)}){double a=.65+.25*Math.Sin(t*.55+index++*1.9);var pen=new Pen(MotionBrush("#EDF4FF",a),.9);double x=X(hour);dc.DrawLine(pen,new Point(x-1.6,ScaleTop+y),new Point(x+1.6,ScaleTop+y));dc.DrawLine(pen,new Point(x,ScaleTop+y-1.6),new Point(x,ScaleTop+y+1.6));}
    foreach(double hour in new[]{1.4,22.6}){double pulse=.5+.5*Math.Sin(t*.48+hour);var at=new Point(X(hour),ScaleTop+6);dc.DrawEllipse(MotionBrush("#C9E2FF",.035+.035*pulse),null,at,6.5,6.5);dc.DrawEllipse(MotionBrush("#DCEAFF",.06+.05*pulse),null,at,5,5);dc.PushTransform(new TranslateTransform(at.X,at.Y));dc.DrawGeometry(MotionBrush("#E8F0FF"),null,moonShape);dc.Pop();}
@@ -19,11 +19,11 @@ public sealed partial class RulerWindow {
    dc.Pop();dc.Pop();dc.Pop();
   }
   if(EffectiveMotionMode==RulerMotionMode.Static||!host.S.Life)return;
-  foreach(var cluster in Clusters){var p=cluster.Members[0];var life=RulerLifeStage.At(p,host.S);double x=CoreOrigin+cluster.X;
+  foreach(var cluster in Clusters){if(IsCollapsedRingCluster(cluster))continue;var p=cluster.Members[0];var life=RulerLifeStage.At(p,host.S);double x=CoreOrigin+cluster.X;var center=AvatarCenter(cluster);
    // Photos stay untouched; preset gestures remain within the
    // existing avatar disc, never to otherwise transparent desktop space.
-   dc.PushClip(new EllipseGeometry(new Point(x,AvatarTop+2+AvatarSize/2),AvatarSize/2,AvatarSize/2));if(EffectiveMotionMode==RulerMotionMode.Dynamic)DrawCartoonGesture(dc,p,life.Stage,t,x);dc.PushTransform(new TranslateTransform(x+5,AvatarTop+AvatarSize-8));
-   DrawLifeBadge(dc,life.Stage,t,life.Stage==LifeStage.Waking?WakeArrival(p.Id,life.Stage,t):1);dc.Pop();dc.Pop();
+   dc.PushClip(new EllipseGeometry(center,AvatarSize/2,AvatarSize/2));dc.PushTransform(new TranslateTransform(center.X-x,center.Y-(AvatarTop+2+AvatarSize/2)));if(EffectiveMotionMode==RulerMotionMode.Dynamic)DrawCartoonGesture(dc,p,life.Stage,t,x);dc.PushTransform(new TranslateTransform(x+5,AvatarTop+AvatarSize-8));
+   DrawLifeBadge(dc,life.Stage,t,life.Stage==LifeStage.Waking?WakeArrival(p.Id,life.Stage,t):1);dc.Pop();dc.Pop();dc.Pop();
   }
  }
  void DrawCartoonGesture(DrawingContext dc,RulerPerson person,LifeStage stage,double seconds,double x){

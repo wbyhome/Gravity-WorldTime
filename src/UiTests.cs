@@ -165,16 +165,18 @@ public static class UiTests {
      Check(host.Bars.Values.All(b=>b.Layer.IsDesktopHosted&&b.Layer.Surface is {PaintSucceeded:true}),"Clock presentation returns to the real desktop after isolated recovery tests");
      Check(JsonSerializer.Serialize(host.S.Rows)==beforeRoutine,"Desktop recovery simulations preserve all city settings and positions");
      host.S.Language="zh-Hans";host.Sync();string beforePicker=JsonSerializer.Serialize(host.S.Rows);
-     var picker=new CityPicker(host,null);picker.Show();picker.UpdateLayout();
+     void SearchPicker(CityPicker p,string query){p.SearchBox.Text=query;var task=p.Search.RefreshAsync();var frame=new System.Windows.Threading.DispatcherFrame();task.ContinueWith(_=>Application.Current.Dispatcher.BeginInvoke(new Action(()=>frame.Continue=false)));System.Windows.Threading.Dispatcher.PushFrame(frame);task.GetAwaiter().GetResult();p.UpdateLayout();}
+     var picker=new CityPicker(host,null);picker.Show();SearchPicker(picker,"");
      Check(picker.CountrySelector.Items.Count>=241&&picker.CityList.Items.Count>=400,"City picker offers country filtering and the expanded offline catalog");
-     picker.SearchBox.Text="美国";picker.UpdateLayout();Render(picker,Path.Combine(images,"city-picker-zh-Hans.png"));
-     picker.SearchBox.Text="韩国";Check(picker.CityList.Items.Count>0&&picker.CityList.Items.Cast<ListBoxItem>().All(i=>((City)i.Tag).Code=="KR"),"Country-name search returns the expected locations in the real picker");
+     SearchPicker(picker,"美国");Render(picker,Path.Combine(images,"city-picker-zh-Hans.png"));
+     SearchPicker(picker,"韩国");Check(picker.CityList.Items.Count>0&&picker.CityList.Items.Cast<CitySearchResult>().All(i=>i.City.Code=="KR"),"Country-name search returns the expected locations in the real picker");
      picker.ZoneSelector.SelectedItem=TimeZoneInfo.FindSystemTimeZoneById("Tokyo Standard Time");
      Check(picker.CityList.SelectedItem==null,"Selecting an explicit time zone clears the city selection");
-     picker.SearchBox.Text="Vietnam";Check(picker.ZoneSelector.SelectedItem==null&&picker.CityList.SelectedItem!=null,"A new city search clears the previously selected explicit zone");
+     SearchPicker(picker,"Vietnam");Check(picker.ZoneSelector.SelectedItem==null&&picker.CityList.SelectedItem==null&&!picker.AddButton.IsEnabled,"A new city search clears the explicit zone and requires a fresh selection");
      picker.CountrySelector.SelectedItem=picker.CountrySelector.Items.Cast<CountryChoice>().Single(c=>c.Code=="KR");
+     SearchPicker(picker,"Vietnam");
      Check(picker.CityList.Items.Count==0&&!picker.AddButton.IsEnabled,"Country filter plus unmatched search disables adding a stale selection");
-     picker.SearchBox.Text="韩国";Check(picker.AddSelected(),"Selected catalog city can be added through the actual picker");
+     SearchPicker(picker,"韩国");picker.CityList.SelectedIndex=0;Check(picker.AddSelected(),"Explicitly selected catalog city can be added through the actual picker");
      var added=host.S.Rows.Single(r=>!JsonSerializer.Deserialize<System.Collections.Generic.List<Row>>(beforePicker)!.Any(old=>old.Id==r.Id));
      Check(added.Code=="KR"&&added.Zone=="Korea Standard Time"&&host.Disk.Load().Rows.Any(r=>r.Id==added.Id),"New country selection persists the correct Windows time zone");
      host.Remove(added);Check(JsonSerializer.Serialize(host.S.Rows)==beforePicker,"Isolated picker test restores its original cities and layout");host.Manager.Close();

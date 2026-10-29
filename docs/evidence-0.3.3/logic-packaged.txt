@@ -1,0 +1,546 @@
+PASS New York winter UTC-5
+PASS New York summer UTC-4
+PASS DST spring skips hour
+PASS DST repeated hour offsets
+PASS Nepal quarter-hour offset
+PASS India half-hour offset
+PASS Tokyo next date
+PASS Los Angeles previous date
+PASS Southern hemisphere DST
+PASS Offline catalog zone Beijing
+PASS Offline catalog zone Shanghai
+PASS Offline catalog zone London
+PASS Offline catalog zone New York
+PASS Offline catalog zone Los Angeles
+PASS Offline catalog zone Tokyo
+PASS Offline catalog zone Paris
+PASS Offline catalog zone Sydney
+PASS Offline catalog zone Kathmandu
+PASS Offline catalog zone New Delhi
+PASS Offline catalog zone Adelaide
+PASS Offline catalog zone Auckland
+PASS Offline catalog zone Dubai
+PASS Offline catalog zone Singapore
+PASS Offline catalog zone Berlin
+PASS Offline catalog zone Toronto
+PASS Offline catalog zone São Paulo
+PASS Offline catalog zone Johannesburg
+PASS Offline catalog zone Andorra
+PASS Offline catalog zone Kabul
+PASS Offline catalog zone Antigua
+PASS Offline catalog zone Anguilla
+PASS Offline catalog zone Tirane
+PASS Offline catalog zone Yerevan
+PASS Offline catalog zone Luanda
+PASS Offline catalog zone Casey Station
+PASS Offline catalog zone Davis
+PASS Offline catalog zone Dumont d’Urville Station
+PASS Offline catalog zone Mawson Station
+PASS Offline catalog zone McMurdo Station
+PASS Offline catalog zone Palmer Land
+PASS Offline catalog zone Rothera Station
+PASS Offline catalog zone Showa Station
+PASS Offline catalog zone Vostok Station
+PASS Offline catalog zone Buenos Aires
+PASS Offline catalog zone Catamarca
+PASS Offline catalog zone Cordoba
+PASS Offline catalog zone Jujuy
+PASS Offline catalog zone La Rioja
+PASS Offline catalog zone Mendoza
+PASS Offline catalog zone Rio Gallegos
+PASS Offline catalog zone Salta
+PASS Offline catalog zone San Juan
+PASS Offline catalog zone San Luis
+PASS Offline catalog zone Tucuman
+PASS Offline catalog zone Ushuaia
+PASS Offline catalog zone Pago Pago
+PASS Offline catalog zone Vienna
+PASS Offline catalog zone Brisbane
+PASS Offline catalog zone Broken Hill
+PASS Offline catalog zone Darwin
+PASS Offline catalog zone Eucla
+PASS Offline catalog zone Hobart
+PASS Offline catalog zone Lindeman
+PASS Offline catalog zone Lord Howe Island
+PASS Offline catalog zone Macquarie Island
+PASS Offline catalog zone Melbourne
+PASS Offline catalog zone Perth
+PASS Offline catalog zone Aruba
+PASS Offline catalog zone Mariehamn
+PASS Offline catalog zone Baku
+PASS Offline catalog zone Sarajevo
+PASS Offline catalog zone Barbados
+PASS Offline catalog zone Dhaka
+PASS Offline catalog zone Brussels
+PASS Offline catalog zone Ouagadougou
+PASS Offline catalog zone Sofia
+PASS Offline catalog zone Bahrain
+PASS Offline catalog zone Bujumbura
+PASS Offline catalog zone Porto-Novo
+PASS Offline catalog zone St Barthelemy
+PASS Offline catalog zone Bermuda
+PASS Offline catalog zone Brunei
+PASS Offline catalog zone La Paz
+PASS Offline catalog zone Kralendijk
+PASS Offline catalog zone Araguaina
+PASS Offline catalog zone Bahia
+PASS Offline catalog zone Belem
+PASS Offline catalog zone Boa Vista
+PASS Offline catalog zone Campo Grande
+PASS Offline catalog zone Cuiaba
+PASS Offline catalog zone Eirunepe
+PASS Offline catalog zone Fortaleza
+PASS Offline catalog zone Maceio
+PASS Offline catalog zone Manaus
+PASS Offline catalog zone Noronha
+PASS Offline catalog zone Porto Velho
+PASS Offline catalog zone Recife
+PASS Offline catalog zone Rio Branco
+PASS Offline catalog zone Santarem
+PASS Offline catalog zone Nassau
+PASS Offline catalog zone Thimphu
+PASS Offline catalog zone Gaborone
+PASS Offline catalog zone Minsk
+PASS Offline catalog zone Belize
+PASS Offline catalog zone Blanc-Sablon
+PASS Offline catalog zone Cambridge Bay
+PASS Offline catalog zone Coral Harbour
+PASS Offline catalog zone Creston
+PASS Offline catalog zone Dawson
+PASS Offline catalog zone Dawson Creek
+PASS Offline catalog zone Edmonton
+PASS Offline catalog zone Fort Nelson
+PASS Offline catalog zone Glace Bay
+PASS Offline catalog zone Goose Bay
+PASS Offline catalog zone Halifax
+PASS Offline catalog zone Inuvik
+PASS Offline catalog zone Iqaluit
+PASS Offline catalog zone Moncton
+PASS Offline catalog zone Rankin Inlet
+PASS Offline catalog zone Regina
+PASS Offline catalog zone Resolute
+PASS Offline catalog zone St Johns
+PASS Offline catalog zone Swift Current
+PASS Offline catalog zone Vancouver
+PASS Offline catalog zone Whitehorse
+PASS Offline catalog zone Winnipeg
+PASS Offline catalog zone Cocos Islands
+PASS Offline catalog zone Kinshasa
+PASS Offline catalog zone Lubumbashi
+PASS Offline catalog zone Bangui
+PASS Offline catalog zone Brazzaville
+PASS Offline catalog zone Zurich
+PASS Offline catalog zone Abidjan
+PASS Offline catalog zone Rarotonga
+PASS Offline catalog zone Coyhaique
+PASS Offline catalog zone Easter Island
+PASS Offline catalog zone Punta Arenas
+PASS Offline catalog zone Santiago
+PASS Offline catalog zone Douala
+PASS Offline catalog zone Urumqi (Xinjiang local time)
+PASS Offline catalog zone Bogota
+PASS Offline catalog zone Costa Rica
+PASS Offline catalog zone Havana
+PASS Offline catalog zone Cape Verde
+PASS Offline catalog zone Curacao
+PASS Offline catalog zone Christmas Island
+PASS Offline catalog zone Famagusta
+PASS Offline catalog zone Nicosia
+PASS Offline catalog zone Prague
+PASS Offline catalog zone Busingen
+PASS Offline catalog zone Djibouti
+PASS Offline catalog zone Copenhagen
+PASS Offline catalog zone Dominica
+PASS Offline catalog zone Santo Domingo
+PASS Offline catalog zone Algiers
+PASS Offline catalog zone Galápagos Islands
+PASS Offline catalog zone Guayaquil
+PASS Offline catalog zone Tallinn
+PASS Offline catalog zone Cairo
+PASS Offline catalog zone El Aaiun
+PASS Offline catalog zone Asmera
+PASS Offline catalog zone Canaries
+PASS Offline catalog zone Ceuta
+PASS Offline catalog zone Madrid
+PASS Offline catalog zone Addis Ababa
+PASS Offline catalog zone Helsinki
+PASS Offline catalog zone Fiji
+PASS Offline catalog zone Stanley
+PASS Offline catalog zone Kosrae
+PASS Offline catalog zone Ponape
+PASS Offline catalog zone Truk
+PASS Offline catalog zone Faroes
+PASS Offline catalog zone Libreville
+PASS Offline catalog zone Grenada
+PASS Offline catalog zone Tbilisi
+PASS Offline catalog zone Cayenne
+PASS Offline catalog zone Guernsey
+PASS Offline catalog zone Accra
+PASS Offline catalog zone Gibraltar
+PASS Offline catalog zone Danmarkshavn
+PASS Offline catalog zone Godthab
+PASS Offline catalog zone Scoresbysund
+PASS Offline catalog zone Thule
+PASS Offline catalog zone Banjul
+PASS Offline catalog zone Conakry
+PASS Offline catalog zone Guadeloupe
+PASS Offline catalog zone Malabo
+PASS Offline catalog zone Athens
+PASS Offline catalog zone South Georgia
+PASS Offline catalog zone Guatemala
+PASS Offline catalog zone Guam
+PASS Offline catalog zone Bissau
+PASS Offline catalog zone Guyana
+PASS Offline catalog zone Hong Kong
+PASS Offline catalog zone Tegucigalpa
+PASS Offline catalog zone Zagreb
+PASS Offline catalog zone Port-au-Prince
+PASS Offline catalog zone Budapest
+PASS Offline catalog zone Jakarta
+PASS Offline catalog zone Jayapura
+PASS Offline catalog zone Makassar
+PASS Offline catalog zone Pontianak
+PASS Offline catalog zone Dublin
+PASS Offline catalog zone Jerusalem
+PASS Offline catalog zone Isle of Man
+PASS Offline catalog zone Calcutta
+PASS Offline catalog zone Chagos Archipelago
+PASS Offline catalog zone Baghdad
+PASS Offline catalog zone Tehran
+PASS Offline catalog zone Reykjavik
+PASS Offline catalog zone Rome
+PASS Offline catalog zone Jersey
+PASS Offline catalog zone Jamaica
+PASS Offline catalog zone Amman
+PASS Offline catalog zone Nairobi
+PASS Offline catalog zone Bishkek
+PASS Offline catalog zone Phnom Penh
+PASS Offline catalog zone Canton Island
+PASS Offline catalog zone Kiritimati
+PASS Offline catalog zone Tarawa
+PASS Offline catalog zone Comoros
+PASS Offline catalog zone St Kitts
+PASS Offline catalog zone Pyongyang
+PASS Offline catalog zone Seoul
+PASS Offline catalog zone Kuwait
+PASS Offline catalog zone Cayman
+PASS Offline catalog zone Aktau
+PASS Offline catalog zone Almaty
+PASS Offline catalog zone Aqtobe
+PASS Offline catalog zone Atyrau
+PASS Offline catalog zone Kostanay
+PASS Offline catalog zone Kyzylorda
+PASS Offline catalog zone Oral
+PASS Offline catalog zone Vientiane
+PASS Offline catalog zone Beirut
+PASS Offline catalog zone St Lucia
+PASS Offline catalog zone Vaduz
+PASS Offline catalog zone Colombo
+PASS Offline catalog zone Monrovia
+PASS Offline catalog zone Maseru
+PASS Offline catalog zone Vilnius
+PASS Offline catalog zone Luxembourg
+PASS Offline catalog zone Riga
+PASS Offline catalog zone Tripoli
+PASS Offline catalog zone Casablanca
+PASS Offline catalog zone Monaco
+PASS Offline catalog zone Chisinau
+PASS Offline catalog zone Podgorica
+PASS Offline catalog zone Marigot
+PASS Offline catalog zone Antananarivo
+PASS Offline catalog zone Kwajalein Atoll
+PASS Offline catalog zone Majuro
+PASS Offline catalog zone Skopje
+PASS Offline catalog zone Bamako
+PASS Offline catalog zone Rangoon
+PASS Offline catalog zone Hovd
+PASS Offline catalog zone Ulaanbaatar
+PASS Offline catalog zone Macau
+PASS Offline catalog zone Saipan
+PASS Offline catalog zone Martinique
+PASS Offline catalog zone Nouakchott
+PASS Offline catalog zone Montserrat
+PASS Offline catalog zone Malta
+PASS Offline catalog zone Mauritius
+PASS Offline catalog zone Maldives
+PASS Offline catalog zone Blantyre
+PASS Offline catalog zone Bahia Banderas
+PASS Offline catalog zone Cancun
+PASS Offline catalog zone Chihuahua
+PASS Offline catalog zone Ciudad Juarez
+PASS Offline catalog zone Hermosillo
+PASS Offline catalog zone Matamoros
+PASS Offline catalog zone Mazatlan
+PASS Offline catalog zone Merida
+PASS Offline catalog zone Mexico City
+PASS Offline catalog zone Monterrey
+PASS Offline catalog zone Ojinaga
+PASS Offline catalog zone Tijuana
+PASS Offline catalog zone Kuala Lumpur
+PASS Offline catalog zone Kuching
+PASS Offline catalog zone Maputo
+PASS Offline catalog zone Windhoek
+PASS Offline catalog zone Noumea
+PASS Offline catalog zone Niamey
+PASS Offline catalog zone Norfolk Island
+PASS Offline catalog zone Lagos
+PASS Offline catalog zone Managua
+PASS Offline catalog zone Amsterdam
+PASS Offline catalog zone Oslo
+PASS Offline catalog zone Nauru
+PASS Offline catalog zone Niue
+PASS Offline catalog zone Chatham Islands
+PASS Offline catalog zone Muscat
+PASS Offline catalog zone Panama
+PASS Offline catalog zone Lima
+PASS Offline catalog zone Gambier
+PASS Offline catalog zone Marquesas Islands
+PASS Offline catalog zone Tahiti
+PASS Offline catalog zone Bougainville
+PASS Offline catalog zone Port Moresby
+PASS Offline catalog zone Manila
+PASS Offline catalog zone Karachi
+PASS Offline catalog zone Warsaw
+PASS Offline catalog zone Miquelon
+PASS Offline catalog zone Pitcairn Islands
+PASS Offline catalog zone Puerto Rico
+PASS Offline catalog zone Gaza
+PASS Offline catalog zone Hebron
+PASS Offline catalog zone Azores
+PASS Offline catalog zone Lisbon
+PASS Offline catalog zone Madeira
+PASS Offline catalog zone Palau
+PASS Offline catalog zone Asuncion
+PASS Offline catalog zone Qatar
+PASS Offline catalog zone Reunion
+PASS Offline catalog zone Bucharest
+PASS Offline catalog zone Belgrade
+PASS Offline catalog zone Anadyr
+PASS Offline catalog zone Astrakhan
+PASS Offline catalog zone Barnaul
+PASS Offline catalog zone Chita
+PASS Offline catalog zone Irkutsk
+PASS Offline catalog zone Kaliningrad
+PASS Offline catalog zone Kamchatka
+PASS Offline catalog zone Khandyga
+PASS Offline catalog zone Kirov
+PASS Offline catalog zone Krasnoyarsk
+PASS Offline catalog zone Magadan
+PASS Offline catalog zone Moscow
+PASS Offline catalog zone Novokuznetsk
+PASS Offline catalog zone Novosibirsk
+PASS Offline catalog zone Omsk
+PASS Offline catalog zone Sakhalin
+PASS Offline catalog zone Samara
+PASS Offline catalog zone Saratov
+PASS Offline catalog zone Srednekolymsk
+PASS Offline catalog zone Tomsk
+PASS Offline catalog zone Ulyanovsk
+PASS Offline catalog zone Ust-Nera
+PASS Offline catalog zone Vladivostok
+PASS Offline catalog zone Volgograd
+PASS Offline catalog zone Yakutsk
+PASS Offline catalog zone Yekaterinburg
+PASS Offline catalog zone Kigali
+PASS Offline catalog zone Riyadh
+PASS Offline catalog zone Guadalcanal
+PASS Offline catalog zone Mahe
+PASS Offline catalog zone Khartoum
+PASS Offline catalog zone Stockholm
+PASS Offline catalog zone St Helena
+PASS Offline catalog zone Ljubljana
+PASS Offline catalog zone Longyearbyen
+PASS Offline catalog zone Bratislava
+PASS Offline catalog zone Freetown
+PASS Offline catalog zone San Marino
+PASS Offline catalog zone Dakar
+PASS Offline catalog zone Mogadishu
+PASS Offline catalog zone Paramaribo
+PASS Offline catalog zone Juba
+PASS Offline catalog zone Sao Tome
+PASS Offline catalog zone El Salvador
+PASS Offline catalog zone Lower Princes
+PASS Offline catalog zone Damascus
+PASS Offline catalog zone Mbabane
+PASS Offline catalog zone Grand Turk
+PASS Offline catalog zone Ndjamena
+PASS Offline catalog zone Kerguelen Islands
+PASS Offline catalog zone Lome
+PASS Offline catalog zone Bangkok
+PASS Offline catalog zone Dushanbe
+PASS Offline catalog zone Fakaofo
+PASS Offline catalog zone Dili
+PASS Offline catalog zone Ashgabat
+PASS Offline catalog zone Tunis
+PASS Offline catalog zone Tongatapu
+PASS Offline catalog zone Istanbul
+PASS Offline catalog zone Port of Spain
+PASS Offline catalog zone Funafuti
+PASS Offline catalog zone Taipei
+PASS Offline catalog zone Dar es Salaam
+PASS Offline catalog zone Kiev
+PASS Offline catalog zone Simferopol
+PASS Offline catalog zone Kampala
+PASS Offline catalog zone Midway Atoll
+PASS Offline catalog zone Wake Island
+PASS Offline catalog zone Adak
+PASS Offline catalog zone Anchorage
+PASS Offline catalog zone Beulah
+PASS Offline catalog zone Boise
+PASS Offline catalog zone Center
+PASS Offline catalog zone Chicago
+PASS Offline catalog zone Denver
+PASS Offline catalog zone Detroit
+PASS Offline catalog zone Honolulu
+PASS Offline catalog zone Indianapolis
+PASS Offline catalog zone Juneau
+PASS Offline catalog zone Knox
+PASS Offline catalog zone Louisville
+PASS Offline catalog zone Marengo
+PASS Offline catalog zone Menominee
+PASS Offline catalog zone Metlakatla
+PASS Offline catalog zone Monticello
+PASS Offline catalog zone New Salem
+PASS Offline catalog zone Nome
+PASS Offline catalog zone Petersburg
+PASS Offline catalog zone Phoenix
+PASS Offline catalog zone Sitka
+PASS Offline catalog zone Tell City
+PASS Offline catalog zone Vevay
+PASS Offline catalog zone Vincennes
+PASS Offline catalog zone Winamac
+PASS Offline catalog zone Yakutat
+PASS Offline catalog zone Montevideo
+PASS Offline catalog zone Samarkand
+PASS Offline catalog zone Tashkent
+PASS Offline catalog zone Vatican
+PASS Offline catalog zone St Vincent
+PASS Offline catalog zone Caracas
+PASS Offline catalog zone Tortola
+PASS Offline catalog zone St Thomas
+PASS Offline catalog zone Ho Chi Minh City
+PASS Offline catalog zone Efate
+PASS Offline catalog zone Wallis
+PASS Offline catalog zone Apia
+PASS Offline catalog zone Aden
+PASS Offline catalog zone Mayotte
+PASS Offline catalog zone Lusaka
+PASS Offline catalog zone Harare
+PASS Catalog covers hundreds of places and countries/regions
+PASS Every location has city/country display names in all four languages
+PASS No duplicate city/country/zone identities
+PASS Country search works in Simplified and Traditional Chinese
+PASS Country search works across English and Japanese
+PASS Country codes and common aliases resolve to the intended country
+PASS Unaccented search finds Sao Paulo
+PASS Combined country and city search uses every token
+PASS Multi-zone countries retain multiple local clock choices
+PASS Country filter intersects search rather than adding unrelated matches
+PASS Original saved rows keep their localized city names
+PASS Monday contact window
+PASS Saturday excluded
+PASS Sunday excluded
+PASS Lunch excluded
+PASS End exclusive
+PASS Friday late suggests Monday
+PASS Lunch suggests same day after break
+PASS Both hints hidden
+PASS Contact window skips configured opening break
+PASS Reject contact schedule with no available hour
+PASS Snap below within threshold
+PASS Merge group exact geometry
+PASS 04:26 is explicitly labelled wee hours
+PASS Sleep estimate and destination-local contact time are both present
+PASS Early morning is tentative waking copy, not a workday invitation
+PASS 19:26 suggests dinner rather than the end of the day
+PASS Lunch contact line uses the configured end of the break
+PASS Weekend does not mask a sleep warning at 04:26
+PASS Friday-night friend copy does not postpone a personal hello to Monday
+PASS Configured night contact window overrides a generic sleep assumption
+PASS Life estimates remain disabled when only contact advice is enabled
+PASS Disabling both hints hides both lines
+PASS All friendly hint variants cover four languages and three widths
+PASS Detach escapes magnet
+PASS Snap switch disables candidates
+PASS Snap above
+PASS Prepend keeps order
+PASS Two-group candidate
+PASS Merge two groups preserves sequence
+PASS JSON roundtrip exact layout
+PASS Atomic save retains previous generation
+PASS Disk restart restores geometry and membership
+PASS Concurrent writer rejected
+PASS Corrupt state rejected without overwrite
+PASS Scaled negative-coordinate edge geometry left
+PASS Scaled negative-coordinate edge geometry right
+PASS Scaled negative-coordinate edge geometry top
+PASS Scaled negative-coordinate edge geometry bottom
+PASS Folded monitor and offset JSON roundtrip
+PASS Reject unsupported folded edge
+PASS First row body carries whole stack
+PASS First header carries whole stack
+PASS Lower row body cannot start a split
+PASS Second header selects itself and every following row
+PASS Last header selects only the last clock
+PASS Suffix split preserves prefix and creates one group
+PASS Split suffix gets contiguous order
+PASS Splitting changes no saved positions or widths
+PASS Whole group move does not split again
+PASS Near left edge requests automatic folding
+PASS Near right edge requests automatic folding
+PASS Near top edge requests automatic folding
+PASS Crossing bottom edge requests automatic folding
+PASS Middle of screen does not auto-fold
+PASS An unrelated monitor rectangle does not auto-fold here
+PASS Auto-fold threshold scales on negative-coordinate monitor
+BENCH 500 rows, 100 candidate searches: 21 ms (model only)
+PASS Friday overnight contact window starts on Friday
+PASS Saturday early hours retain Friday's overnight shift
+PASS Sunday early hours belong to Saturday's day off
+PASS Overnight end is exclusive
+PASS Night-shift routine does not tell an awake friend to sleep
+PASS Daytime sleep follows the personal routine
+PASS One city's routine does not change another city's inherited defaults
+PASS Personal routine survives JSON roundtrip
+PASS Old city records inherit defaults without losing their identity
+PASS Reject an all-days-off contact calendar instead of searching forever
+PASS Reject a break that consumes all contact time
+PASS Reject a break outside the contact window
+PASS Reject contact time completely inside sleep
+PASS 24:00 is not accepted as a wake time
+PASS Time editor validates end-of-day and minute bounds
+PASS Independent Friday/Saturday rest days are supported
+PASS Next-contact search skips a missing spring-forward wall time
+PASS Next contact can use the second occurrence of a fall-back hour
+PASS Changing a routine invalidates the next-contact cache key
+PASS Stable mixed-DPI topology preserves exact saved positions
+PASS Removing a negative-coordinate monitor relocates its clocks to an available screen
+PASS Recovered group fits the surviving work area
+PASS Display recovery retains IDs, personal routine and group order
+PASS Resolution shrink clamps a clock into the work area
+PASS DPI change preserves monitor-relative DIP placement on a negative screen
+PASS Moving a monitor from right to left preserves its local position
+PASS Overlapping logical coordinates on different monitors cannot spuriously snap
+PASS Read command is read-only /g with no shell
+PASS Zone with spaces is one process argument
+PASS Elevation uses explicit runas and quoted validated zone
+PASS Reject command injection or unknown zone
+PASS Restore preserves disabled-DST suffix
+PASS Save original before applying then verify and persist
+PASS Repeated city switches preserve first original zone
+PASS Verified restore clears recovery record
+PASS Same zone avoids system write and unnecessary backup
+PASS Stale preview refuses to overwrite changed Windows zone
+PASS Stale preview performs no system mutation
+PASS Permission failure is surfaced
+PASS Failure keeps recovery record and does not claim changed zone
+PASS Explicit administrator retry uses elevated route
+PASS Failed pre-change save blocks operation
+PASS Never set Windows zone without saved recovery information
+PASS Readback mismatch is not reported as success
+PASS Restore applies original DST-disabled setting exactly
+PASS Original zone survives saved-state serialization
+PASS Legacy saved state has no pending restore
+PASS Final recovery-save failure is surfaced
+PASS Failed restore persistence retains in-memory recovery record
+TOTAL 544 PASS

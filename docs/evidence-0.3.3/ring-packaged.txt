@@ -1,0 +1,445 @@
+PASS Localized civil period 0/en
+PASS Localized civil period 0/zh-Hans
+PASS Localized civil period 0/zh-Hant
+PASS Localized civil period 0/ja
+PASS Localized civil period 299/en
+PASS Localized civil period 299/zh-Hans
+PASS Localized civil period 299/zh-Hant
+PASS Localized civil period 299/ja
+PASS Localized civil period 300/en
+PASS Localized civil period 300/zh-Hans
+PASS Localized civil period 300/zh-Hant
+PASS Localized civil period 300/ja
+PASS Localized civil period 479/en
+PASS Localized civil period 479/zh-Hans
+PASS Localized civil period 479/zh-Hant
+PASS Localized civil period 479/ja
+PASS Localized civil period 480/en
+PASS Localized civil period 480/zh-Hans
+PASS Localized civil period 480/zh-Hant
+PASS Localized civil period 480/ja
+PASS Localized civil period 660/en
+PASS Localized civil period 660/zh-Hans
+PASS Localized civil period 660/zh-Hant
+PASS Localized civil period 660/ja
+PASS Localized civil period 719/en
+PASS Localized civil period 719/zh-Hans
+PASS Localized civil period 719/zh-Hant
+PASS Localized civil period 719/ja
+PASS Localized civil period 720/en
+PASS Localized civil period 720/zh-Hans
+PASS Localized civil period 720/zh-Hant
+PASS Localized civil period 720/ja
+PASS Localized civil period 779/en
+PASS Localized civil period 779/zh-Hans
+PASS Localized civil period 779/zh-Hant
+PASS Localized civil period 779/ja
+PASS Localized civil period 780/en
+PASS Localized civil period 780/zh-Hans
+PASS Localized civil period 780/zh-Hant
+PASS Localized civil period 780/ja
+PASS Localized civil period 1079/en
+PASS Localized civil period 1079/zh-Hans
+PASS Localized civil period 1079/zh-Hant
+PASS Localized civil period 1079/ja
+PASS Localized civil period 1080/en
+PASS Localized civil period 1080/zh-Hans
+PASS Localized civil period 1080/zh-Hant
+PASS Localized civil period 1080/ja
+PASS Localized civil period 1199/en
+PASS Localized civil period 1199/zh-Hans
+PASS Localized civil period 1199/zh-Hant
+PASS Localized civil period 1199/ja
+PASS Localized civil period 1200/en
+PASS Localized civil period 1200/zh-Hans
+PASS Localized civil period 1200/zh-Hant
+PASS Localized civil period 1200/ja
+PASS Localized civil period 1319/en
+PASS Localized civil period 1319/zh-Hans
+PASS Localized civil period 1319/zh-Hant
+PASS Localized civil period 1319/ja
+PASS Localized civil period 1320/en
+PASS Localized civil period 1320/zh-Hans
+PASS Localized civil period 1320/zh-Hant
+PASS Localized civil period 1320/ja
+PASS Localized civil period 1439/en
+PASS Localized civil period 1439/zh-Hans
+PASS Localized civil period 1439/zh-Hant
+PASS Localized civil period 1439/ja
+PASS AM/PM is correct at 0
+PASS Chinese clock meaning is unambiguous at 0
+PASS AM/PM is correct at 11
+PASS Chinese clock meaning is unambiguous at 11
+PASS AM/PM is correct at 12
+PASS Chinese clock meaning is unambiguous at 12
+PASS AM/PM is correct at 23
+PASS Chinese clock meaning is unambiguous at 23
+PASS Outward radial resize 1
+PASS Inward radial resize 1
+PASS Outward radial resize 1.5
+PASS Inward radial resize 1.5
+PASS Outward radial resize 2
+PASS Inward radial resize 2
+PASS Ring mode opens using same native bridge
+PASS Both views share exact time/name/date/routine identities
+PASS Ring native input uses radial calculation
+PASS Diameter is applied and output remains square 420
+PASS Whole avatar/labels/required-date footprint fits 420
+PASS Resizing changes no true time or life data 420
+PASS Diameter is applied and output remains square 560
+PASS Whole avatar/labels/required-date footprint fits 560
+PASS Resizing changes no true time or life data 560
+PASS Diameter is applied and output remains square 720
+PASS Whole avatar/labels/required-date footprint fits 720
+PASS Resizing changes no true time or life data 720
+PASS Diameter is applied and output remains square 1100
+PASS Whole avatar/labels/required-date footprint fits 1100
+PASS Resizing changes no true time or life data 1100
+PASS Free resize preserves physical center when work area permits
+PASS Clamps whole native object including outside captions at work-area corner
+PASS Clamps whole native object including outside captions at work-area corner
+PASS Clamps whole native object including outside captions at work-area corner
+PASS Clamps whole native object including outside captions at work-area corner
+PASS Independent self and complete membership 420/1/0
+PASS Crowded contacts use bounded true-angle entries 420/1/0
+PASS Independent self and complete membership 420/1/180
+PASS Crowded contacts use bounded true-angle entries 420/1/180
+PASS Independent self and complete membership 420/1/360
+PASS Crowded contacts use bounded true-angle entries 420/1/360
+PASS Independent self and complete membership 420/1/540
+PASS Crowded contacts use bounded true-angle entries 420/1/540
+PASS Independent self and complete membership 420/1/720
+PASS Crowded contacts use bounded true-angle entries 420/1/720
+PASS Independent self and complete membership 420/1/900
+PASS Crowded contacts use bounded true-angle entries 420/1/900
+PASS Independent self and complete membership 420/1/1080
+PASS Crowded contacts use bounded true-angle entries 420/1/1080
+PASS Independent self and complete membership 420/1/1260
+PASS Crowded contacts use bounded true-angle entries 420/1/1260
+PASS Independent self and complete membership 420/3/0
+PASS Crowded contacts use bounded true-angle entries 420/3/0
+PASS Independent self and complete membership 420/3/180
+PASS Crowded contacts use bounded true-angle entries 420/3/180
+PASS Independent self and complete membership 420/3/360
+PASS Crowded contacts use bounded true-angle entries 420/3/360
+PASS Independent self and complete membership 420/3/540
+PASS Crowded contacts use bounded true-angle entries 420/3/540
+PASS Independent self and complete membership 420/3/720
+PASS Crowded contacts use bounded true-angle entries 420/3/720
+PASS Independent self and complete membership 420/3/900
+PASS Crowded contacts use bounded true-angle entries 420/3/900
+PASS Independent self and complete membership 420/3/1080
+PASS Crowded contacts use bounded true-angle entries 420/3/1080
+PASS Independent self and complete membership 420/3/1260
+PASS Crowded contacts use bounded true-angle entries 420/3/1260
+PASS Independent self and complete membership 420/8/0
+PASS Crowded contacts use bounded true-angle entries 420/8/0
+PASS Independent self and complete membership 420/8/180
+PASS Crowded contacts use bounded true-angle entries 420/8/180
+PASS Independent self and complete membership 420/8/360
+PASS Crowded contacts use bounded true-angle entries 420/8/360
+PASS Independent self and complete membership 420/8/540
+PASS Crowded contacts use bounded true-angle entries 420/8/540
+PASS Independent self and complete membership 420/8/720
+PASS Crowded contacts use bounded true-angle entries 420/8/720
+PASS Independent self and complete membership 420/8/900
+PASS Crowded contacts use bounded true-angle entries 420/8/900
+PASS Independent self and complete membership 420/8/1080
+PASS Crowded contacts use bounded true-angle entries 420/8/1080
+PASS Independent self and complete membership 420/8/1260
+PASS Crowded contacts use bounded true-angle entries 420/8/1260
+PASS Independent self and complete membership 420/15/0
+PASS Crowded contacts use bounded true-angle entries 420/15/0
+PASS Independent self and complete membership 420/15/180
+PASS Crowded contacts use bounded true-angle entries 420/15/180
+PASS Independent self and complete membership 420/15/360
+PASS Crowded contacts use bounded true-angle entries 420/15/360
+PASS Independent self and complete membership 420/15/540
+PASS Crowded contacts use bounded true-angle entries 420/15/540
+PASS Independent self and complete membership 420/15/720
+PASS Crowded contacts use bounded true-angle entries 420/15/720
+PASS Independent self and complete membership 420/15/900
+PASS Crowded contacts use bounded true-angle entries 420/15/900
+PASS Independent self and complete membership 420/15/1080
+PASS Crowded contacts use bounded true-angle entries 420/15/1080
+PASS Independent self and complete membership 420/15/1260
+PASS Crowded contacts use bounded true-angle entries 420/15/1260
+PASS Independent self and complete membership 420/32/0
+PASS Crowded contacts use bounded true-angle entries 420/32/0
+PASS Independent self and complete membership 420/32/180
+PASS Crowded contacts use bounded true-angle entries 420/32/180
+PASS Independent self and complete membership 420/32/360
+PASS Crowded contacts use bounded true-angle entries 420/32/360
+PASS Independent self and complete membership 420/32/540
+PASS Crowded contacts use bounded true-angle entries 420/32/540
+PASS Independent self and complete membership 420/32/720
+PASS Crowded contacts use bounded true-angle entries 420/32/720
+PASS Independent self and complete membership 420/32/900
+PASS Crowded contacts use bounded true-angle entries 420/32/900
+PASS Independent self and complete membership 420/32/1080
+PASS Crowded contacts use bounded true-angle entries 420/32/1080
+PASS Independent self and complete membership 420/32/1260
+PASS Crowded contacts use bounded true-angle entries 420/32/1260
+PASS Independent self and complete membership 560/1/0
+PASS Crowded contacts use bounded true-angle entries 560/1/0
+PASS Independent self and complete membership 560/1/180
+PASS Crowded contacts use bounded true-angle entries 560/1/180
+PASS Independent self and complete membership 560/1/360
+PASS Crowded contacts use bounded true-angle entries 560/1/360
+PASS Independent self and complete membership 560/1/540
+PASS Crowded contacts use bounded true-angle entries 560/1/540
+PASS Independent self and complete membership 560/1/720
+PASS Crowded contacts use bounded true-angle entries 560/1/720
+PASS Independent self and complete membership 560/1/900
+PASS Crowded contacts use bounded true-angle entries 560/1/900
+PASS Independent self and complete membership 560/1/1080
+PASS Crowded contacts use bounded true-angle entries 560/1/1080
+PASS Independent self and complete membership 560/1/1260
+PASS Crowded contacts use bounded true-angle entries 560/1/1260
+PASS Independent self and complete membership 560/3/0
+PASS Crowded contacts use bounded true-angle entries 560/3/0
+PASS Independent self and complete membership 560/3/180
+PASS Crowded contacts use bounded true-angle entries 560/3/180
+PASS Independent self and complete membership 560/3/360
+PASS Crowded contacts use bounded true-angle entries 560/3/360
+PASS Independent self and complete membership 560/3/540
+PASS Crowded contacts use bounded true-angle entries 560/3/540
+PASS Independent self and complete membership 560/3/720
+PASS Crowded contacts use bounded true-angle entries 560/3/720
+PASS Independent self and complete membership 560/3/900
+PASS Crowded contacts use bounded true-angle entries 560/3/900
+PASS Independent self and complete membership 560/3/1080
+PASS Crowded contacts use bounded true-angle entries 560/3/1080
+PASS Independent self and complete membership 560/3/1260
+PASS Crowded contacts use bounded true-angle entries 560/3/1260
+PASS Independent self and complete membership 560/8/0
+PASS Crowded contacts use bounded true-angle entries 560/8/0
+PASS Independent self and complete membership 560/8/180
+PASS Crowded contacts use bounded true-angle entries 560/8/180
+PASS Independent self and complete membership 560/8/360
+PASS Crowded contacts use bounded true-angle entries 560/8/360
+PASS Independent self and complete membership 560/8/540
+PASS Crowded contacts use bounded true-angle entries 560/8/540
+PASS Independent self and complete membership 560/8/720
+PASS Crowded contacts use bounded true-angle entries 560/8/720
+PASS Independent self and complete membership 560/8/900
+PASS Crowded contacts use bounded true-angle entries 560/8/900
+PASS Independent self and complete membership 560/8/1080
+PASS Crowded contacts use bounded true-angle entries 560/8/1080
+PASS Independent self and complete membership 560/8/1260
+PASS Crowded contacts use bounded true-angle entries 560/8/1260
+PASS Independent self and complete membership 560/15/0
+PASS Crowded contacts use bounded true-angle entries 560/15/0
+PASS Independent self and complete membership 560/15/180
+PASS Crowded contacts use bounded true-angle entries 560/15/180
+PASS Independent self and complete membership 560/15/360
+PASS Crowded contacts use bounded true-angle entries 560/15/360
+PASS Independent self and complete membership 560/15/540
+PASS Crowded contacts use bounded true-angle entries 560/15/540
+PASS Independent self and complete membership 560/15/720
+PASS Crowded contacts use bounded true-angle entries 560/15/720
+PASS Independent self and complete membership 560/15/900
+PASS Crowded contacts use bounded true-angle entries 560/15/900
+PASS Independent self and complete membership 560/15/1080
+PASS Crowded contacts use bounded true-angle entries 560/15/1080
+PASS Independent self and complete membership 560/15/1260
+PASS Crowded contacts use bounded true-angle entries 560/15/1260
+PASS Independent self and complete membership 560/32/0
+PASS Crowded contacts use bounded true-angle entries 560/32/0
+PASS Independent self and complete membership 560/32/180
+PASS Crowded contacts use bounded true-angle entries 560/32/180
+PASS Independent self and complete membership 560/32/360
+PASS Crowded contacts use bounded true-angle entries 560/32/360
+PASS Independent self and complete membership 560/32/540
+PASS Crowded contacts use bounded true-angle entries 560/32/540
+PASS Independent self and complete membership 560/32/720
+PASS Crowded contacts use bounded true-angle entries 560/32/720
+PASS Independent self and complete membership 560/32/900
+PASS Crowded contacts use bounded true-angle entries 560/32/900
+PASS Independent self and complete membership 560/32/1080
+PASS Crowded contacts use bounded true-angle entries 560/32/1080
+PASS Independent self and complete membership 560/32/1260
+PASS Crowded contacts use bounded true-angle entries 560/32/1260
+PASS Independent self and complete membership 720/1/0
+PASS Crowded contacts use bounded true-angle entries 720/1/0
+PASS Independent self and complete membership 720/1/180
+PASS Crowded contacts use bounded true-angle entries 720/1/180
+PASS Independent self and complete membership 720/1/360
+PASS Crowded contacts use bounded true-angle entries 720/1/360
+PASS Independent self and complete membership 720/1/540
+PASS Crowded contacts use bounded true-angle entries 720/1/540
+PASS Independent self and complete membership 720/1/720
+PASS Crowded contacts use bounded true-angle entries 720/1/720
+PASS Independent self and complete membership 720/1/900
+PASS Crowded contacts use bounded true-angle entries 720/1/900
+PASS Independent self and complete membership 720/1/1080
+PASS Crowded contacts use bounded true-angle entries 720/1/1080
+PASS Independent self and complete membership 720/1/1260
+PASS Crowded contacts use bounded true-angle entries 720/1/1260
+PASS Independent self and complete membership 720/3/0
+PASS Crowded contacts use bounded true-angle entries 720/3/0
+PASS Independent self and complete membership 720/3/180
+PASS Crowded contacts use bounded true-angle entries 720/3/180
+PASS Independent self and complete membership 720/3/360
+PASS Crowded contacts use bounded true-angle entries 720/3/360
+PASS Independent self and complete membership 720/3/540
+PASS Crowded contacts use bounded true-angle entries 720/3/540
+PASS Independent self and complete membership 720/3/720
+PASS Crowded contacts use bounded true-angle entries 720/3/720
+PASS Independent self and complete membership 720/3/900
+PASS Crowded contacts use bounded true-angle entries 720/3/900
+PASS Independent self and complete membership 720/3/1080
+PASS Crowded contacts use bounded true-angle entries 720/3/1080
+PASS Independent self and complete membership 720/3/1260
+PASS Crowded contacts use bounded true-angle entries 720/3/1260
+PASS Independent self and complete membership 720/8/0
+PASS Crowded contacts use bounded true-angle entries 720/8/0
+PASS Independent self and complete membership 720/8/180
+PASS Crowded contacts use bounded true-angle entries 720/8/180
+PASS Independent self and complete membership 720/8/360
+PASS Crowded contacts use bounded true-angle entries 720/8/360
+PASS Independent self and complete membership 720/8/540
+PASS Crowded contacts use bounded true-angle entries 720/8/540
+PASS Independent self and complete membership 720/8/720
+PASS Crowded contacts use bounded true-angle entries 720/8/720
+PASS Independent self and complete membership 720/8/900
+PASS Crowded contacts use bounded true-angle entries 720/8/900
+PASS Independent self and complete membership 720/8/1080
+PASS Crowded contacts use bounded true-angle entries 720/8/1080
+PASS Independent self and complete membership 720/8/1260
+PASS Crowded contacts use bounded true-angle entries 720/8/1260
+PASS Independent self and complete membership 720/15/0
+PASS Crowded contacts use bounded true-angle entries 720/15/0
+PASS Independent self and complete membership 720/15/180
+PASS Crowded contacts use bounded true-angle entries 720/15/180
+PASS Independent self and complete membership 720/15/360
+PASS Crowded contacts use bounded true-angle entries 720/15/360
+PASS Independent self and complete membership 720/15/540
+PASS Crowded contacts use bounded true-angle entries 720/15/540
+PASS Independent self and complete membership 720/15/720
+PASS Crowded contacts use bounded true-angle entries 720/15/720
+PASS Independent self and complete membership 720/15/900
+PASS Crowded contacts use bounded true-angle entries 720/15/900
+PASS Independent self and complete membership 720/15/1080
+PASS Crowded contacts use bounded true-angle entries 720/15/1080
+PASS Independent self and complete membership 720/15/1260
+PASS Crowded contacts use bounded true-angle entries 720/15/1260
+PASS Independent self and complete membership 720/32/0
+PASS Crowded contacts use bounded true-angle entries 720/32/0
+PASS Independent self and complete membership 720/32/180
+PASS Crowded contacts use bounded true-angle entries 720/32/180
+PASS Independent self and complete membership 720/32/360
+PASS Crowded contacts use bounded true-angle entries 720/32/360
+PASS Independent self and complete membership 720/32/540
+PASS Crowded contacts use bounded true-angle entries 720/32/540
+PASS Independent self and complete membership 720/32/720
+PASS Crowded contacts use bounded true-angle entries 720/32/720
+PASS Independent self and complete membership 720/32/900
+PASS Crowded contacts use bounded true-angle entries 720/32/900
+PASS Independent self and complete membership 720/32/1080
+PASS Crowded contacts use bounded true-angle entries 720/32/1080
+PASS Independent self and complete membership 720/32/1260
+PASS Crowded contacts use bounded true-angle entries 720/32/1260
+PASS Compact dates retain self and remove repeated dates
+PASS All dates show for full visible people
+PASS Hover-only dates remove no date data
+PASS Full date remains available in shared details
+PASS Ring date preference leaves horizontal dates unchanged
+PASS Horizontal native input keeps original linear resize
+PASS Three actual dates retained, same-day contact date is omitted
+PASS Me remains singleton alongside 32-contact access badge
+PASS Visible count entry opens all contacts instead of selecting self
+PASS Cardinal clock-period hint visible en/False
+PASS Cardinal clock-period hint visible en/True
+PASS Cardinal clock-period hint visible zh-Hans/False
+PASS Cardinal clock-period hint visible zh-Hans/True
+PASS Cardinal clock-period hint visible zh-Hant/False
+PASS Cardinal clock-period hint visible zh-Hant/True
+PASS Cardinal clock-period hint visible ja/False
+PASS Cardinal clock-period hint visible ja/True
+PASS Actual ring hover tooltip distinguishes 11 without drag help hiding it
+PASS Actual ring hover tooltip distinguishes 23 without drag help hiding it
+PASS Real view has correct 11/23 or midnight/noon hours 0/False
+PASS Real view has correct 11/23 or midnight/noon hours 11/False
+PASS Real view has correct 11/23 or midnight/noon hours 0/True
+PASS Real view has correct 11/23 or midnight/noon hours 11/True
+PASS Count badge wins input over nearby resize region
+PASS Resize grip remains reachable beside same-angle contacts
+PASS Legacy hidden dates remain hidden without rewriting original bytes
+PASS Explicit ring date preference overrides legacy shared flag
+PASS No animation-created hit pixels 420/0/1
+PASS Center and corners remain transparent 420/0/1
+PASS No animation-created hit pixels 420/0/1.5
+PASS Center and corners remain transparent 420/0/1.5
+PASS No animation-created hit pixels 420/0/2
+PASS Center and corners remain transparent 420/0/2
+PASS No animation-created hit pixels 420/0.3/1
+PASS Center and corners remain transparent 420/0.3/1
+PASS No animation-created hit pixels 420/0.3/1.5
+PASS Center and corners remain transparent 420/0.3/1.5
+PASS No animation-created hit pixels 420/0.3/2
+PASS Center and corners remain transparent 420/0.3/2
+PASS No animation-created hit pixels 420/0.65/1
+PASS Center and corners remain transparent 420/0.65/1
+PASS No animation-created hit pixels 420/0.65/1.5
+PASS Center and corners remain transparent 420/0.65/1.5
+PASS No animation-created hit pixels 420/0.65/2
+PASS Center and corners remain transparent 420/0.65/2
+PASS No animation-created hit pixels 420/1/1
+PASS Center and corners remain transparent 420/1/1
+PASS No animation-created hit pixels 420/1/1.5
+PASS Center and corners remain transparent 420/1/1.5
+PASS No animation-created hit pixels 420/1/2
+PASS Center and corners remain transparent 420/1/2
+PASS No animation-created hit pixels 560/0/1
+PASS Center and corners remain transparent 560/0/1
+PASS No animation-created hit pixels 560/0/1.5
+PASS Center and corners remain transparent 560/0/1.5
+PASS No animation-created hit pixels 560/0/2
+PASS Center and corners remain transparent 560/0/2
+PASS No animation-created hit pixels 560/0.3/1
+PASS Center and corners remain transparent 560/0.3/1
+PASS No animation-created hit pixels 560/0.3/1.5
+PASS Center and corners remain transparent 560/0.3/1.5
+PASS No animation-created hit pixels 560/0.3/2
+PASS Center and corners remain transparent 560/0.3/2
+PASS No animation-created hit pixels 560/0.65/1
+PASS Center and corners remain transparent 560/0.65/1
+PASS No animation-created hit pixels 560/0.65/1.5
+PASS Center and corners remain transparent 560/0.65/1.5
+PASS No animation-created hit pixels 560/0.65/2
+PASS Center and corners remain transparent 560/0.65/2
+PASS No animation-created hit pixels 560/1/1
+PASS Center and corners remain transparent 560/1/1
+PASS No animation-created hit pixels 560/1/1.5
+PASS Center and corners remain transparent 560/1/1.5
+PASS No animation-created hit pixels 560/1/2
+PASS Center and corners remain transparent 560/1/2
+PASS No animation-created hit pixels 720/0/1
+PASS Center and corners remain transparent 720/0/1
+PASS No animation-created hit pixels 720/0/1.5
+PASS Center and corners remain transparent 720/0/1.5
+PASS No animation-created hit pixels 720/0/2
+PASS Center and corners remain transparent 720/0/2
+PASS No animation-created hit pixels 720/0.3/1
+PASS Center and corners remain transparent 720/0.3/1
+PASS No animation-created hit pixels 720/0.3/1.5
+PASS Center and corners remain transparent 720/0.3/1.5
+PASS No animation-created hit pixels 720/0.3/2
+PASS Center and corners remain transparent 720/0.3/2
+PASS No animation-created hit pixels 720/0.65/1
+PASS Center and corners remain transparent 720/0.65/1
+PASS No animation-created hit pixels 720/0.65/1.5
+PASS Center and corners remain transparent 720/0.65/1.5
+PASS No animation-created hit pixels 720/0.65/2
+PASS Center and corners remain transparent 720/0.65/2
+PASS No animation-created hit pixels 720/1/1
+PASS Center and corners remain transparent 720/1/1
+PASS No animation-created hit pixels 720/1/1.5
+PASS Center and corners remain transparent 720/1/1.5
+PASS No animation-created hit pixels 720/1/2
+PASS Center and corners remain transparent 720/1/2
+System.Exception: FAIL Amber grip retains fully opaque color at background opacity 0
+   at WorldTime.Ruler031Tests.<>c__DisplayClass0_0.<Run>g__Check|0(Boolean yes, String text)
+   at WorldTime.Ruler031Tests.<>c__DisplayClass0_0.<Run>b__5()
+TOTAL 441 PASS; synthetic data, actual WPF output and own native host; no physical Explorer input acceptance implied

@@ -28,9 +28,11 @@ public class Host {
   bool adjusted=!RulerPreviewOnly&&DisplayLayout.Reconcile(S,DockScreen.All());foreach(var r in S.Rows.ToList())Open(r);
   Sync();Manager.RefreshCities(); // Startup stays in tray; never show or minimize a taskbar panel.
   if(firstRun||adjusted)Save();
+  if(S.Rows.Any(r=>r.PlaceId.Length>0))_=WarmPlaces();
   environmentTimer.Tick+=(_,_)=>{environmentTimer.Stop();try{RefreshEnvironment();}catch(Exception e){WindowLayer.Diagnostics?.Invoke("Display refresh deferred: "+e.Message);environmentTimer.Start();}};
   timer.Tick+=(_,_)=>Tick();timer.Start();SystemEvents.TimeChanged+=TimeChanged;SystemEvents.PowerModeChanged+=PowerChanged;SystemEvents.DisplaySettingsChanged+=ScreensChanged;
  }
+ async System.Threading.Tasks.Task WarmPlaces(){try{await Places033.WarmAsync();if(!Exiting){Sync();Manager.RefreshCities();}}catch(Exception){/* Retain stored city/zone when optional display metadata cannot load. */}}
  void TimeChanged(object? o,EventArgs e)=>Application.Current.Dispatcher.BeginInvoke(()=>{TimeZoneInfo.ClearCachedData();Rules.ClearCache();Tick(true);});
  void PowerChanged(object o,PowerModeChangedEventArgs e)=>Application.Current.Dispatcher.BeginInvoke(()=>{if(e.Mode==PowerModes.Resume){environmentTimer.Stop();environmentTimer.Start();}Tick(true);});
  void ScreensChanged(object? o,EventArgs e)=>Application.Current.Dispatcher.BeginInvoke(()=>{environmentTimer.Stop();environmentTimer.Start();});
@@ -51,7 +53,7 @@ public class Host {
   foreach(var r in rows){r.X+=(x-bounds.Left)/area.Scale;r.Y+=(y-bounds.Top)/area.Scale;}
   Sync();CollapseGroup(row,edge);return true;
  }
- public Row Make(City c)=>new(){City=c.Zh,Zone=c.Zone,Code=c.Code};
+ public Row Make(City c)=>new(){City=c.Zh,Zone=c.Zone,Code=c.Code,PlaceId=c.Id,Iana=c.Iana};
  public void EditRoutine(Row row)=>new RoutineEditor(this,row).ShowDialog();
  public void SetComputerTimeZone(Row row){if(!RulerPreviewOnly)new TimeZoneDialog(this,row.Zone).ShowDialog();}
  public void RestoreComputerTimeZone(){if(!RulerPreviewOnly&&S.OriginalSystemTimeZone.Length>0)new TimeZoneDialog(this,S.OriginalSystemTimeZone,true).ShowDialog();}
@@ -117,9 +119,10 @@ public class Host {
  }
  public bool Save(){try{Disk.Save(S);Manager.RefreshCities();Tray.Refresh();return true;}catch(Exception e){MessageBox.Show(T("Could not save. The layout is still in memory. Check the data folder and try again.")+"\n"+e.Message,"WorldTime");return false;}}
  public void Add(Row? anchor)=>new CityPicker(this,anchor).ShowDialog();
- public void AddRow(Row r,Row? anchor){
+ public bool AddRow(Row r,Row? anchor){
   if(anchor!=null&&S.Rows.Contains(anchor)){var g=Layout.Group(S,anchor);r.Group=anchor.Group;r.Order=g.Count;r.X=g[0].X;r.Y=g[^1].Y+Layout.Step;r.Width=anchor.Width;r.PositionScale=anchor.PositionScale;r.Monitor=anchor.Monitor;}else{var screen=DockScreen.Find("");r.PositionScale=screen.Scale;r.Monitor=screen.Device;r.X=screen.Left/screen.Scale+140+(S.Rows.Count%8)*20;r.Y=screen.Top/screen.Scale+140+(S.Rows.Count%8)*30;}
-  S.Rows.Add(r);Open(r);Sync();Save();
+  S.Rows.Add(r);Open(r);Sync();if(Save())return true;
+  S.Rows.Remove(r);if(Bars.Remove(r.Id,out var failed))failed.Close();Sync();return false;
  }
  public Window Dialog(string title){Manager.Reveal();return new Window{Owner=Manager,ShowInTaskbar=false,Title="WorldTime · "+title,Width=540,SizeToContent=SizeToContent.Height,WindowStartupLocation=WindowStartupLocation.CenterOwner,ResizeMode=ResizeMode.NoResize,Background=new SolidColorBrush(Color.FromRgb(242,244,247)),FontFamily=Manager.FontFamily,FontSize=14,Content=new StackPanel{Margin=new Thickness(22)}};}
  public void Settings(){

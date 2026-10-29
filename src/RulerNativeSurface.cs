@@ -26,7 +26,7 @@ public sealed class RulerNativeSurface : IDisposable {
  public int ResizeCount {get;private set;}
  public int VisibilityCalls {get;private set;}public int ZOrderCalls {get;private set;}
  public static int ActiveCount=>windows.Count;
- public bool Interacting=>pressed;
+ public bool Interacting=>pressed;public bool RadialResize {get;set;}
  public string LastInputError {get;private set;}="";
  public Rect Bounds {get{if(!Alive||!GetWindowRect(Handle,out var r))return Rect.Empty;return new(r.Left,r.Top,r.Right-r.Left,r.Bottom-r.Top);}}
  public Func<Point,bool>? CanDrag;
@@ -38,7 +38,7 @@ public sealed class RulerNativeSurface : IDisposable {
  public RulerNativeSurface(IntPtr parent,bool pinned=false){
   if(!pinned&&(parent==IntPtr.Zero||!IsWindow(parent)))throw new InvalidOperationException("Desktop host unavailable");this.parent=pinned?IntPtr.Zero:parent;this.pinned=pinned;parentPid=pinned?0:Owner(parent);
   if(atom==0){var c=new ClassInfo{Size=(uint)Marshal.SizeOf<ClassInfo>(),Procedure=route,Instance=GetModuleHandle(null),Cursor=LoadCursor(IntPtr.Zero,new IntPtr(32512)),Name="Gravity.WorldTime.RulerSurface"};atom=RegisterClassEx(ref c);if(atom==0)throw new Win32Exception(Marshal.GetLastWin32Error());}
-  Handle=CreateWindowEx((uint)(0x80000|0x80|0x08000000|(pinned?8:0)),"Gravity.WorldTime.RulerSurface","Gravity WorldTime 0.2.8 Ruler",pinned?0x80000000:0x40000000,0,0,1,1,this.parent,IntPtr.Zero,GetModuleHandle(null),IntPtr.Zero);
+  Handle=CreateWindowEx((uint)(0x80000|0x80|0x08000000|(pinned?8:0)),"Gravity.WorldTime.RulerSurface","Gravity WorldTime 0.3.1 Surface",pinned?0x80000000:0x40000000,0,0,1,1,this.parent,IntPtr.Zero,GetModuleHandle(null),IntPtr.Zero);
   if(Handle==IntPtr.Zero)throw new Win32Exception(Marshal.GetLastWin32Error());windows.Add(Handle,this);dragTimer.Tick+=(_,_)=>{if(!Alive||!pressed||!dragging&&!resizing){dragTimer.Stop();return;}if((GetAsyncKeyState(1)&0x8000)==0){FinishDrag();return;}ContinueDrag();};
  }
  public void Present(BitmapSource image,Point position,double scale){
@@ -77,8 +77,9 @@ public sealed class RulerNativeSurface : IDisposable {
   if(m==0x205){MenuCount++;PointerLeft?.Invoke();ContextRequested?.Invoke(Cursor());return IntPtr.Zero;}
   return DefWindowProc(Handle,m,w,l);
  }
- void ContinueDrag(){var cursor=Cursor();double dx=cursor.X-down.X,dy=cursor.Y-down.Y;if(Math.Abs(dx)+Math.Abs(dy)>3)moved=true;if(moved){if(resizing)WidthChanged?.Invoke((start.Width+dx)/downDpi,false);else{MoveTo(new Point(start.X+dx,start.Y+dy));PositionChanged?.Invoke(Bounds,false);}}}
- void FinishDrag(){bool finished=pressed&&(dragging||resizing),wasMoved=moved,wasResize=resizing;pressed=dragging=resizing=false;dragTimer.Stop();if(GetCapture()==Handle)ReleaseCapture();if(finished){if(wasResize){if(wasMoved){ResizeCount++;WidthChanged?.Invoke((start.Width+Cursor().X-down.X)/downDpi,true);}}else{if(wasMoved)DragCount++;PositionChanged?.Invoke(Bounds,true);}}}
+ double ResizeWidth(Point cursor)=>RadialResize?RingLayout.RadialDiameter(start.Width/downDpi,new Point(start.X+start.Width/2,start.Y+start.Height/2),down,cursor,downDpi):(start.Width+cursor.X-down.X)/downDpi;
+ void ContinueDrag(){var cursor=Cursor();double dx=cursor.X-down.X,dy=cursor.Y-down.Y;if(Math.Abs(dx)+Math.Abs(dy)>3)moved=true;if(moved){if(resizing)WidthChanged?.Invoke(ResizeWidth(cursor),false);else{MoveTo(new Point(start.X+dx,start.Y+dy));PositionChanged?.Invoke(Bounds,false);}}}
+ void FinishDrag(){bool finished=pressed&&(dragging||resizing),wasMoved=moved,wasResize=resizing;pressed=dragging=resizing=false;dragTimer.Stop();if(GetCapture()==Handle)ReleaseCapture();if(finished){if(wasResize){if(wasMoved){ResizeCount++;WidthChanged?.Invoke(ResizeWidth(Cursor()),true);}}else{if(wasMoved)DragCount++;PositionChanged?.Invoke(Bounds,true);}}}
  void CancelInput(bool finishResize=false){bool commit=finishResize&&pressed&&resizing&&moved&&Alive;double currentWidth=commit?Bounds.Width/dpi:0;pressed=dragging=resizing=false;dragTimer.Stop();if(Handle!=IntPtr.Zero&&GetCapture()==Handle)ReleaseCapture();if(commit)WidthChanged?.Invoke(currentWidth,true);PointerLeft?.Invoke();}
  public void Dispose(){CancelInput();if(Handle==IntPtr.Zero)return;var h=Handle;bool own=Alive;if(GetCapture()==h)ReleaseCapture();windows.Remove(h);Handle=IntPtr.Zero;Painted=false;pixels=Array.Empty<byte>();if(own)DestroyWindow(h);}
  static uint Owner(IntPtr h){GetWindowThreadProcessId(h,out uint pid);return pid;}
