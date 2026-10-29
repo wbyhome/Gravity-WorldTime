@@ -575,9 +575,11 @@
       "OriginalExpectedAssertions": 455,
       "Status": "FAIL_KNOWN_AND_DISCLOSED",
       "Failure": "Amber grip retains fully opaque color at background opacity 0",
-      "RemainingOriginalAssertionsNotReached": 14,
+      "RemainingOriginalAssertionsNotReached": 13,
       "ReportSHA256": "3DB74CCD6B0432DD9E17C12EAEC9FF5C2087B3ABE4F1268EDD4EEAFE34DC0DC2",
-      "Scope": "Original packaged binary, synthetic profile; not physical desktop/IME acceptance"
+      "Scope": "Original packaged binary, synthetic profile; not physical desktop/IME acceptance",
+      "AssertionsFailed": 1,
+      "CountClarification": "441 passed, 1 failed, 13 not executed; initial summary incorrectly grouped the failed assertion with remaining assertions"
     }
   ],
   "ZipSHA256": "3A3BCC15C0CFF5E7DF52D80CB7EC99A02CDF620D069D5302C27B072E4033D00F",
